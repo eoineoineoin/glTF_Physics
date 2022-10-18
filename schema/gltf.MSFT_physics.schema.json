@@ -1,0 +1,17 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "title" : "MSFT_physics glTF extension",
+    "type" : "object",
+    "description" : "Top level physics properties.",
+    "allOf" : [ { "$ref" : "glTFProperty.schema.json" } ],
+    "properties" : {
+        "physicsMaterials" : {
+            "type": "array",
+            "description": "An array of physics materials.",
+            "items": {
+                "$ref" : "glTF.MSFT_physics.material.schema.json"
+            },
+            "minItems": 1
+        }
+    }
+}
