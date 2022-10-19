@@ -182,11 +182,7 @@ TODO
 
 ## Known Implementations
 
-[Blender exporter](https://dev.azure.com/HavokDevRel/MSFT_physics.glTF-Blender-IO/_git/MSFT_physics.glTF-Blender-IO?version=GBphysics_extension)
-
-[Babylon.js importer](https://dev.azure.com/HavokDevRel/MSFT_physics_glTF_Babylon.js/_git/physics_glTF_Babylon.js.George)
-
-These are currently internal but we intend to make them public if we have broad agreement on the spec.
+TODO
 
 ## Resources
 
