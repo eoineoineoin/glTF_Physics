@@ -158,7 +158,7 @@
                         "collideWithLayers" : [
                             "layer_0"
                         ],
-                        "mesh" : {
+                        "trimesh" : {
                             "mesh" : 1
                         }
                     }
@@ -456,7 +456,7 @@
                             "layer_0",
                             "layer_1"
                         ],
-                        "mesh" : {
+                        "trimesh" : {
                             "mesh" : 11
                         }
                     }
