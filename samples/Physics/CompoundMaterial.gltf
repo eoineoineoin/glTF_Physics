@@ -149,7 +149,7 @@
                         "collideWithLayers" : [
                             "layer_0"
                         ],
-                        "mesh" : {
+                        "trimesh" : {
                             "mesh" : 1
                         }
                     }
@@ -177,7 +177,7 @@
                         "collideWithLayers" : [
                             "layer_0"
                         ],
-                        "mesh" : {
+                        "trimesh" : {
                             "mesh" : 2
                         }
                     }
@@ -205,7 +205,7 @@
                         "collideWithLayers" : [
                             "layer_0"
                         ],
-                        "mesh" : {
+                        "trimesh" : {
                             "mesh" : 3
                         }
                     }
@@ -233,7 +233,7 @@
                         "collideWithLayers" : [
                             "layer_0"
                         ],
-                        "mesh" : {
+                        "trimesh" : {
                             "mesh" : 4
                         }
                     }
@@ -261,7 +261,7 @@
                         "collideWithLayers" : [
                             "layer_0"
                         ],
-                        "mesh" : {
+                        "trimesh" : {
                             "mesh" : 5
                         }
                     }
@@ -296,7 +296,7 @@
                         "collideWithLayers" : [
                             "layer_0"
                         ],
-                        "mesh" : {
+                        "trimesh" : {
                             "mesh" : 6
                         }
                     }

@@ -92,10 +92,10 @@
             "properties": {
                 "mesh": {
                     "type": "object",
-                    "$ref" : "node.MSFT_physics.collider.mesh.schema.json"
+                    "$ref" : "node.MSFT_physics.collider.trimesh.schema.json"
                 }
             },
-            "required": ["mesh"]
+            "required": ["trimesh"]
         }
     ]
 }

@@ -250,7 +250,7 @@
                         "collideWithLayers" : [
                             "layer_0"
                         ],
-                        "mesh" : {
+                        "trimesh" : {
                             "mesh" : 5
                         }
                     }

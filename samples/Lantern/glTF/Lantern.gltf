@@ -307,7 +307,7 @@
         "extensions": {
             "MSFT_physics": {
                 "collider": {
-                    "mesh": {
+                    "trimesh": {
                         "mesh": 0
                     }
                 }
