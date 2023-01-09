@@ -168,14 +168,6 @@ Note however that some types of constraint are not possible to describe.
 For example, a pulley, which needs a third transform in order to calculate a distance, cannot be described.
 Similarly, this does not have a mechanism to link two axes by some factor, such as a screw, whose translation is affected by the amount of rotation about some axis.
 
-### Scene Properties
-
-The `MSFT_physics` extension can be added to any `scene` to define one or more of the following properties:
-
-|   |Type|Description|
-|---|----|-----------|
-|**gravity**|`number[3]`|Gravitational acceleration applied to all rigid bodies.<br/>Default to [0.0, -9.81, 0.0] if not provided.|
-
 ### JSON Schema
 
 TODO
