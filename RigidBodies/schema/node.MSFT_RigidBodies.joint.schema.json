@@ -1,6 +1,6 @@
 {
     "$schema" : "http://json-schema.org/draft-04/schema",
-    "title" : "MSFT_physics glTF extension",
+    "title" : "MSFT_RigidBodies glTF extension",
     "type" : "object",
     "description" : "Parameters describing how the relative motion of a pair of nodes is constrained.",
     "allOf" : [ { "$ref" : "glTFProperty.schema.json" } ],
@@ -13,7 +13,7 @@
             "type": "array",
             "description": "An array of constraints which together define the overall allowed range of relative motion.",
             "items": {
-                "$ref" : "node.MSFT_physics.joint.constraint.schema.json"
+                "$ref" : "node.MSFT_RigidBodies.joint.constraint.schema.json"
             },
             "minItems": 1
         },
