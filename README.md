@@ -49,7 +49,7 @@ Rigid bodies have the following properties:
 |-|-|-|
 |**isKinematic**|`boolean`|Treat the rigid body as having infinite mass. Its velocity will be constant during simulation.|
 |**mass**|`number`|The mass of the rigid body. Larger values imply the rigid body is harder to move.|
-|**inertiaTensor**|`number[3]`|Mass distribution of the rigid body in local space. Larger values imply the rigid body is harder to rotate.|
+|**inertiaTensor**|`number[9]`|Mass distribution of the rigid body in local space. Larger values imply the rigid body is harder to rotate.|
 |**centerOfMass**|`number[3]`|Center of mass of the rigid body in local space.|
 |**linearVelocity**|`number[3]`|Initial linear velocity of the rigid body in local space.|
 |**angularVelocity**|`number[3]`|Initial angular velocity of the rigid body in local space.|
