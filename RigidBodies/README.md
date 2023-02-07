@@ -29,7 +29,6 @@ The `MSFT_RigidBodies` extension can be added to any `node` to define one or mor
 | |Type|Description|
 |-|-|-|
 |**rigidBody**|`object`|Allow the physics engine to move this node and its children.|
-|**trigger**|`object`|Create a trigger shape in the physics engine for this node.|
 |**joint**|`object`|Constrain the motion of this node relative to another.|
 
 ### Rigid Bodies
@@ -48,14 +47,46 @@ Rigid bodies have the following properties:
 |-|-|-|
 |**isKinematic**|`boolean`|Treat the rigid body as having infinite mass. Its velocity will be constant during simulation.|
 |**mass**|`number`|The mass of the rigid body. Larger values imply the rigid body is harder to move.|
-|**inertiaTensor**|`number[3]`|Mass distribution of the rigid body in local space. Larger values imply the rigid body is harder to rotate.|
+|**inertiaTensor**|`number[9]`|Mass distribution of the rigid body in local space. Larger values imply the rigid body is harder to rotate.|
 |**centerOfMass**|`number[3]`|Center of mass of the rigid body in local space.|
 |**linearVelocity**|`number[3]`|Initial linear velocity of the rigid body in local space.|
 |**angularVelocity**|`number[3]`|Initial angular velocity of the rigid body in local space.|
 
 ### Colliders
 
-To specify the geometry used to detect overlaps, we use the MSFT\_CollisionPrimitives extension. By default, a node with a collision primitive should not participate in the physics simulation, as that geometry may be used for application-specific use-cases. In order to indicate that a `collider` should be used in the physics simulation, that node should have a `physicsMaterial` property, which indicates that it generates some physical response from interactions with other colliders.
+To specify the geometry used to detect overlaps, we use the MSFT\_CollisionPrimitives extension. By default, a node with a collision primitive should not participate in the physics simulation, as that geometry may be used for application-specific use-cases. In order to indicate that a `collider` should be used in the physics simulation, that node should have a `physicsMaterial` property, which indicates that it generates some physical response from interactions with other colliders. A collider attached to a node with `MSFT_RigidBodies` should be interpreted as an object which cannot generate a collision response (i.e. no impulses are applied as a result of collision detection), but instead, should be used as a "trigger", which the application may utilize to generate callbacks for implementation of application-specific logic.
+If the node is part of a rigid body (i.e. itself or an ascendent has `rigidBody` properties) then the collider belongs to that rigid body and should move with it during simulation.
+Otherwise the collider exists as a static object in the physics simulation which can be collided with but can not be moved.
+
+Implementations of this extension should ensure that collider transforms are always kept in sync with node transforms - for example animated node transforms should be applied to the physics engine (even for static colliders).
+
+To describe the shape that the physics engine should use, colliders must define exactly one of the following properties:
+
+| |Type|Description|
+|-|-|-|
+|**sphere**|`object`|A sphere centered at the origin in local space.|
+|**box**|`object`|An axis-aligned box centered at the origin in local space.|
+|**capsule**|`object`|A capsule centered at the origin and aligned along the Y axis in local space.|
+|**cylinder**|`object`|A cylinder centered at the origin and aligned along the Y axis in local space.|
+|**convex**|`object`|A convex hull wrapping a `mesh` object.|
+|**trimesh**|`object`|A triangulated physics representation of a `mesh` object.|
+
+The sphere, box, capsule, cylinder and convex types should all produce _solid_ colliders - a rigid body anywhere inside the shape should be pushed out of it.
+However the trimesh type always represents an infinitely thin shell or sheet - for example a mesh collider created from a `mesh` object in the shape of a box will be represented as a hollow box in the physics engine.
+
+If you want your collider to have an offset from the local space (for example a sphere _not_ centered at local origin, or a rotated box), you should add an extra node to the hierarchy and apply your transform and your collider properties to that.
+
+**Collision Filtering**
+
+If you want certain objects in your scene to ignore collisions with others, you can provide the following optional collider properties:
+
+| |Type|Description|
+|-|-|-|
+|**collisionLayers**|`integer`|A 32-bit bit field representing the node's layer membership.|
+|**collisionMask**|`integer`|A 32-bit bit field representing which layers the node can collide with.|
+
+Implementions should interpret these as a bitwise comparison - collision should be occur between a pair of colliders `colliderA` and `colliderB` only if `colliderA.collisionMask & colliderB.collisionLayers != 0` or vice versa.
+>>>>>>> master:README.md
 
 **Collision Response**
 
@@ -84,16 +115,6 @@ When a pair of colliders collide during physics simulation, the applied friction
 * Else if either uses "MINIMUM" : The smallest of the two values should be used.
 * Else if either uses "MAXIMUM" : The largest of the two values should be used.
 * Else if either uses "MULTIPLY" : The two values should be multiplied with each other.
-
-### Triggers
-
-TODO.Eoin Can make triggers implicit now
-
-If a `node` has `trigger` properties, that implies that it can detect overlaps with other colliders during simulation, but will not actually collide with them.
-It uses the same properties as `collider` to define the physics shape and the collision filter details.
-
-Triggers are typically used to raise callbacks or events to inform application logic of overlaps.
-How an application reacts to such events is application specific and thus outside of the scope of this extension.
 
 ### Joints
 
