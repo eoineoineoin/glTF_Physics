@@ -86,7 +86,6 @@ If you want certain objects in your scene to ignore collisions with others, you 
 |**collisionMask**|`integer`|A 32-bit bit field representing which layers the node can collide with.|
 
 Implementions should interpret these as a bitwise comparison - collision should be occur between a pair of colliders `colliderA` and `colliderB` only if `colliderA.collisionMask & colliderB.collisionLayers != 0` or vice versa.
->>>>>>> master:README.md
 
 **Collision Response**
 
