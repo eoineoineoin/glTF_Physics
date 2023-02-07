@@ -1,6 +1,6 @@
 {
     "$schema" : "http://json-schema.org/draft-04/schema",
-    "title" : "MSFT_physics glTF extension",
+    "title" : "MSFT_RigidBodies glTF extension",
     "type" : "object",
     "description" : "Top level physics properties.",
     "allOf" : [ { "$ref" : "glTFProperty.schema.json" } ],
@@ -9,7 +9,7 @@
             "type": "array",
             "description": "An array of physics materials.",
             "items": {
-                "$ref" : "glTF.MSFT_physics.material.schema.json"
+                "$ref" : "glTF.MSFT_RigidBodies.material.schema.json"
             },
             "minItems": 1
         }

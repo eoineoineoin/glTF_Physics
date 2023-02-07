@@ -1,0 +1,13 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "title" : "MSFT_CollisionPrimitives glTF extension",
+    "type" : "object",
+    "description" : "Properties which describe a simplified geometric representation of a node, suitable for collision detection",
+    "allOf" : [ { "$ref" : "glTFChildOfRootProperty.schema.json" } ],
+    "properties" : {
+        "collider" : {
+            "allOf" : [ { "$ref" : "node.MSFT_CollisionPrimitives.collider.schema.json" } ],
+            "description" : "A set of parameter values that are used to provide a collision geometry representation."
+        }
+    }
+}

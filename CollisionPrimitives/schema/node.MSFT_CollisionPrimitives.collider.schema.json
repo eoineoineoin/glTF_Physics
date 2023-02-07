@@ -1,6 +1,6 @@
 {
     "$schema" : "http://json-schema.org/draft-04/schema",
-    "title" : "MSFT_physics glTF extension",
+    "title" : "MSFT_CollisionPrimitives glTF extension",
     "type" : "object",
     "description" : "Parameters describing a node's physics collision geometry.",
     "allOf" : [ { "$ref" : "glTFChildOfRootProperty.schema.json" } ],
@@ -9,23 +9,19 @@
             "type": "string",
             "description": "A string representing the collision system name of the node."
         },
-        "collideWithLayers": {
+        "collideWithSystems": {
             "type": "array",
-            "description": "An array of string representing the name of collision layers the node can collider with.",
+            "description": "An array of string representing the name of collision systems the node can collider with.",
             "items": {
                 "type": "string"
             }
         },
         "notCollideWithSystems": {
             "type": "array",
-            "description": "An array of string representing the name of collision systems the node cannot collider with.",
+            "description": "An array of string representing the name of collision systems the node does not collide with.",
             "items": {
                 "type": "string"
             }
-        },
-        "physicsMaterial" : {
-            "allOf": [ { "$ref": "glTFid.schema.json" } ],
-            "description": "The index of the physics material in the top level physicsMaterials array."
         },
         "extensions" : {},
         "extras" : {}
@@ -37,7 +33,7 @@
             "properties": {
                 "sphere": {
                     "type": "object",
-                    "$ref" : "node.MSFT_physics.collider.sphere.schema.json"
+                    "$ref" : "node.MSFT_CollisionPrimitives.collider.sphere.schema.json"
                 }
             },
             "required": ["sphere"]
@@ -48,7 +44,7 @@
             "properties": {
                 "box": {
                     "type": "object",
-                    "$ref" : "node.MSFT_physics.collider.box.schema.json"
+                    "$ref" : "node.MSFT_CollisionPrimitives.collider.box.schema.json"
                 }
             },
             "required": ["box"]
@@ -59,7 +55,7 @@
             "properties": {
                 "capsule": {
                     "type": "object",
-                    "$ref" : "node.MSFT_physics.collider.capsule.schema.json"
+                    "$ref" : "node.MSFT_CollisionPrimitives.collider.capsule.schema.json"
                 }
             },
             "required": ["capsule"]
@@ -70,7 +66,7 @@
             "properties": {
                 "cylinder": {
                     "type": "object",
-                    "$ref" : "node.MSFT_physics.collider.cylinder.schema.json"
+                    "$ref" : "node.MSFT_CollisionPrimitives.collider.cylinder.schema.json"
                 }
             },
             "required": ["cylinder"]
@@ -81,7 +77,7 @@
             "properties": {
                 "convex": {
                     "type": "object",
-                    "$ref" : "node.MSFT_physics.collider.convex.schema.json"
+                    "$ref" : "node.MSFT_CollisionPrimitives.collider.convex.schema.json"
                 }
             },
             "required": ["convex"]
@@ -92,7 +88,7 @@
             "properties": {
                 "mesh": {
                     "type": "object",
-                    "$ref" : "node.MSFT_physics.collider.trimesh.schema.json"
+                    "$ref" : "node.MSFT_CollisionPrimitives.collider.trimesh.schema.json"
                 }
             },
             "required": ["trimesh"]

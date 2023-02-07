@@ -1,4 +1,4 @@
-# MSFT\_physics
+# MSFT\_RigidBodies
 
 ## Contributors
 
@@ -16,7 +16,7 @@ Written against glTF 2.0 spec.
 
 ## Overview
 
-This extension adds the ability to specify physics properties to a glTF asset.
+This extension adds the ability to specify physics properties to a glTF asset, suitable for a rigid body simulation.
 An implementation of this extension can use these properties to animate node transforms by simulating them using a physics engine.
 Objects within the asset can collide with each other and be constrained together to produce physically plausible interactions.
 
@@ -24,13 +24,11 @@ Note, since all physics engines behave differently to each other, deterministic 
 
 ## glTF Schema Updates
 
-The `MSFT_physics` extension can be added to any `node` to define one or more of the following properties:
+The `MSFT_RigidBodies` extension can be added to any `node` to define one or more of the following properties:
 
 | |Type|Description|
 |-|-|-|
 |**rigidBody**|`object`|Allow the physics engine to move this node and its children.|
-|**collider**|`object`|Create a collision shape in the physics engine for this node.|
-|**trigger**|`object`|Create a trigger shape in the physics engine for this node.|
 |**joint**|`object`|Constrain the motion of this node relative to another.|
 
 ### Rigid Bodies
@@ -56,7 +54,7 @@ Rigid bodies have the following properties:
 
 ### Colliders
 
-If a `node` has `collider` properties, that implies it can collide with other colliders during physics simulation.
+To specify the geometry used to detect overlaps, we use the MSFT\_CollisionPrimitives extension. By default, a node with a collision primitive should not participate in the physics simulation, as that geometry may be used for application-specific use-cases. In order to indicate that a `collider` should be used in the physics simulation, that node should have a `physicsMaterial` property, which indicates that it generates some physical response from interactions with other colliders. A collider attached to a node with `MSFT_RigidBodies` should be interpreted as an object which cannot generate a collision response (i.e. no impulses are applied as a result of collision detection), but instead, should be used as a "trigger", which the application may utilize to generate callbacks for implementation of application-specific logic.
 If the node is part of a rigid body (i.e. itself or an ascendent has `rigidBody` properties) then the collider belongs to that rigid body and should move with it during simulation.
 Otherwise the collider exists as a static object in the physics simulation which can be collided with but can not be moved.
 
@@ -88,17 +86,19 @@ If you want certain objects in your scene to ignore collisions with others, you 
 |**collisionMask**|`integer`|A 32-bit bit field representing which layers the node can collide with.|
 
 Implementions should interpret these as a bitwise comparison - collision should be occur between a pair of colliders `colliderA` and `colliderB` only if `colliderA.collisionMask & colliderB.collisionLayers != 0` or vice versa.
+>>>>>>> master:README.md
 
 **Collision Response**
 
-You can optionally control how objects should respond during collisions by tweaking their friction and restitution values. This is done by providing the following collider property:
+You can control how objects should respond during collisions by tweaking their friction and restitution values. This is done by providing the following collider property:
 
 | |Type|Description|
 |-|-|-|
 |**physicsMaterial**|`integer`|The index of a top level `physicsMaterial`.|
+|**collider**|`integer`|The index of a top level `Collider`.|
 
-The top level array of `physicsMaterial` objects is provided by adding the `MSFT_physics` extension to any root `glTF` object.
-If a collider has no physics material assigned, implementations should assume one using default values.
+
+The top level array of `physicsMaterial` objects is provided by adding the `MSFT_RigidBodies` extension to any root `glTF` object, while the colliers array is provided by the `MSFT_CollisionPrimitives` extension. If a collider has no physics material assigned, implementations should assume one using default values.
 
 Physics materials offer the following properties:
 
@@ -115,14 +115,6 @@ When a pair of colliders collide during physics simulation, the applied friction
 * Else if either uses "MINIMUM" : The smallest of the two values should be used.
 * Else if either uses "MAXIMUM" : The largest of the two values should be used.
 * Else if either uses "MULTIPLY" : The two values should be multiplied with each other.
-
-### Triggers
-
-If a `node` has `trigger` properties, that implies that it can detect overlaps with other colliders during simulation, but will not actually collide with them.
-It uses the same properties as `collider` to define the physics shape and the collision filter details.
-
-Triggers are typically used to raise callbacks or events to inform application logic of overlaps.
-How an application reacts to such events is application specific and thus outside of the scope of this extension.
 
 ### Joints
 
