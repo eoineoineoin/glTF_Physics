@@ -13,6 +13,10 @@
             "allOf": [ { "$ref": "glTFid.schema.json" } ],
             "description": "The index of the physics material in the top level physicsMaterials array."
         },
+        "collider" : {
+            "allOf": [ { "$ref": "glTFid.schema.json" } ],
+            "description": "The index of the collider in the top level colliders array."
+        },
         "joint" : {
             "allOf" : [ { "$ref" : "node.MSFT_RigidBodies.joint.schema.json" } ],
             "description" : "A set of parameter values that are used to constrain how this node moves relative to another during physics simulation."

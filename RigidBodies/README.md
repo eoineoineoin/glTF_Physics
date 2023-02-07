@@ -1,4 +1,4 @@
-# MSFT\_physics
+# MSFT\_RigidBodies
 
 ## Contributors
 
@@ -24,15 +24,13 @@ Note, since all physics engines behave differently to each other, deterministic 
 
 ## glTF Schema Updates
 
-The `MSFT_physics` extension can be added to any `node` to define one or more of the following properties:
+The `MSFT_RigidBodies` extension can be added to any `node` to define one or more of the following properties:
 
 | |Type|Description|
 |-|-|-|
 |**rigidBody**|`object`|Allow the physics engine to move this node and its children.|
 |**trigger**|`object`|Create a trigger shape in the physics engine for this node.|
 |**joint**|`object`|Constrain the motion of this node relative to another.|
-
-TODO.EOIN Should we keep a **collider* property, instead of looking for an MSFT_CollisionPrimitive? Test how assets feel.
 
 ### Rigid Bodies
 
@@ -66,9 +64,10 @@ You can control how objects should respond during collisions by tweaking their f
 | |Type|Description|
 |-|-|-|
 |**physicsMaterial**|`integer`|The index of a top level `physicsMaterial`.|
+|**collider**|`integer`|The index of a top level `Collider`.|
 
-The top level array of `physicsMaterial` objects is provided by adding the `MSFT_physics` extension to any root `glTF` object.
-If a collider has no physics material assigned, implementations should assume one using default values.
+
+The top level array of `physicsMaterial` objects is provided by adding the `MSFT_RigidBodies` extension to any root `glTF` object, while the colliers array is provided by the `MSFT_CollisionPrimitives` extension. If a collider has no physics material assigned, implementations should assume one using default values.
 
 Physics materials offer the following properties:
 

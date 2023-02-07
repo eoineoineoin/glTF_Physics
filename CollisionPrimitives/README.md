@@ -22,7 +22,7 @@ The `MSFT_CollisionPrimitives` extension can be added to any `node` to define on
 
 ### Colliders
 
-If a `node` has `collider` properties, then that node is determined to have some geometry which can be used for collision detection, though, this spec does not mandate how those should be used. Typically, the geometry specified by the collider will be simpler than any meshes used by the node or it's children, enabling real-time applications to perform queries such as intersection tests.
+This extension provides a set of document-level objects, which can be referenced by nodes in the scene. The precise usage of these collider primitives should be specified by the extenions which utilizes the colliders. In general, these colliders are used to specify geometry which can be used for collision detection. Typically, the geometry specified by the collider will be simpler than any meshes used by the node or it's children, enabling real-time applications to perform queries such as intersection tests.
 
 Implementations of this extension should ensure that collider transforms are always kept in sync with node transforms - for example animated node transforms should be applied to the applications' internal representation of the collision geometry.
 
