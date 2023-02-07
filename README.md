@@ -16,6 +16,6 @@ Adds properties to nodes, enabling them to participate in a rigid body physics s
 
 Work in progress. Will be kept up-to-date with revisions of specification
 
-[Blender exporter](https://github.com/eoineoineoin/glTF_Physics_Godot_Importer)
+[Blender exporter](https://github.com/eoineoineoin/glTF_Physics_Blender_Exporter)
 
 [Godot importer](https://github.com/eoineoineoin/glTF_Physics_Godot_Importer)
