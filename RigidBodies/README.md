@@ -31,13 +31,25 @@ The `MSFT_RigidBodies` extension can be added to any `node` to define one or mor
 |**rigidBody**|`object`|Allow the physics engine to move this node and its children.|
 |**joint**|`object`|Constrain the motion of this node relative to another.|
 
+### Units
+
+Units used in this specification are the same as those in the [glTF specification](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#coordinate-system-and-units); some additional units are used by this extension:
+
+| Property | Units|
+|-|-|
+|`rigidBody.mass`|Kilograms (kg)|
+|`rigidBody.inertiaTensor`|Kilogram meter squared (kg·m<sup>2</sup>)|
+|`rigidBody.linearVelocity`|Meters per second (m·s<sup>-1</sup>)|
+|`rigidBody.angularVelocity`|Radians per second (rad·s<sup>-1</sup>)|
+|`joint.constraint.springConstant`|Newton per meter (N·m<sup>-1</sup>)|
+
 ### Rigid Bodies
 
 If a `node` has `rigidBody` properties, that implies that its transform should driven by the physics engine.
 The physics engine should update the node's local transform after every simulation step.
 
 All descendant nodes should move with that node - i.e. the physics engine should treat them as part of a single rigid body.
-However if a descendant node has its own `rigidBody`properties, that should be treated as an independent rigid body during simulation - there is no implicit requirement that it follows its 'parent' rigid body.
+However if a descendant node has its own `rigidBody` properties, that should be treated as an independent rigid body during simulation - there is no implicit requirement that it follows its 'parent' rigid body.
 
 If a rigid body node's transform is animated by animations in the file, those animations should take priority over the physics simulation. Rigid bodies should follow the transforms provided by the animations.
 
@@ -154,9 +166,8 @@ This approach of building joints from a set of individual constraints is flexibl
 For example, to define a hinged door you would place connected nodes at the point where the physical hinge would be and add: a 3D linear constraint with zero maximum distance;
 a 1D angular constraint describing the swing of the door around it's vertical axis; a 2D angular constraint with zero limits about the remaining two axes.
 
-Note however that some types of constraint are not possible to describe.
-For example, a pulley, which needs a third transform in order to calculate a distance, cannot be described.
-Similarly, this does not have a mechanism to link two axes by some factor, such as a screw, whose translation is affected by the amount of rotation about some axis.
+Note however that some types of constraint are currently not possible to describe.
+For example, a pulley, which needs a third transform in order to calculate a distance, cannot be described. Similarly, this does not have a mechanism to link two axes by some factor, such as a screw, whose translation is affected by the amount of rotation about some axis.
 
 ### JSON Schema
 
