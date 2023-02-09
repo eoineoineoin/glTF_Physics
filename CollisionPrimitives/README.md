@@ -51,7 +51,7 @@ By default each `collider` can generate collisions with every other `collider`, 
 
 | |Type|Description|
 |-|-|-|
-|**collisionSystem**|`string`|An arbitrary string indicating the `system` a node is in.|
+|**collisionSystems**|`[string]`|An array of arbitrary strings indicating the `system` a node is in.|
 |**notCollideWithSystems**|`[string]`|An array of strings representing the systems which this node will _not_ collide with|
 |**collideWithSystems**|`[string]`|An array of strings representing the systems which this node can collide with|
 

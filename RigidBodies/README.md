@@ -88,17 +88,6 @@ However the trimesh type always represents an infinitely thin shell or sheet - f
 
 If you want your collider to have an offset from the local space (for example a sphere _not_ centered at local origin, or a rotated box), you should add an extra node to the hierarchy and apply your transform and your collider properties to that.
 
-**Collision Filtering**
-
-If you want certain objects in your scene to ignore collisions with others, you can provide the following optional collider properties:
-
-| |Type|Description|
-|-|-|-|
-|**collisionLayers**|`integer`|A 32-bit bit field representing the node's layer membership.|
-|**collisionMask**|`integer`|A 32-bit bit field representing which layers the node can collide with.|
-
-Implementions should interpret these as a bitwise comparison - collision should be occur between a pair of colliders `colliderA` and `colliderB` only if `colliderA.collisionMask & colliderB.collisionLayers != 0` or vice versa.
-
 **Collision Response**
 
 You can control how objects should respond during collisions by tweaking their friction and restitution values. This is done by providing the following collider property:
