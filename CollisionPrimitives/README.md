@@ -38,16 +38,13 @@ To describe the shape that represents this node, should use, colliders must defi
 |**trimesh**|`object`|A triangulated physics representation of a `mesh` object.|
 
 The sphere, box, capsule, cylinder and convex types should all produce _solid_ colliders by default - a rigid body anywhere inside the shape should be pushed out of it.
-However you can request the shapes to be created as a _shell_ instead by enabling the **isHollow** parameter - in this case a rigid body inside the shape should collide with the inside of the shell.
-However the trimesh type always represents an infinitely thin shell or sheet - for example a mesh collider created from a `mesh` object in the shape of a box will be represented as a hollow box in the physics engine.
+However the trimesh type always represents an infinitely thin shell or sheet - for example a trimesh collider created from a `mesh` object in the shape of a box will be represented as a hollow box in the physics engine.
 
 If you want your collider to have an offset from the local space (for example a sphere _not_ centered at local origin, or a rotated box), you should add an extra node to the hierarchy and apply your transform and your collider properties to that.
 
 **Collision Filtering**
 
-TODO.EOIN Need to revisit this. Should it be in RigidBodies due to the pairwise nature? Probably want to provide additional filtering schemes, to align with USD.
-
-By default each `collider` can generate collisions with every other `collider`, provided they are sufficiently close.. If you want certain objects in your scene to ignore collisions with others, you can provide the following optional collider properties:
+By default each `collider` can generate collisions with every other `collider`, provided they are sufficiently close. If you want certain objects in your scene to ignore collisions with others, you can provide the following optional collider properties:
 
 | |Type|Description|
 |-|-|-|
@@ -65,15 +62,13 @@ Note, that this can generate asymmetric states - `A` might determine that it _do
 
 ### JSON Schema
 
-TODO
+* **JSON schema**: [glTF.MSFT_CollisionPrimitives.schema.json](schema/glTF.MSFT_CollisionPrimitives.schema.json)
 
 ## Known Implementations
 
-TODO
+[Blender exporter](https://github.com/eoineoineoin/glTF_Physics_Blender_Exporter) (work in progress)
 
-## Resources
-
-None yet
+[Godot importer](https://github.com/eoineoineoin/glTF_Physics_Godot_Importer) (work in progress)
 
 ## Validator
 

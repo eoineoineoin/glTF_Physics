@@ -162,15 +162,13 @@ For example, a pulley, which needs a third transform in order to calculate a dis
 
 ### JSON Schema
 
-TODO
+* **JSON schema**: [glTF.MSFT_RigidBodies.schema.json](schema/glTF.MSFT_RigidBodies.schema.json)
 
 ## Known Implementations
 
-TODO
+[Blender exporter](https://github.com/eoineoineoin/glTF_Physics_Blender_Exporter) (work in progress)
 
-## Resources
-
-None yet
+[Godot importer](https://github.com/eoineoineoin/glTF_Physics_Godot_Importer) (work in progress)
 
 ## Validator
 
