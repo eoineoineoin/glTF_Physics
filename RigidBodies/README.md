@@ -100,7 +100,7 @@ You can control how objects should respond during collisions by tweaking their f
 |**collider**|`integer`|The index of a top level `Collider`.|
 
 
-The top level array of `physicsMaterial` objects is provided by adding the `MSFT_RigidBodies` extension to any root `glTF` object, while the colliers array is provided by the `MSFT_CollisionPrimitives` extension. If a collider has no physics material assigned, implementations should assume one using default values.
+The top level array of `physicsMaterial` objects is provided by adding the `MSFT_RigidBodies` extension to any root `glTF` object, while the colliers array is provided by the `MSFT_CollisionPrimitives` extension. If a collider has no physics material assigned, that collider should not generate impulses when overlapping with other colliders - implementations may use this behaviour to trigger callbacks, which can implement application-specific logic; such objects are typically called "triggers", "phantoms", "sensors", or "overlap volumes" in physics simulation engines.
 
 Physics materials offer the following properties:
 
@@ -121,12 +121,12 @@ When a pair of colliders collide during physics simulation, the applied friction
 ### Joints
 
 If a `node` has `joint` properties, that implies it should be constrained to another object during physics simulation.
-Joints require a `connectedNode` property, defining the other end of the joint.
+Joints require a `connectedNode` property, defining the other end of the joint, in addition to a `jointLimits` property, which indexes into the top level array of `physicsJointLimits` and determines how the range of motion is restricted.
 In order for the joint to have any effect on the simulation, at least one of the connected nodes or its ancestors should have `rigidBody` properties (otherwise the nodes cannot be moved by the physics engine).
 
-The transform of the node (or the `connectedNode`) from the first parent `rigidBody` defines the constraint space - for example if a joint were to eliminate all degrees of freedom, the physics simulation should attempt to move the rigidBody nodes such that the transforms of the constrained child nodes become align with each other.
+The transform of the node (or the `connectedNode`) from the first parent `rigidBody` defines the constraint space - for example if a joint were to eliminate all degrees of freedom, the physics simulation should attempt to move the rigidBody nodes such that the transforms of the constrained child nodes become aligned with each other.
 
-Joints must contain one of more `constraint` objects.
+The top level array of `physicsJointLimits` objects is provided by adding the `MSFT_RigidBodies` extension to any root `glTF` object and contains an array of joints. Joints must contain one of more `constraint` objects.
 Each of these constraints removes some of the relative movement permitted between the two connected nodes.
 Each constraint should be one of the following:
 
@@ -144,7 +144,7 @@ These axes refer to the columns of the basis defined by the transform of the con
 The number of axes provided determines whether is should be a 1, 2 or 3 dimensional constraint as follows:
 * For linear constraints, a 1D constraint will keep that axis within the `min` and `max` distance from the infinite plane defined by the other two axes.
 A 2D constraint will keep the node translations within a certain distance from an infinite line (i.e., within an infinite cylinder) and a 3D constraint will keep the nodes within a certain distance from a point (i.e. within a sphere).
-* For angular constraints, a 1D constraint restricts angular movement about one axis, as as in a universal joint.
+* For angular constraints, a 1D constraint restricts angular movement about one axis, as in a universal joint.
 A 2D constraint restricts angular movement about two - keeping the pivots within a cone.
 
 Each constraint contains a `min` and `max` parameter, describing the range of allowed difference between the two node transforms - within this range, the constraint is considered non-violating and no corrective forces are applied.

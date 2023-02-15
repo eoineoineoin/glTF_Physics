@@ -12,6 +12,14 @@
                 "$ref" : "glTF.MSFT_RigidBodies.material.schema.json"
             },
             "minItems": 1
+        },
+        "physicsJointLimits" : {
+            "type": "array",
+            "description": "An array of physics joint limit descriptions.",
+            "items": {
+                "$ref" : "glTF.MSFT_RigidBodies.jointLimit.schema.json"
+            },
+            "minItems": 1
         }
-    }
+     }
 }

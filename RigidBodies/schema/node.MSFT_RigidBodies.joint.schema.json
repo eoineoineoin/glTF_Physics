@@ -9,13 +9,9 @@
             "allOf": [{"$ref": "glTFid.schema.json"}],
             "description": "The ID of the node to which this is connected. If not set then the node will be connected to a fixed point in space."
         },
-        "constraints" : {
-            "type": "array",
-            "description": "An array of constraints which together define the overall allowed range of relative motion.",
-            "items": {
-                "$ref" : "node.MSFT_RigidBodies.joint.constraint.schema.json"
-            },
-            "minItems": 1
+        "jointLimits" : {
+            "allOf": [ { "$ref": "glTFid.schema.json" } ],
+            "description": "The index of the joint limits in the top level physicsJointLimits array."
         },
         "enableCollision" : {
             "type": "boolean",
