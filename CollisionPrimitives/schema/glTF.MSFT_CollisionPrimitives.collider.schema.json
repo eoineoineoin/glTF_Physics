@@ -36,7 +36,7 @@
             "properties": {
                 "sphere": {
                     "type": "object",
-                    "$ref" : "node.MSFT_CollisionPrimitives.collider.sphere.schema.json"
+                    "$ref" : "glTF.MSFT_CollisionPrimitives.collider.sphere.schema.json"
                 }
             },
             "required": ["sphere"]
@@ -47,7 +47,7 @@
             "properties": {
                 "box": {
                     "type": "object",
-                    "$ref" : "node.MSFT_CollisionPrimitives.collider.box.schema.json"
+                    "$ref" : "glTF.MSFT_CollisionPrimitives.collider.box.schema.json"
                 }
             },
             "required": ["box"]
@@ -58,7 +58,7 @@
             "properties": {
                 "capsule": {
                     "type": "object",
-                    "$ref" : "node.MSFT_CollisionPrimitives.collider.capsule.schema.json"
+                    "$ref" : "glTF.MSFT_CollisionPrimitives.collider.capsule.schema.json"
                 }
             },
             "required": ["capsule"]
@@ -69,7 +69,7 @@
             "properties": {
                 "cylinder": {
                     "type": "object",
-                    "$ref" : "node.MSFT_CollisionPrimitives.collider.cylinder.schema.json"
+                    "$ref" : "glTF.MSFT_CollisionPrimitives.collider.cylinder.schema.json"
                 }
             },
             "required": ["cylinder"]
@@ -80,7 +80,7 @@
             "properties": {
                 "convex": {
                     "type": "object",
-                    "$ref" : "node.MSFT_CollisionPrimitives.collider.convex.schema.json"
+                    "$ref" : "glTF.MSFT_CollisionPrimitives.collider.convex.schema.json"
                 }
             },
             "required": ["convex"]
@@ -91,7 +91,7 @@
             "properties": {
                 "mesh": {
                     "type": "object",
-                    "$ref" : "node.MSFT_CollisionPrimitives.collider.trimesh.schema.json"
+                    "$ref" : "glTF.MSFT_CollisionPrimitives.collider.trimesh.schema.json"
                 }
             },
             "required": ["trimesh"]

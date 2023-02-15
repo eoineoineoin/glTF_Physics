@@ -35,10 +35,10 @@ To describe the shape that represents this node, should use, colliders must defi
 |**capsule**|`object`|A capsule centered at the origin and aligned along the Y axis in local space.|
 |**cylinder**|`object`|A cylinder centered at the origin and aligned along the Y axis in local space.|
 |**convex**|`object`|A convex hull wrapping a `mesh` object.|
-|**trimesh**|`object`|A triangulated physics representation of a `mesh` object.|
+|**trimesh**|`object`|A triangulated representation of a `mesh` object.|
 
 The sphere, box, capsule, cylinder and convex types should all produce _solid_ colliders by default - a rigid body anywhere inside the shape should be pushed out of it.
-However the trimesh type always represents an infinitely thin shell or sheet - for example a trimesh collider created from a `mesh` object in the shape of a box will be represented as a hollow box in the physics engine.
+However the trimesh type always represents an infinitely thin shell or sheet - for example a trimesh collider created from a `mesh` object in the shape of a box will be represented as a hollow box.
 
 If you want your collider to have an offset from the local space (for example a sphere _not_ centered at local origin, or a rotated box), you should add an extra node to the hierarchy and apply your transform and your collider properties to that.
 

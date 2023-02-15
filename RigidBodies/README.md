@@ -72,22 +72,6 @@ Otherwise the collider exists as a static object in the physics simulation which
 
 Implementations of this extension should ensure that collider transforms are always kept in sync with node transforms - for example animated node transforms should be applied to the physics engine (even for static colliders).
 
-To describe the shape that the physics engine should use, colliders must define exactly one of the following properties:
-
-| |Type|Description|
-|-|-|-|
-|**sphere**|`object`|A sphere centered at the origin in local space.|
-|**box**|`object`|An axis-aligned box centered at the origin in local space.|
-|**capsule**|`object`|A capsule centered at the origin and aligned along the Y axis in local space.|
-|**cylinder**|`object`|A cylinder centered at the origin and aligned along the Y axis in local space.|
-|**convex**|`object`|A convex hull wrapping a `mesh` object.|
-|**trimesh**|`object`|A triangulated physics representation of a `mesh` object.|
-
-The sphere, box, capsule, cylinder and convex types should all produce _solid_ colliders - a rigid body anywhere inside the shape should be pushed out of it.
-However the trimesh type always represents an infinitely thin shell or sheet - for example a mesh collider created from a `mesh` object in the shape of a box will be represented as a hollow box in the physics engine.
-
-If you want your collider to have an offset from the local space (for example a sphere _not_ centered at local origin, or a rotated box), you should add an extra node to the hierarchy and apply your transform and your collider properties to that.
-
 Note that, depending on the simulation engine in use, `convex` and `trimesh` colliders may impose a large computational cost when converting to native types if the source mesh contains many vertices. In addition, real-time engines generally prefer to avoid collisions between two `trimesh` objects. For best performance and behaviour, consult the manual for the physics simulation engine you are using.
 
 **Collision Response**
