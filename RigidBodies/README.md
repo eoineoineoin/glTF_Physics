@@ -88,6 +88,8 @@ However the trimesh type always represents an infinitely thin shell or sheet - f
 
 If you want your collider to have an offset from the local space (for example a sphere _not_ centered at local origin, or a rotated box), you should add an extra node to the hierarchy and apply your transform and your collider properties to that.
 
+Note that, depending on the simulation engine in use, `convex` and `trimesh` colliders may impose a large computational cost when converting to native types if the source mesh contains many vertices. In addition, real-time engines generally prefer to avoid collisions between two `trimesh` objects. For best performance and behaviour, consult the manual for the physics simulation engine you are using.
+
 **Collision Response**
 
 You can control how objects should respond during collisions by tweaking their friction and restitution values. This is done by providing the following collider property:
