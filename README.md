@@ -1,21 +1,24 @@
-# MSFT\_RigidBodies
+This repository contains two proposed glTF extensions.
+This repository will be kept up to date with [another repository](https://github.com/eoineoineoin/glTF) which contains these extensions suitable for merging into the Khronos glTF repository. In addition, this repository contains some additional samples. These samples will later be merged into the official Khronos samples repository.
 
-This repository contains two proposed glTF extenions:
-
-## MSFT_CollisionPrimitives
+## MSFT_collision_primitives
 
 Allows a document to specify primitive geometric types, suitable for real-time collision detection.
-[MSFT_CollisionPrimitives documentation](CollisionPrimitives)
+[MSFT_collision_primitives documentation](MSFT_collision_primitives)
 
-## MSFT_RigidBodies
+## MSFT_rigid_bodies
 
 Adds properties to nodes, enabling them to participate in a rigid body physics simulation.
-[MSFT_RigidBodies documentation](RigidBodies)
+[MSFT_rigid_bodies documentation](MSFT_rigid_bodies)
 
 ## Known Implementations
 
-Work in progress. Will be kept up-to-date with revisions of specification
+[Blender importer/exporter](https://github.com/eoineoineoin/glTF_Physics_Blender_Exporter)
 
-[Blender exporter](https://github.com/eoineoineoin/glTF_Physics_Blender_Exporter)
+[Babylon.js importer](https://github.com/eoineoineoin/glTF_Physics_Babylon)
 
 [Godot importer](https://github.com/eoineoineoin/glTF_Physics_Godot_Importer)
+
+## Validator
+
+[glTF validator](https://github.com/eoineoineoin/glTF-Validator)

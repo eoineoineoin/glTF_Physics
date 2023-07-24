@@ -1,0 +1,76 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "title" : "MSFT_rigid_bodies glTF extension",
+    "type" : "object",
+    "description" : "Parameters describing how a node's transform should be driven by physics simulation.",
+    "allOf" : [ { "$ref" : "glTFChildOfRootProperty.schema.json" } ],
+    "properties" : {
+        "isKinematic" : {
+            "type": "boolean",
+            "description": "If enabled, the object effectively has infinite mass. It's velocity will remain constant during physics simulation.",
+            "default": false
+        },
+        "mass" : {
+            "type": "number",
+            "description": "The mass of the object.",
+            "default" : 1.0,
+            "minimum" : 0,
+            "exclusiveMinimum" : true
+        },
+        "centerOfMass" : {
+            "type": "array",
+            "description": "The center of mass of the object in local space.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3,
+            "default": [ 0.0, 0.0, 0.0 ]
+        },
+        "inertiaDiagonal" : {
+            "type": "array",
+            "description": "The principal moments of inertia.  Larger values imply the rigid body is harder to rotate.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3,
+            "default": [ 1.0, 1.0, 1.0 ]
+        },
+        "inertiaDiagonal" : {
+            "type": "array",
+            "description": "The rotation quaternion rotating from inertia major axis space to body space.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 4,
+            "maxItems": 4,
+            "default": [ 0.0, 0.0, 0.0, 1.0 ]
+        },
+        "linearVelocity" : {
+            "type": "array",
+            "description": "The initial linear velocity of the object.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3,
+            "default": [ 0.0, 0.0, 0.0 ]
+        },
+        "angularVelocity" : {
+            "type": "array",
+            "description": "The initial angular velocity of the object.",
+            "items": {
+                "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3,
+            "default": [ 0.0, 0.0, 0.0 ]
+        },
+        "gravityFactor" : {
+            "type": "number",
+            "description": "A multiplier applied to the scene's gravity.",
+            "default": 1.0
+        }
+    }
+}

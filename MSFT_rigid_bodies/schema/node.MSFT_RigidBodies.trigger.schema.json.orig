@@ -1,0 +1,13 @@
+{
+    "$schema" : "http://json-schema.org/draft-04/schema",
+    "title" : "MSFT_RigidBodies glTF extension",
+    "type" : "object",
+    "description" : "Parameters describing a volume used for collison detection, but does not cause a collision response.",
+    "allOf" : [ { "$ref" : "glTFChildOfRootProperty.schema.json" } ],
+    "properties" : {
+        "collider" : {
+            "allOf": [ { "$ref": "glTFid.schema.json" } ],
+            "description": "The index of the collider in the top level colliders array."
+        }
+    }
+}
