@@ -1,17 +1,23 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "title" : "MSFT_collision_primitives glTF extension",
-    "type" : "object",
-    "description" : "Top level collision primitives.",
-    "allOf" : [ { "$ref" : "glTFProperty.schema.json" } ],
-    "properties" : {
-        "colliders" : {
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "MSFT_collision_primitives glTF extension",
+    "type": "object",
+    "description": "Top level collision primitives.",
+    "allOf": [ { "$ref" : "glTFProperty.schema.json" } ],
+    "properties": {
+        "colliders": {
             "type": "array",
             "description": "An array of collider descriptions.",
             "items": {
-                "$ref" : "glTF.MSFT_collision_primitives.collider.schema.json"
+                "type": "object",
+                "$ref": "glTF.MSFT_collision_primitives.collider.schema.json"
             },
             "minItems": 1
-        }
-     }
+        },
+        "extensions": { },
+        "extras": { }
+     },
+     "required": [
+         "colliders"
+     ]
 }

@@ -1,19 +1,19 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "title" : "MSFT_rigid_bodies glTF extension",
-    "type" : "object",
-    "description" : "Parameters describing a set of joint limits, constraining the motion of a pair of bodies.",
-    "allOf" : [ { "$ref" : "glTFChildOfRootProperty.schema.json" } ],
-    "properties" : {
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "MSFT_rigid_bodies glTF extension",
+    "type": "object",
+    "description": "Parameters describing a set of joint limits, constraining the motion of a pair of bodies.",
+    "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],
+    "properties": {
         "limits": {
             "type": "array",
             "description": "The set of limits which make up this joint",
             "items": {
                 "type": "object",
-                "$ref" : "glTF.MSFT_rigid_bodies.joint_limit.schema.json"
-            },
-            "extensions" : {},
-            "extras" : {}
-        }
+                "$ref": "glTF.MSFT_rigid_bodies.joint_limit.schema.json"
+            }
+        },
+        "extensions": { },
+        "extras": { }
     }
 }

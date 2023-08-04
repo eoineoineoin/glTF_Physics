@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "MSFT_rigid_bodies glTF extension",
+    "type": "object",
+    "description": "Collection of joint limits",
+    "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
+    "properties": {
+        "limits": {
+            "type": "array",
+            "items": {
+                "$ref": "glTF.MSFT_rigid_bodies.joint_limit.schema.json"
+            },
+            "minItems": 1
+        },
+        "extensions": {},
+        "extras": {}
+    }
+}

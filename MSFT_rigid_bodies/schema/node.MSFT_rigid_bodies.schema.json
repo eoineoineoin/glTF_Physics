@@ -1,25 +1,27 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "title" : "MSFT_rigid_bodies glTF extension",
-    "type" : "object",
-    "description" : "Physics properties for a node.",
-    "allOf" : [ { "$ref" : "glTFChildOfRootProperty.schema.json" } ],
-    "properties" : {
-        "motion" : {
-            "allOf" : [ { "$ref" : "node.MSFT_rigid_bodies.motion.schema.json" } ],
-            "description" : "A set of parameter values that enable this node and its children to be moved by physics simuation."
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "MSFT_rigid_bodies glTF extension",
+    "type": "object",
+    "description": "Physics properties for a node.",
+    "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
+    "properties": {
+        "motion": {
+            "allOf": [ { "$ref": "node.MSFT_rigid_bodies.motion.schema.json" } ],
+            "description": "A set of parameter values that enable this node and its children to be moved by physics simuation."
         },
-        "collider" : {
-            "allOf" : [ { "$ref" : "node.MSFT_rigid_bodies.collider.schema.json" } ],
-            "description" : "A set of parameter values that are used to provide a collision geometry for physics simulation."
+        "collider": {
+            "allOf": [ { "$ref": "node.MSFT_rigid_bodies.collider.schema.json" } ],
+            "description": "A set of parameter values that are used to provide a collision geometry for physics simulation."
         },
-        "trigger" : {
-            "allOf" : [ { "$ref" : "node.MSFT_rigid_bodies.trigger.schema.json" } ],
-            "description" : "A set of parameter values that are used to provide a collision geometry for trigger events."
+        "trigger": {
+            "allOf": [ { "$ref": "node.MSFT_rigid_bodies.trigger.schema.json" } ],
+            "description": "A set of parameter values that are used to provide a collision geometry for trigger events."
         },
-        "joint" : {
-            "allOf" : [ { "$ref" : "node.MSFT_rigid_bodies.joint.schema.json" } ],
-            "description" : "A set of parameter values that are used to constrain how this node moves relative to another during physics simulation."
-        }
+        "joint": {
+            "allOf": [ { "$ref": "node.MSFT_rigid_bodies.joint.schema.json" } ],
+            "description": "A set of parameter values that are used to constrain how this node moves relative to another during physics simulation."
+        },
+        "extensions": { },
+        "extras": { }
     }
 }

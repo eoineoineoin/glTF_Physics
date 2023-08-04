@@ -1,15 +1,16 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "title" : "MSFT_rigid_bodies glTF extension",
-    "type" : "object",
-    "description" : "Top level physics properties.",
-    "allOf" : [ { "$ref" : "glTFProperty.schema.json" } ],
-    "properties" : {
-        "physicsMaterials" : {
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "MSFT_rigid_bodies glTF extension",
+    "type": "object",
+    "description": "Top level physics properties.",
+    "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
+    "properties": {
+        "physicsMaterials": {
             "type": "array",
             "description": "An array of physics materials.",
             "items": {
-                "$ref" : "glTF.MSFT_rigid_bodies.material.schema.json"
+                "type": "object",
+                "$ref": "glTF.MSFT_rigid_bodies.material.schema.json"
             },
             "minItems": 1
         },
@@ -17,17 +18,21 @@
             "type": "array",
             "description": "An array providing collision filter descriptions.",
             "items": {
-                "$ref" : "glTF.MSFT_rigid_bodies.collision_filter.schema.json"
+                "type": "object",
+                "$ref": "glTF.MSFT_rigid_bodies.collision_filter.schema.json"
             },
             "minItems": 1
         },
-        "physicsJointLimits" : {
+        "physicsJointLimits": {
             "type": "array",
             "description": "An array of physics joint limit descriptions.",
             "items": {
-                "$ref" : "glTF.MSFT_rigid_bodies.joint_limit.schema.json"
+                "type": "object",
+                "$ref": "glTF.MSFT_rigid_bodies.joint_limit.schema.json"
             },
             "minItems": 1
-        }
+        },
+        "extensions": { },
+        "extras": { }
     }
 }

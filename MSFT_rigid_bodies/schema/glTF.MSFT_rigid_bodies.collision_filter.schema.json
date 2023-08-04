@@ -1,10 +1,10 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "title" : "MSFT_rigid_bodies glTF extension",
-    "type" : "object",
-    "description" : "Parameters describing a parameterization of a collision filter, allowing for disabling collision between pairs of colliders.",
-    "allOf" : [ { "$ref" : "glTFProperty.schema.json" } ],
-    "properties" : {
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "MSFT_rigid_bodies glTF extension",
+    "type": "object",
+    "description": "Parameters describing a parameterization of a collision filter, allowing for disabling collision between pairs of colliders.",
+    "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],
+    "properties": {
         "collisionSystems": {
             "type": "array",
             "description": "An array of strings representing the names of the collision system which this collider which references this object belongs to.",
@@ -26,7 +26,12 @@
                 "type": "string"
             }
         },
-        "extensions" : {},
-        "extras" : {}
+        "extensions": { },
+        "extras": { }
+    },
+    "not": {
+        "anyOf": [
+            { "required": [ "collideWithSystems", "notCollideWithSystems" ] }
+        ]
     }
 }

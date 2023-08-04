@@ -1,12 +1,11 @@
 {
-    "$schema" : "http://json-schema.org/draft-04/schema",
-    "title" : "MSFT_collision_primitives glTF extension",
-    "type" : "object",
-    "description" : "Parameters describing a node's physics collision geometry.",
-    "allOf" : [ { "$ref" : "glTFChildOfRootProperty.schema.json" } ],
-    "properties" : {
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "MSFT_collision_primitives glTF extension",
+    "type": "object",
+    "description": "Parameters describing a node's physics collision geometry.",
+    "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],
+    "properties": {
         "type": {
-            "type": "string",
             "description": "Specifies the shape type.",
             "anyOf": [
                 {
@@ -38,75 +37,76 @@
                 }
             ]
         },
-        "extensions" : {},
-        "extras" : {}
+        "extensions": { },
+        "extras": { }
     },
-    "oneOf": [ 
+    "oneOf": [
         {
             "type": "object",
-            "description" : "A set of parameter values that are used to define a sphere collider.",
+            "description": "A set of parameter values that are used to define a sphere collider.",
             "properties": {
                 "sphere": {
                     "type": "object",
-                    "$ref" : "glTF.MSFT_collision_primitives.collider.sphere.schema.json"
+                    "$ref": "glTF.MSFT_collision_primitives.collider.sphere.schema.json"
                 }
             },
             "required": ["sphere"]
         },
         {
             "type": "object",
-            "description" : "A set of parameter values that are used to define a box collider.",
+            "description": "A set of parameter values that are used to define a box collider.",
             "properties": {
                 "box": {
                     "type": "object",
-                    "$ref" : "glTF.MSFT_collision_primitives.collider.box.schema.json"
+                    "$ref": "glTF.MSFT_collision_primitives.collider.box.schema.json"
                 }
             },
             "required": ["box"]
         },
         {
             "type": "object",
-            "description" : "A set of parameter values that are used to define a capsule collider.",
+            "description": "A set of parameter values that are used to define a capsule collider.",
             "properties": {
                 "capsule": {
                     "type": "object",
-                    "$ref" : "glTF.MSFT_collision_primitives.collider.capsule.schema.json"
+                    "$ref": "glTF.MSFT_collision_primitives.collider.capsule.schema.json"
                 }
             },
             "required": ["capsule"]
         },
         {
             "type": "object",
-            "description" : "A set of parameter values that are used to define a cylinder collider.",
+            "description": "A set of parameter values that are used to define a cylinder collider.",
             "properties": {
                 "cylinder": {
                     "type": "object",
-                    "$ref" : "glTF.MSFT_collision_primitives.collider.cylinder.schema.json"
+                    "$ref": "glTF.MSFT_collision_primitives.collider.cylinder.schema.json"
                 }
             },
             "required": ["cylinder"]
         },
         {
             "type": "object",
-            "description" : "A set of parameter values that are used to define a convex collider.",
+            "description": "A set of parameter values that are used to define a convex collider.",
             "properties": {
                 "convex": {
                     "type": "object",
-                    "$ref" : "glTF.MSFT_collision_primitives.collider.convex.schema.json"
+                    "$ref": "glTF.MSFT_collision_primitives.collider.convex.schema.json"
                 }
             },
             "required": ["convex"]
         },
         {
             "type": "object",
-            "description" : "A set of parameter values that are used to define a mesh collider.",
+            "description": "A set of parameter values that are used to define a mesh collider.",
             "properties": {
                 "mesh": {
                     "type": "object",
-                    "$ref" : "glTF.MSFT_collision_primitives.collider.trimesh.schema.json"
+                    "$ref": "glTF.MSFT_collision_primitives.collider.trimesh.schema.json"
                 }
             },
             "required": ["trimesh"]
         }
-    ]
+    ],
+    "required": "type"
 }

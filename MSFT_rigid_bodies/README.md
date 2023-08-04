@@ -183,7 +183,7 @@ For example, a pulley, which needs a third transform in order to calculate a dis
 
 ## Known Implementations
 
-[Blender exporter](https://github.com/eoineoineoin/glTF_Physics_Blender_Exporter)
+[Blender importer/exporter](https://github.com/eoineoineoin/glTF_Physics_Blender_Exporter)
 
 [Babylon.js importer](https://github.com/eoineoineoin/glTF_Physics_Babylon)
 
