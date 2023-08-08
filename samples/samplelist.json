@@ -28,5 +28,11 @@
         "asset": "https://raw.githubusercontent.com/eoineoineoin/glTF_Physics/master/samples/MotionProperties/MotionProperties.glb",
         "link": "https://github.com/eoineoineoin/glTF_Physics/tree/master/samples/MotionProperties",
         "title": "Motion properties", "description": "How motion properties can control behaviour"
+    },
+    {
+        "asset": "https://raw.githubusercontent.com/eoineoineoin/glTF_Physics/master/samples/WaterWheel/WaterWheel.glb",
+        "link": "https://github.com/eoineoineoin/glTF_Physics/tree/master/samples/WaterWheel",
+        "title": "Water Wheel", "description": "A complex asset using most functionality"
     }
+
 ]
