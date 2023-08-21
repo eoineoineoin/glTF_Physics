@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "MSFT_collision_primitives glTF extension",
+    "title": "KHR_collision_shapes glTF extension",
     "type": "object",
     "description": "Parameters describing a capsule collider.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],

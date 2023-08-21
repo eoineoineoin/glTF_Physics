@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "MSFT_collision_primitives glTF extension",
+    "title": "KHR_collision_shapes glTF extension",
     "type": "object",
     "description": "Top level collision primitives.",
     "allOf": [ { "$ref" : "glTFProperty.schema.json" } ],
@@ -10,7 +10,7 @@
             "description": "An array of collider descriptions.",
             "items": {
                 "type": "object",
-                "$ref": "glTF.MSFT_collision_primitives.collider.schema.json"
+                "$ref": "glTF.KHR_collision_shapes.collider.schema.json"
             },
             "minItems": 1
         },

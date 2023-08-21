@@ -1,4 +1,4 @@
-# MSFT\_rigid_bodies
+# KHR\_rigid\_bodies
 
 ## Contributors
 
@@ -38,7 +38,7 @@ Units used in this specification are the same as those in the [glTF specificatio
 
 ## glTF Schema Updates
 
-The `MSFT_rigid_bodies` extension can be added to any `node` to define one or more of the following properties:
+The `KHR_rigid_bodies` extension can be added to any `node` to define one or more of the following properties:
 
 | |Type|Description|
 |-|-|-|
@@ -72,7 +72,7 @@ Rigid body motions have the following properties:
 
 ### Colliders
 
-To specify the geometry used to perform collision detection, we use the MSFT\_collision\_primitives extension. To add collision geometry and enable a node to generate impulses from collision detection, a node's `collider` property is used. This property supplies three fields; the `collider` property indexes into the set of top level collision primitives and describes the collision volume used by that node, while the `physicsMaterial` indexes into the top level set of physics materials (see the "Collision Response" section of this document) and the `collisionFilter` indexes into the top level set of collision filters (see the "Collision Filtering" section of this document).
+To specify the geometry used to perform collision detection, we use the KHR\_collision\_shapes extension. To add collision geometry and enable a node to generate impulses from collision detection, a node's `collider` property is used. This property supplies three fields; the `collider` property indexes into the set of top level collision primitives and describes the collision volume used by that node, while the `physicsMaterial` indexes into the top level set of physics materials (see the "Collision Response" section of this document) and the `collisionFilter` indexes into the top level set of collision filters (see the "Collision Filtering" section of this document).
 
 | |Type|Description|
 |-|-|-|
@@ -90,7 +90,7 @@ Note that, depending on the simulation engine in use, `convex` and `trimesh` col
 
 You can control how objects should respond during collisions by tweaking their friction and restitution values as well as by controlling which pairs of colliders should interact. This is done by providing the following collider properties:
 
-The top level arrays of `physicsMaterials` and `collisionFilters` objects are provided by adding the `MSFT_rigid_bodies` extension to any root `glTF` object, while the colliers array is provided by the `MSFT_collision_primitives` extension. If a collider has no physics material assigned, the simulation engine may choose any appropriate default values.
+The top level arrays of `physicsMaterials` and `collisionFilters` objects are provided by adding the `KHR_rigid_bodies` extension to any root `glTF` object, while the colliers array is provided by the `KHR_collision_shapes` extension. If a collider has no physics material assigned, the simulation engine may choose any appropriate default values.
 
 Physics materials offer the following properties:
 
@@ -131,7 +131,7 @@ Note, that this can generate asymmetric states - `A` might determine that it _do
 
 A useful construct in a physics engine is a collision volume which does not generate impulses when overlapping with other volumes - implementations may use this behavior to generate events, which can implement application-specific logic; such objects are typically called "triggers", "phantoms", "sensors", or "overlap volumes" in physics simulation engines.
 
-A node may have a `trigger` property set; this is similar to the `collider` in that it references a collision volume defined by the MSFT\_collision\_primitives extension but lacks a physics material. It does, however, provide a collision filter with the same semantics as the `collider`.
+A node may have a `trigger` property set; this is similar to the `collider` in that it references a collision volume defined by the KHR\_collision\_shapes extension but lacks a physics material. It does, however, provide a collision filter with the same semantics as the `collider`.
 
 Describing the precise mechanism by which overlap events are generated and what occurs as a result is beyond the scope of this specification; simulation software will typically output overlap begin/end events as an output from the simulation step, which is hooked into application-specific business logic.
 
@@ -143,7 +143,7 @@ In order for the joint to have any effect on the simulation, at least one of the
 
 The transform of the joint node from the first parent `motion` (or the simulation's fixed reference frame, if no such `motion` exists) defines the constraint space in that body. Similarly, the transform from the `connectedNode` to the first ancestor `motion` (or fixed frame) defines the constraint space within that body. If a joint were to eliminate all degrees of freedom, the physics simulation should attempt to move the `motion` nodes such that the transforms of the constrained child nodes (i.e. the `joint` node and the node at index `connectedNode`) become aligned with each other in world space.
 
-The top level array of `physicsJointLimits` objects is provided by adding the `MSFT_rigid_bodies` extension to any root `glTF` object and contains an array of joints. Joints must contain one of more `constraint` objects.
+The top level array of `physicsJointLimits` objects is provided by adding the `KHR_rigid_bodies` extension to any root `glTF` object and contains an array of joints. Joints must contain one of more `constraint` objects.
 Each of these constraints removes some of the relative movement permitted between the two connected nodes.
 Each constraint should be one of the following:
 
@@ -179,7 +179,7 @@ For example, a pulley, which needs a third transform in order to calculate a dis
 
 ### JSON Schema
 
-* **JSON schema**: [glTF.MSFT_rigid_bodies.schema.json](schema/glTF.MSFT_rigid_bodies.schema.json)
+* **JSON schema**: [glTF.KHR_rigid_bodies.schema.json](schema/glTF.KHR_rigid_bodies.schema.json)
 
 ## Known Implementations
 

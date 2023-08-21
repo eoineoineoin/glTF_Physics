@@ -1,4 +1,4 @@
-# MSFT\_collision_primitives
+# KHR_collision_shapes
 
 ## Status
 
@@ -10,7 +10,7 @@ Written against glTF 2.0 spec.
 
 ## Overview
 
-This extension adds the ability to specify collision primitives inside a glTF asset. This extension does not mandate any particular behaviour for those objects aside from their collision geometry. These types may be used in combination with additional extensions or application-specific business logic. The MSFT\_rigid\_bodies extension uses primitives defined in this spec to provide geometric primitives for collision detection in a rigid body simulation.
+This extension adds the ability to specify collision primitives inside a glTF asset. This extension does not mandate any particular behaviour for those objects aside from their collision geometry. These types may be used in combination with additional extensions or application-specific business logic. The KHR\_rigid\_bodies extension uses primitives defined in this spec to provide geometric primitives for collision detection in a rigid body simulation.
 
 ## glTF Schema Updates
 
@@ -40,7 +40,7 @@ If you want your collider to have an offset from the local space (for example a 
 
 ### JSON Schema
 
-* **JSON schema**: [glTF.MSFT_collision_primitives.schema.json](schema/glTF.MSFT_collision_primitives.schema.json)
+* **JSON schema**: [glTF.KHR_collision_shapes.schema.json](schema/glTF.KHR_collision_shapes.schema.json)
 
 ## Known Implementations
 
