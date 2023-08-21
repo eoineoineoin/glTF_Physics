@@ -2,26 +2,26 @@
     "$schema": "http://json-schema.org/draft-04/schema",
     "title": "KHR_rigid_bodies glTF extension",
     "type": "object",
-    "description": "Parameters describing a parameterization of a collision filter, allowing for disabling collision between pairs of colliders.",
+    "description": "Parameters describing a parameterization of a collision filter, allowing for disabling collision between pairs of shapes.",
     "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],
     "properties": {
         "collisionSystems": {
             "type": "array",
-            "description": "An array of strings representing the names of the collision system which this collider which references this object belongs to.",
+            "description": "An array of strings representing the names of the collision systems of which this object is a member.",
             "items": {
                 "type": "string"
             }
         },
         "collideWithSystems": {
             "type": "array",
-            "description": "An array of strings representing the name of the collision systems which the collider referencing this object can collide with.",
+            "description": "An array of strings representing the name of the collision systems which this object can collide with.",
             "items": {
                 "type": "string"
             }
         },
         "notCollideWithSystems": {
             "type": "array",
-            "description": "An array of strings representing the names of the collision systems which the collider referencing this object does not collide with.",
+            "description": "An array of strings representing the names of the collision systems which this object does not collide with.",
             "items": {
                 "type": "string"
             }

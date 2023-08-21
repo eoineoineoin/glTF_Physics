@@ -5,9 +5,9 @@
     "description": "Parameters describing a shape used for collison detection and response.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
     "properties": {
-        "collider": {
+        "shape": {
             "allOf": [ { "$ref": "glTFid.schema.json" } ],
-            "description": "The index of the collider in the top level colliders array."
+            "description": "The index of the collider in the top level shapes array."
         },
         "physicsMaterial": {
             "allOf": [ { "$ref": "glTFid.schema.json" } ],
@@ -21,6 +21,6 @@
         "extras": { }
     },
     "required": [
-        "collider"
+        "shape"
     ]
 }

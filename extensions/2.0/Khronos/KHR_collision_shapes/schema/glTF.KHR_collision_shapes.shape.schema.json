@@ -43,66 +43,66 @@
     "oneOf": [
         {
             "type": "object",
-            "description": "A set of parameter values that are used to define a sphere collider.",
+            "description": "A set of parameter values that are used to define a sphere shape.",
             "properties": {
                 "sphere": {
                     "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.collider.sphere.schema.json"
+                    "$ref": "glTF.KHR_collision_shapes.shape.sphere.schema.json"
                 }
             },
             "required": ["sphere"]
         },
         {
             "type": "object",
-            "description": "A set of parameter values that are used to define a box collider.",
+            "description": "A set of parameter values that are used to define a box shape.",
             "properties": {
                 "box": {
                     "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.collider.box.schema.json"
+                    "$ref": "glTF.KHR_collision_shapes.shape.box.schema.json"
                 }
             },
             "required": ["box"]
         },
         {
             "type": "object",
-            "description": "A set of parameter values that are used to define a capsule collider.",
+            "description": "A set of parameter values that are used to define a capsule shape.",
             "properties": {
                 "capsule": {
                     "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.collider.capsule.schema.json"
+                    "$ref": "glTF.KHR_collision_shapes.shape.capsule.schema.json"
                 }
             },
             "required": ["capsule"]
         },
         {
             "type": "object",
-            "description": "A set of parameter values that are used to define a cylinder collider.",
+            "description": "A set of parameter values that are used to define a cylinder shape.",
             "properties": {
                 "cylinder": {
                     "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.collider.cylinder.schema.json"
+                    "$ref": "glTF.KHR_collision_shapes.shape.cylinder.schema.json"
                 }
             },
             "required": ["cylinder"]
         },
         {
             "type": "object",
-            "description": "A set of parameter values that are used to define a convex collider.",
+            "description": "A set of parameter values that are used to define a convex shape.",
             "properties": {
                 "convex": {
                     "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.collider.convex.schema.json"
+                    "$ref": "glTF.KHR_collision_shapes.shape.convex.schema.json"
                 }
             },
             "required": ["convex"]
         },
         {
             "type": "object",
-            "description": "A set of parameter values that are used to define a mesh collider.",
+            "description": "A set of parameter values that are used to define a mesh shape.",
             "properties": {
                 "mesh": {
                     "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.collider.trimesh.schema.json"
+                    "$ref": "glTF.KHR_collision_shapes.shape.trimesh.schema.json"
                 }
             },
             "required": ["trimesh"]

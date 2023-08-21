@@ -5,9 +5,9 @@
     "description": "Parameters describing a volume used for collison detection, but does not cause a collision response.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
     "properties": {
-        "collider": {
+        "shape": {
             "allOf": [ { "$ref": "glTFid.schema.json" } ],
-            "description": "The index of the collider in the top level colliders array."
+            "description": "The index of the shape in the top level shapes array."
         },
         "collisionFilter": {
             "allOf": [ { "$ref": "glTFid.schema.json" } ],
@@ -17,6 +17,6 @@
         "extras": { }
     },
     "required": [
-        "collider"
+        "shape"
     ]
 }

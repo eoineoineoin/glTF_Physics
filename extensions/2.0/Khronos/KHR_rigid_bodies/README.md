@@ -72,11 +72,11 @@ Rigid body motions have the following properties:
 
 ### Colliders
 
-To specify the geometry used to perform collision detection, we use the KHR\_collision\_shapes extension. To add collision geometry and enable a node to generate impulses from collision detection, a node's `collider` property is used. This property supplies three fields; the `collider` property indexes into the set of top level collision primitives and describes the collision volume used by that node, while the `physicsMaterial` indexes into the top level set of physics materials (see the "Collision Response" section of this document) and the `collisionFilter` indexes into the top level set of collision filters (see the "Collision Filtering" section of this document).
+To specify the geometry used to perform collision detection, we use the KHR\_collision\_shapes extension. To add collision geometry and enable a node to generate impulses from collision detection, a node's `collider` property is used. This property supplies three fields; the `collider` property indexes into the set of top level collision shapes and describes the collision volume used by that node, while the `physicsMaterial` indexes into the top level set of physics materials (see the "Collision Response" section of this document) and the `collisionFilter` indexes into the top level set of collision filters (see the "Collision Filtering" section of this document).
 
 | |Type|Description|
 |-|-|-|
-|**collider**|`integer`|The index of a top level `Collider`, which provides the geometry of the shape.|
+|**shape**|`integer`|The index of a top level `Shape`, which provides the geometry of the shape.|
 |**physicsMaterial**|`integer`|Indexes into the top level `physicsMaterials` and describes the collision response of the material which the collider is made from.|
 |**collisionFilter**|`integer`|Indexes into the top level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 

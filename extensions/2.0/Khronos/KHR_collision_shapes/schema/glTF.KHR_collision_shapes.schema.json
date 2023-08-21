@@ -5,12 +5,12 @@
     "description": "Top level collision primitives.",
     "allOf": [ { "$ref" : "glTFProperty.schema.json" } ],
     "properties": {
-        "colliders": {
+        "shapes": {
             "type": "array",
-            "description": "An array of collider descriptions.",
+            "description": "An array of shape descriptions.",
             "items": {
                 "type": "object",
-                "$ref": "glTF.KHR_collision_shapes.collider.schema.json"
+                "$ref": "glTF.KHR_collision_shapes.shape.schema.json"
             },
             "minItems": 1
         },
@@ -18,6 +18,6 @@
         "extras": { }
      },
      "required": [
-         "colliders"
+         "shapes"
      ]
 }

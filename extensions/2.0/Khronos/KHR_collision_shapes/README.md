@@ -14,16 +14,13 @@ This extension adds the ability to specify collision primitives inside a glTF as
 
 ## glTF Schema Updates
 
-### Colliders
+### Shapes
 
-This extension provides a set of document-level objects, which can be referenced by objects in the scene. The precise usage of these collider primitives should be specified by the extensions which utilize the colliders. In general, these colliders are used to specify geometry which can be used for collision detection. Typically, the geometry specified by the collider will be simpler than any render meshes used by the node or it's children, enabling real-time applications to perform queries such as intersection tests.
+This extension provides a set of document-level objects, which can be referenced by objects in the scene. The precise usage of these primitives should be specified by the extensions which utilize the shapes. The intended purpose of these these objects are to specify geometry which can be used for collision detection, which has informed the set of shapes which we have defined.. Typically, the geometry specified by the shape will be simpler than any render meshes used by the node or it's children, enabling real-time applications to perform queries such as intersection tests.
 
-Implementations of this extension should ensure that collider transforms are always kept in sync with node transforms - for example animated node transforms should be applied to the applications' internal representation of the collision geometry.
+Each shape defines a mandatory `type` property that designates the type of shape, as well as an additional structure which provides parameterizations specific to that type.
 
-
-Each collider defines a mandatory `type` property that designates the type of collider, as well as an additional structure which provides parameterizations specific to that type.
-
-To describe the shape that represents this node, should use, colliders must define at most one of the following properties:
+To describe the geometry which represents the object, shapes must define at most one of the following properties:
 
 | |Type|Description|
 |-|-|-|
@@ -34,9 +31,9 @@ To describe the shape that represents this node, should use, colliders must defi
 |**convex**|`object`|A convex hull wrapping a `mesh` object.|
 |**trimesh**|`object`|A triangulated representation of a `mesh` object.|
 
-The sphere, box, capsule, cylinder and convex types all represent convex objects with a volume, however, the trimesh type always represents an infinitely thin shell or sheet - for example a trimesh collider created from a `mesh` object in the shape of a box will be represented as a hollow box.
+The sphere, box, capsule, cylinder and convex types all represent convex objects with a volume, however, the trimesh type always represents an infinitely thin shell or sheet - for example a trimesh created from a `mesh` object in the shape of a box will be represented as a hollow box.
 
-If you want your collider to have an offset from the local space (for example a sphere _not_ centered at local origin, or a rotated box), you should add an extra node to the hierarchy and apply your transform and your collider properties to that.
+If you want your shape to have an offset from the local space of the node the shape is associated with (for example a sphere _not_ centered at local origin, or a rotated box), you should add an extra node to the hierarchy and apply your transform and your shape properties to that.
 
 ### JSON Schema
 
