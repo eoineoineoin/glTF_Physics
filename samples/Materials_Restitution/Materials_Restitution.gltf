@@ -1,12 +1,12 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v3.6.27",
+		"generator":"Khronos glTF Blender I/O v3.6.6",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
 		"KHR_lights_punctual",
-		"MSFT_collision_primitives",
-		"MSFT_rigid_bodies"
+		"KHR_collision_shapes",
+		"KHR_rigid_bodies"
 	],
 	"extensionsRequired":[
 		"KHR_lights_punctual"
@@ -26,8 +26,8 @@
 				}
 			]
 		},
-		"MSFT_collision_primitives":{
-			"colliders":[
+		"KHR_collision_shapes":{
+			"shapes":[
 				{
 					"type":"box",
 					"box":{
@@ -52,7 +52,7 @@
 				}
 			]
 		},
-		"MSFT_rigid_bodies":{
+		"KHR_rigid_bodies":{
 			"physicsMaterials":[
 				{
 					"staticFriction":0,
@@ -68,8 +68,7 @@
 				{
 					"staticFriction":0.5,
 					"dynamicFriction":0.5,
-					"restitution":0.2033868134021759,
-					"restitutionCombine":"MAXIMUM"
+					"restitution":0.2033868134021759
 				}
 			],
 			"collisionFilters":[
@@ -134,9 +133,9 @@
 		},
 		{
 			"extensions":{
-				"MSFT_rigid_bodies":{
+				"KHR_rigid_bodies":{
 					"collider":{
-						"collider":0,
+						"shape":0,
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -152,12 +151,12 @@
 		},
 		{
 			"extensions":{
-				"MSFT_rigid_bodies":{
+				"KHR_rigid_bodies":{
 					"motion":{
 						"mass":0.5799999833106995
 					},
 					"collider":{
-						"collider":1,
+						"shape":1,
 						"physicsMaterial":1,
 						"collisionFilter":0
 					}
@@ -173,12 +172,12 @@
 		},
 		{
 			"extensions":{
-				"MSFT_rigid_bodies":{
+				"KHR_rigid_bodies":{
 					"motion":{
 						"mass":1
 					},
 					"collider":{
-						"collider":2,
+						"shape":2,
 						"physicsMaterial":2,
 						"collisionFilter":0
 					}
@@ -259,8 +258,8 @@
 				{
 					"attributes":{
 						"POSITION":0,
-						"NORMAL":1,
-						"TEXCOORD_0":2,
+						"TEXCOORD_0":1,
+						"NORMAL":2,
 						"TANGENT":3
 					},
 					"indices":4,
@@ -274,8 +273,8 @@
 				{
 					"attributes":{
 						"POSITION":5,
-						"NORMAL":6,
-						"TEXCOORD_0":7,
+						"TEXCOORD_0":6,
+						"NORMAL":7,
 						"TANGENT":8
 					},
 					"indices":9,
@@ -289,8 +288,8 @@
 				{
 					"attributes":{
 						"POSITION":10,
-						"NORMAL":11,
-						"TEXCOORD_0":12
+						"TEXCOORD_0":11,
+						"NORMAL":12
 					},
 					"indices":13,
 					"material":2
@@ -377,13 +376,13 @@
 			"bufferView":1,
 			"componentType":5126,
 			"count":24,
-			"type":"VEC3"
+			"type":"VEC2"
 		},
 		{
 			"bufferView":2,
 			"componentType":5126,
 			"count":24,
-			"type":"VEC2"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":3,
@@ -417,13 +416,13 @@
 			"bufferView":6,
 			"componentType":5126,
 			"count":2882,
-			"type":"VEC3"
+			"type":"VEC2"
 		},
 		{
 			"bufferView":7,
 			"componentType":5126,
 			"count":2882,
-			"type":"VEC2"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":8,
@@ -457,13 +456,13 @@
 			"bufferView":11,
 			"componentType":5126,
 			"count":1438,
-			"type":"VEC3"
+			"type":"VEC2"
 		},
 		{
 			"bufferView":12,
 			"componentType":5126,
 			"count":1438,
-			"type":"VEC2"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":13,
@@ -481,14 +480,14 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":288,
+			"byteLength":192,
 			"byteOffset":288,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":192,
-			"byteOffset":576,
+			"byteLength":288,
+			"byteOffset":480,
 			"target":34962
 		},
 		{
@@ -511,14 +510,14 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":34584,
+			"byteLength":23056,
 			"byteOffset":35808,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":23056,
-			"byteOffset":70392,
+			"byteLength":34584,
+			"byteOffset":58864,
 			"target":34962
 		},
 		{
@@ -541,14 +540,14 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":17256,
+			"byteLength":11504,
 			"byteOffset":168336,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":11504,
-			"byteOffset":185592,
+			"byteLength":17256,
+			"byteOffset":179840,
 			"target":34962
 		},
 		{
