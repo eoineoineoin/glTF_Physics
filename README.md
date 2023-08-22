@@ -4,12 +4,12 @@ This repository will be kept up to date with [another repository](https://github
 ## MSFT_collision_primitives
 
 Allows a document to specify primitive geometric types, suitable for real-time collision detection.
-[MSFT_collision_primitives documentation](MSFT_collision_primitives)
+[MSFT_collision_primitives documentation](extensions/2.0/Vendor/MSFT_collision_primitives)
 
 ## MSFT_rigid_bodies
 
 Adds properties to nodes, enabling them to participate in a rigid body physics simulation.
-[MSFT_rigid_bodies documentation](MSFT_rigid_bodies)
+[MSFT_rigid_bodies documentation](extensions/2.0/Vendor/MSFT_rigid_bodies)
 
 ## Known Implementations
 
