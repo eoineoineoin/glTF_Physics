@@ -1,10 +1,11 @@
-# KHR\_rigid\_bodies
+# KHR_rigid_bodies
 
 ## Contributors
 
 * Rory Mullane, Microsoft, <mailto:romul@microsoft.com>
 * Eoin McLoughlin, Microsoft, <mailto:eomcl@microsoft.com>
 * George Tian, Microsoft, <mailto:geotian@microsoft.com>
+* Aaron Franke, Godot Engine, <mailto:arnfranke@yahoo.com>
 
 ## Status
 
@@ -72,7 +73,7 @@ Rigid body motions have the following properties:
 
 ### Colliders
 
-To specify the geometry used to perform collision detection, we use the KHR\_collision\_shapes extension. To add collision geometry and enable a node to generate impulses from collision detection, a node's `collider` property is used. This property supplies three fields; the `collider` property indexes into the set of top level collision shapes and describes the collision volume used by that node, while the `physicsMaterial` indexes into the top level set of physics materials (see the "Collision Response" section of this document) and the `collisionFilter` indexes into the top level set of collision filters (see the "Collision Filtering" section of this document).
+To specify the geometry used to perform collision detection, we use the `KHR_collision_shapes` extension. To add collision geometry and enable a node to generate impulses from collision detection, a node's `collider` property is used. This property supplies three fields; the `collider` property indexes into the set of top level collision shapes and describes the collision volume used by that node, while the `physicsMaterial` indexes into the top level set of physics materials (see the "Collision Response" section of this document) and the `collisionFilter` indexes into the top level set of collision filters (see the "Collision Filtering" section of this document).
 
 | |Type|Description|
 |-|-|-|
@@ -131,7 +132,7 @@ Note, that this can generate asymmetric states - `A` might determine that it _do
 
 A useful construct in a physics engine is a collision volume which does not generate impulses when overlapping with other volumes - implementations may use this behavior to generate events, which can implement application-specific logic; such objects are typically called "triggers", "phantoms", "sensors", or "overlap volumes" in physics simulation engines.
 
-A node may have a `trigger` property set; this is similar to the `collider` in that it references a collision volume defined by the KHR\_collision\_shapes extension but lacks a physics material. It does, however, provide a collision filter with the same semantics as the `collider`.
+A node may have a `trigger` property set; this is similar to the `collider` in that it references a collision volume defined by the `KHR_collision_shapes` extension but lacks a physics material. It does, however, provide a collision filter with the same semantics as the `collider`.
 
 Describing the precise mechanism by which overlap events are generated and what occurs as a result is beyond the scope of this specification; simulation software will typically output overlap begin/end events as an output from the simulation step, which is hooked into application-specific business logic.
 

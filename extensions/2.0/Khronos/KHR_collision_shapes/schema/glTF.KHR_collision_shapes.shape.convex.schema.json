@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_collision_shapes glTF extension",
+    "title": "KHR_collision_shapes Convex Shape",
     "type": "object",
     "description": "Parameters describing a convex shape.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],

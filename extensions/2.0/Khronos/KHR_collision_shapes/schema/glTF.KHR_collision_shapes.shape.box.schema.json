@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_collision_shapes glTF extension",
+    "title": "KHR_collision_shapes Box Shape",
     "type": "object",
     "description": "Parameters describing a box shape.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],

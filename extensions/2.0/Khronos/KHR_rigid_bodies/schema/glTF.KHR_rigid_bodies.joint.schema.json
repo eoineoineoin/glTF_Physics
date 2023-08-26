@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_rigid_bodies glTF extension",
+    "title": "KHR_rigid_bodies Physics Joint",
     "type": "object",
     "description": "Parameters describing a set of joint limits, constraining the motion of a pair of bodies.",
     "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],

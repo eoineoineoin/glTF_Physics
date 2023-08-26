@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_rigid_bodies glTF extension",
+    "title": "KHR_rigid_bodies Collision Filter",
     "type": "object",
     "description": "Parameters describing a parameterization of a collision filter, allowing for disabling collision between pairs of shapes.",
     "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],

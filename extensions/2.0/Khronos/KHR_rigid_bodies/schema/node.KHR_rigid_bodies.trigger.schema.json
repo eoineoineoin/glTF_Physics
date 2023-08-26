@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_rigid_bodies glTF extension",
+    "title": "KHR_rigid_bodies Node Trigger Property",
     "type": "object",
     "description": "Parameters describing a volume used for collison detection, but does not cause a collision response.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
