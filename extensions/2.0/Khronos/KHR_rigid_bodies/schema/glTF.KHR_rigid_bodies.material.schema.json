@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_rigid_bodies glTF extension",
+    "title": "KHR_rigid_bodies Physics Material",
     "type": "object",
     "description": "Parameters describing how an object should respond to collisions during physics simulation.",
     "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],

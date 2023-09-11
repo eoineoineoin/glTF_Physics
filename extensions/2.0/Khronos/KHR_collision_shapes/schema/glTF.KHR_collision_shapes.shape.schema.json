@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_collision_shapes glTF extension",
+    "title": "KHR_collision_shapes Shape Resource",
     "type": "object",
     "description": "Parameters describing a node's physics collision geometry.",
     "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],
@@ -108,5 +108,7 @@
             "required": ["trimesh"]
         }
     ],
-    "required": "type"
+    "required": [
+        "type"
+    ]
 }
