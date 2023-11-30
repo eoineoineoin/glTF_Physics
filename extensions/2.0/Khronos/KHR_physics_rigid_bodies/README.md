@@ -1,4 +1,4 @@
-# KHR_rigid_bodies
+# KHR_physics_rigid_bodies
 
 ## Contributors
 
@@ -14,6 +14,8 @@ Draft
 ## Dependencies
 
 Written against glTF 2.0 spec.
+
+This specification will be updated to add support for the forthcoming glTF Interactivity and Animation Pointer (glTF Object Model) extensions. These are expected to be additional, non-breaking changes.
 
 ## Overview
 
@@ -33,13 +35,14 @@ Units used in this specification are the same as those in the [glTF specificatio
 |-|-|
 |`motion.mass`|Kilograms (kg)|
 |`motion.inertiaDiagonal`|Kilogram meter squared (kg·m<sup>2</sup>)|
-|`motion.linearVelocity`|Meters per second (m·s<sup>-1</sup>)|
-|`motion.angularVelocity`|Radians per second (rad·s<sup>-1</sup>)|
-|`joint.constraint.springConstant`|Newton per meter (N·m<sup>-1</sup>)|
+|`motion.linearVelocity`|Meter per second (m·s<sup>-1</sup>)|
+|`motion.angularVelocity`|Radian per second (rad·s<sup>-1</sup>)|
+|`joint_limit.stiffness`, <br /> `joint_drive.stiffness`|Newton per meter (N·m<sup>-1</sup>) for linear limits <br /> Newton meter per radian (N·m·rad<sup>-1</sup>) for angular limits|
+|`joint_limit.damping`, <br /> `joint_drive.damping`|Newton second per meter (N·s·m<sup>-1</sup>) for linear limits <br />Newton second meter per radian (N·s·m·rad<sup>-1</sup>) for angular limits|
 
 ## glTF Schema Updates
 
-The `KHR_rigid_bodies` extension can be added to any `node` to define one or more of the following properties:
+The `KHR_physics_rigid_bodies` extension can be added to any `node` to define one or more of the following properties:
 
 | |Type|Description|
 |-|-|-|
@@ -91,7 +94,7 @@ Note that, depending on the simulation engine in use, `convex` and `trimesh` col
 
 You can control how objects should respond during collisions by tweaking their friction and restitution values as well as by controlling which pairs of colliders should interact. This is done by providing the following collider properties:
 
-The top level arrays of `physicsMaterials` and `collisionFilters` objects are provided by adding the `KHR_rigid_bodies` extension to any root `glTF` object, while the colliers array is provided by the `KHR_collision_shapes` extension. If a collider has no physics material assigned, the simulation engine may choose any appropriate default values.
+The top level arrays of `physicsMaterials` and `collisionFilters` objects are provided by adding the `KHR_physics_rigid_bodies` extension to any root `glTF` object, while the colliers array is provided by the `KHR_collision_shapes` extension. If a collider has no physics material assigned, the simulation engine may choose any appropriate default values.
 
 Physics materials offer the following properties:
 
@@ -100,14 +103,14 @@ Physics materials offer the following properties:
 |**staticFriction**|`number`|The friction used when an object is laying still on a surface.<br/>Typical range from 0 to 1.|
 |**dynamicFriction**|`number`|The friction used when already moving.<br/>Typical range from 0 to 1.|
 |**restitution**|`number`|The bounciness of the surface.<br/>Typical range from 0 to 1.|
-|**frictionCombine**|`string`|How to combine two friction values.<br/>"AVERAGE", "MINIMUM", "MAXIMUM", or "MULTIPLY".|
-|**restitutionCombine**|`string`|How to combine two restitution values.<br/>"AVERAGE", "MINIMUM", "MAXIMUM", or "MULTIPLY".|
+|**frictionCombine**|`string`|How to combine two friction values.<br/>"average", "minimum", "maximum", or "multiply".|
+|**restitutionCombine**|`string`|How to combine two restitution values.<br/>"average", "minimum", "maximum", or "multiply".|
 
 When a pair of colliders collide during physics simulation, the applied friction and restitution values are based on their "combine" policies:
-* If either uses "AVERAGE" : The two values should be averaged.
-* Else if either uses "MINIMUM" : The smallest of the two values should be used.
-* Else if either uses "MAXIMUM" : The largest of the two values should be used.
-* Else if either uses "MULTIPLY" : The two values should be multiplied with each other.
+* If either uses "average" : The two values should be averaged.
+* Else if either uses "minimum" : The smallest of the two values should be used.
+* Else if either uses "maximum" : The largest of the two values should be used.
+* Else if either uses "multiply" : The two values should be multiplied with each other.
 
 **Collision Filtering**
 
@@ -139,14 +142,14 @@ Describing the precise mechanism by which overlap events are generated and what 
 ### Joints
 
 If a `node` has `joint` properties, that implies it should be constrained to another object during physics simulation.
-Joints require a `connectedNode` property, defining the other end of the joint, in addition to a `jointLimits` property, which indexes into the top level array of `physicsJointLimits` and determines how the range of motion is restricted.
+Joints require a `connectedNode` property, defining the other end of the joint, in addition to a `joint` property, which indexes into the top level array of `physicsJoints` and determines how the range of motion is restricted.
 In order for the joint to have any effect on the simulation, at least one of the connected nodes or its ancestors should have `motion` properties (otherwise the nodes cannot be moved by the physics engine).
 
 The transform of the joint node from the first parent `motion` (or the simulation's fixed reference frame, if no such `motion` exists) defines the constraint space in that body. Similarly, the transform from the `connectedNode` to the first ancestor `motion` (or fixed frame) defines the constraint space within that body. If a joint were to eliminate all degrees of freedom, the physics simulation should attempt to move the `motion` nodes such that the transforms of the constrained child nodes (i.e. the `joint` node and the node at index `connectedNode`) become aligned with each other in world space.
 
-The top level array of `physicsJointLimits` objects is provided by adding the `KHR_rigid_bodies` extension to any root `glTF` object and contains an array of joints. Joints must contain one of more `constraint` objects.
-Each of these constraints removes some of the relative movement permitted between the two connected nodes.
-Each constraint should be one of the following:
+The top level array of `physicsJoints` objects is provided by adding the `KHR_physics_rigid_bodies` extension to any root `glTF` object and contains an array of joint descriptions. Joints must contain one of more `joint_limit` objects and may contain zero or more `joint_drive` objects. Each of the limit objects remove some of the relative movement permitted between the two connected nodes, while the drive objects apply forces to achieve a relative transform or velocity between the joint node and the connected node.
+
+Each limit object contains the following properties:
 
 | |Type|Description|
 |-|-|-|
@@ -154,8 +157,8 @@ Each constraint should be one of the following:
 |**angularAxes**|`integer[1..3]`|The angular axes to constrain (0=X, 1=Y, 2=Z).|
 |**min**|`number`|The minimum allowed relative distance/angle.|
 |**max**|`number`|The maximum allowed relative distance/angle.|
-|**springConstant**|`number`|Optional softness of the limits when beyond the limits.|
-|**springDamping**|`number`|Optional spring damping applied when beyond the limits.|
+|**stiffness**|`number`|Optional softness of the limits when beyond the limits.|
+|**damping**|`number`|Optional spring damping applied when beyond the limits.|
 
 Each constraint must provide an array of axes which are restricted.
 These axes refer to the columns of the basis defined by the transform of the connected nodes and as such, should be in the range 0 to 2.
@@ -168,19 +171,34 @@ A 2D constraint restricts angular movement about two - keeping the pivots within
 Each constraint contains a `min` and `max` parameter, describing the range of allowed difference between the two node transforms - within this range, the constraint is considered non-violating and no corrective forces are applied.
 These values represent a _distance_ for linear constraints, or an _angle_ in radians for angular constraints.
 
-Additionally, each constraint has an optional `springConstant` and `springDamping` which specify the proportion of the recovery applied to the constraint.
-By default, an infinite spring constant is assumed, implying hard limits. Specifying these spring values will cause constraints to become soft at the limits.
+Additionally, each constraint has an optional `stiffness` and `damping` which specify the proportion of the recovery applied to the constraint.
+By default, an infinite spring constant is assumed, implying hard limits. Specifying a finite stiffness will cause the constraint to become soft at the limits.
 
 This approach of building joints from a set of individual constraints is flexible enough to allow for many types of bilateral joints.
-For example, to define a hinged door can be constructed by locating connected nodes at the point where the physical hinge would be on each body, adding a 3D linear constraint with zero maximum distance;
-a 1D angular constraint describing the swing of the door around it's vertical axis, and a 2D angular constraint with zero limits about the remaining two axes.
+For example, to define a hinged door can be constructed by locating connected nodes at the point where the physical hinge would be on each body, adding a 3D linear constraint with zero maximum distance, a 1D angular constraint describing the swing of the door around it's vertical axis, and a 2D angular constraint with zero limits about the remaining two axes.
 
 Note however that some types of constraint are currently not possible to describe.
 For example, a pulley, which needs a third transform in order to calculate a distance, cannot be described. Similarly, this does not have a mechanism to link two axes by some factor, such as a screw, whose translation is affected by the amount of rotation about some axis.
 
+Addition of drive objects to a joint allows the joint to apply additional forces to modify the relative transform between the joint object and the connected node. A `joint_drive` object models a forced, damped spring and contains the following properties:
+
+| |Type|Description|
+|-|-|-|
+|**type**|`string`|Determines if the drive affects is a `linear` or `angular` drive|
+|**mode**|`string`|Determines if the drive is operating in `force` or `acceleration` mode|
+|**axis**|`integer[1..3]`|The index of the axis which this drive affects|
+|**maxForce**|`number`|The maximum force that the drive can apply|
+|**positionTarget**|`number`|The desired relative target between the pivot axes|
+|**velocityTarget**|`number`|The desired relative velocity of the pivot axes|
+|**stiffness**|`number`|The drive's stiffness, used to achieve the position target|
+|**damping**|`number`|The damping factor applied to reach the velocity target|
+
+Each `joint_drive` describes a force applied to one degree of freedom in constraint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - currentPosition) + damping * (velocityTarget - currentVelocity)` where `currentPosition` and `currentVelocity` are the signed values of the position and velocity of the connected node in constraint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
+
+
 ### JSON Schema
 
-* **JSON schema**: [glTF.KHR_rigid_bodies.schema.json](schema/glTF.KHR_rigid_bodies.schema.json)
+* **JSON schema**: [glTF.KHR_physics_rigid_bodies.schema.json](schema/glTF.KHR_physics_rigid_bodies.schema.json)
 
 ## Known Implementations
 

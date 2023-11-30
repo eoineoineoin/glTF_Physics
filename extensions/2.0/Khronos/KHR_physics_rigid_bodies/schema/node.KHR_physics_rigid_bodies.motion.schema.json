@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_rigid_bodies Node Motion Property",
+    "title": "KHR_physics_rigid_bodies Node Motion Property",
     "type": "object",
     "description": "Parameters describing how a node's transform should be driven by physics simulation.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],

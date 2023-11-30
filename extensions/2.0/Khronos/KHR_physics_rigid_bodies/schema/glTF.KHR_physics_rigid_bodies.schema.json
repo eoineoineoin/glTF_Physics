@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_rigid_bodies glTF Document Extension",
+    "title": "KHR_physics_rigid_bodies glTF Document Extension",
     "type": "object",
     "description": "Top level physics properties.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
@@ -10,7 +10,7 @@
             "description": "An array of physics materials.",
             "items": {
                 "type": "object",
-                "$ref": "glTF.KHR_rigid_bodies.material.schema.json"
+                "$ref": "glTF.KHR_physics_rigid_bodies.material.schema.json"
             },
             "minItems": 1
         },
@@ -19,16 +19,16 @@
             "description": "An array providing collision filter descriptions.",
             "items": {
                 "type": "object",
-                "$ref": "glTF.KHR_rigid_bodies.collision_filter.schema.json"
+                "$ref": "glTF.KHR_physics_rigid_bodies.collision_filter.schema.json"
             },
             "minItems": 1
         },
-        "physicsJointLimits": {
+        "physicsJoints": {
             "type": "array",
-            "description": "An array of physics joint limit descriptions.",
+            "description": "An array of physics joint descriptions.",
             "items": {
                 "type": "object",
-                "$ref": "glTF.KHR_rigid_bodies.joint_limit.schema.json"
+                "$ref": "glTF.KHR_physics_rigid_bodies.joint.schema.json"
             },
             "minItems": 1
         },

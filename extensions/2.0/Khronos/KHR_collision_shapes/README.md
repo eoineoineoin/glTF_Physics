@@ -1,8 +1,17 @@
 # KHR_collision_shapes
 
+## Contributors
+
+* Rory Mullane, Microsoft, <mailto:romul@microsoft.com>
+* Eoin McLoughlin, Microsoft, <mailto:eomcl@microsoft.com>
+* George Tian, Microsoft, <mailto:geotian@microsoft.com>
+* Aaron Franke, Godot Engine, <mailto:arnfranke@yahoo.com>
+
 ## Status
 
 Draft
+
+This specification will be updated to add support for the forthcoming glTF Interactivity and Animation Pointer (glTF Object Model) extensions. These are expected to be additional, non-breaking changes.
 
 ## Dependencies
 

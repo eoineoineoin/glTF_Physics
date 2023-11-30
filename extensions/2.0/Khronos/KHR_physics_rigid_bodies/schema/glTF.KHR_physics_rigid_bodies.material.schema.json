@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_rigid_bodies Physics Material",
+    "title": "KHR_physics_rigid_bodies Physics Material",
     "type": "object",
     "description": "Parameters describing how an object should respond to collisions during physics simulation.",
     "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],
@@ -26,12 +26,12 @@
         "frictionCombine": {
             "type": "string",
             "description": "Determines how friction should be combined when two objects interact.",
-            "enum": ["AVERAGE", "MINIMUM", "MAXIMUM", "MULTIPLY"]
+            "enum": ["average", "minimum", "maximum", "multiply"]
         },
         "restitutionCombine": {
             "type": "string",
             "description": "Determines how restitution should be combined when two objects interact.",
-            "enum": ["AVERAGE", "MINIMUM", "MAXIMUM", "MULTIPLY"]
+            "enum": ["average", "minimum", "maximum", "multiply"]
         },
         "extensions": { },
         "extras": { }
