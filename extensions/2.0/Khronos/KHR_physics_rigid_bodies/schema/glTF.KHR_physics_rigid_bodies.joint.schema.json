@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "KHR_physics_rigid_bodies Physics Joint",
+    "type": "object",
+    "description": "Parameters describing a joint, constraining the motion of a pair of bodies.",
+    "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],
+    "properties": {
+        "limits": {
+            "type": "array",
+            "description": "The set of limits which make up this joint",
+            "items": {
+                "type": "object",
+                "$ref": "glTF.KHR_physics_rigid_bodies.joint_limit.schema.json"
+            }
+        },
+        "drives": {
+            "type": "array",
+            "description": "The set of drives applying forces to this joint",
+            "items": {
+                "type": "object",
+                "$ref": "glTF.KHR_physics_rigid_bodies.joint_drive.schema.json"
+            }
+        },
+        "extensions": { },
+        "extras": { }
+    }
+}

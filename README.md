@@ -6,10 +6,10 @@ This repository will be kept up to date with [another repository](https://github
 Allows a document to specify primitive geometric types, suitable for real-time collision detection.
 [KHR_collision_shapes](extensions/2.0/Khronos/KHR_collision_shapes)
 
-## KHR_rigid_bodies
+## KHR_physics_rigid_bodies
 
 Adds properties to nodes, enabling them to participate in a rigid body physics simulation.
-[KHR_rigid_bodies](extensions/2.0/Khronos/KHR_rigid_bodies)
+[KHR_physics_rigid_bodies](extensions/2.0/Khronos/KHR_physics_rigid_bodies)
 
 ## Known Implementations
 

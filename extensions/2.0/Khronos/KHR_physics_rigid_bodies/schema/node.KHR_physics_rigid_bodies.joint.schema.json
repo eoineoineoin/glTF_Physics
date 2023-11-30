@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_rigid_bodies Node Joint Property",
+    "title": "KHR_physics_rigid_bodies Node Joint Property",
     "type": "object",
     "description": "Parameters describing how the relative motion of a pair of nodes is constrained.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
@@ -9,9 +9,9 @@
             "allOf": [{"$ref": "glTFid.schema.json"}],
             "description": "The index of the node to which this is connected."
         },
-        "jointLimits": {
+        "joint": {
             "allOf": [ { "$ref": "glTFid.schema.json" } ],
-            "description": "The index of the joint limits in the top level physicsJointLimits array."
+            "description": "The index of the joint limits in the top level physicsJoints array."
         },
         "enableCollision": {
             "type": "boolean",
@@ -21,5 +21,5 @@
         "extensions": { },
         "extras": { }
     },
-    "required": [ "connectedNode", "jointLimits" ]
+    "required": [ "connectedNode", "joint" ]
 }

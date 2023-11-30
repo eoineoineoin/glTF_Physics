@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "title": "KHR_rigid_bodies Physics Joint Limit",
+    "title": "KHR_physics_rigid_bodies Physics Joint Limit",
     "type": "object",
     "description": "Parameters describing how the relative motion of a pair of nodes is constrained.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
@@ -13,15 +13,16 @@
             "type": "number",
             "description": "The maximum of the allowed range of relative distance/angle."
         },
-        "springConstant": {
+        "stiffness": {
             "type": "number",
-            "description": "If present, use soft limits instead of hard limits, with the given spring constant.",
+            "description": "The spring constant used to calculate a restorative force when the joint is extended beyond the limit. If not present, limit should be infinitely stiff.",
             "minimum": 0
         },
-        "springDamping": {
+        "damping": {
             "type": "number",
-            "description": "If present, use soft limits instead of hard limits, with the given spring damping value.",
-            "minimum": 0
+            "description": "Damping applied to the velocity when the joint is extended beyond the limit.",
+            "minimum": 0,
+            "default": 0
         },
         "extensions": { },
         "extras": { }
