@@ -200,6 +200,113 @@ Each `joint_drive` describes a force applied to one degree of freedom in constra
 
 * **JSON schema**: [glTF.KHR_physics_rigid_bodies.schema.json](schema/glTF.KHR_physics_rigid_bodies.schema.json)
 
+### Object Model
+
+With consideration to the glTF 2.0 Asset Object Model Specification document, the following pointer templates represent mutable properties defined in this extension.
+
+| Pointer | Type|
+|-|-|
+| `/extensions/KHR_physics_rigid_bodies/physicsMaterials/{}/staticFriction` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsMaterials/{}/dynamicFriction` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsMaterials/{}/restitution` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/limits/{}/min` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/limits/{}/max` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/limits/{}/stiffness` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/limits/{}/damping` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/maxForce` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/positionTarget` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/velocityTarget` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/stiffness` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/damping` | `float`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/isKinematic` | `boolean`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/mass` | `float`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/centerOfMass` | `float3`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/inertiaDiagonal` | `float3`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/inertiaOrientation` | `float4`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/linearVelocity` | `float3`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/angularVelocity` | `float3`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/gravityFactor` | `float`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/joint/enableCollision` | `boolean`|
+
+TODO.EOIN Should string/enum properties be accessible?
+
+Additional read-only properties
+
+| Pointer | Type|
+|-|-|
+| `/extensions/KHR_physics_rigid_bodies/physicsMaterials.length` | `int`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints.length` | `int`|
+| `/extensions/KHR_physics_rigid_bodies/collisionFilters.length` | `int`|
+
+
+### Interactivity
+
+When used in tandem with the glTF Interactivity Extension Specification, this extension describes additional utility nodes:
+
+
+###### Velocity modification nodes
+
+|Type|`rigid_body/applyImpulse`|Desc|
+|-|-|-|
+|Input value sockets|`float3` <br/> `float3`| linear impulse (world, default 0,0,0)<br />angular impulse (world, default 0,0,0)
+
+|Type|`rigid_body/applyPointImpulse`|Desc|
+|-|-|-|
+|Input value sockets|`float3` <br/> `float3`| impulse (world) <br />position (world)
+
+###### Scene query nodes
+
+|Type|`rigid_body/rayCast`|Desc|
+|-|-|-|
+|Input value sockets|`float3` <br/> `float3` <br /> `ID`| start position (world) <br /> end position (world) <br /> collision filter (default -1)
+|Output value sockets|`ID`<br /> `float` <br /> `float3` | hit node ID <br /> fraction along segment (position?)<br /> normal (world)
+
+TODO.EOIN Check ID inputs/outputs!
+TODO.EOIN What if there's no output? Add a flow for "on hit"?
+
+|Type|`rigid_body/shapeCast`|Desc|
+|-|-|-|
+|Input value sockets|`ID` <br /> `float3` <br/> `float4` <br /> `float3` <br /> `float4` <br /> `ID`| shape to cast <br /> start position (world) <br /> start orientation (world) <br /> end position (world) <br /> end orientation <br /> collision filter (default -1)
+|Output value sockets|`ID`<br /> `float` <br /> `float3` | hit node ID <br /> fraction along segment (position?)<br /> normal (world)
+
+TODO.EOIN Cast hierarchies?
+TODO.EOIN Some engines only have linear version
+
+
+|Type|`rigid_body/pointProximity`|Desc|
+|-|-|-|
+|Input value sockets|`float3` <br /> `float` <br /> `ID`| query position (world) <br /> maximum distance <br /> collision filter (default -1)
+|Output value sockets|`ID`<br /> `float3` <br /> `float3` | hit node ID <br /> closest point on node (world) <br /> normal (world)
+
+TODO.EOIN This is _really_ close to being describable with shapeProximity
+
+
+|Type|`rigid_body/shapeProximity`|Desc|
+|-|-|-|
+|Input value sockets|`ID` <br/> `float3` <br /> `float4` <br /> `float` <br /> `ID`| shape ID <br /> shape position (world) <br /> shape orientation <br /> maximum distance <br /> collision filter (default -1)
+|Output value sockets|`ID`<br /> `float3` <br /> `float3` <br /> `float3`| hit node ID <br /> closest point on query (world) <br /> normal on query (world) <br /> closest point on hit (world)|
+
+TODO.EOIN Some engines only have a boolean overlap, no max distance?
+
+###### Simulation notification nodes
+
+|Type|`rigid_body/triggerEntered`|Desc|
+|-|-|-|
+|Output value sockets| `ID` <br /> `ID` <br />`ID` <br /> `ID`| Node ID of trigger <br /> Node ID of trigger body (default -1) <br /> Node ID of entering shape <br /> Node ID of entering body (default -1)
+
+|Type|`rigid_body/triggerExited`|Desc|
+|-|-|-|
+|Output value sockets| `ID` <br /> `ID` <br />`ID` <br /> `ID`| Node ID of trigger <br /> Node ID of trigger body (default -1) <br /> Node ID of entering shape <br /> Node ID of entering body (default -1)
+
+
+TODO.RORY Collision events? Transform prediction?
+
+
+
+
+
+
+
 ## Known Implementations
 
 [Blender importer/exporter](https://github.com/eoineoineoin/glTF_Physics_Blender_Exporter)

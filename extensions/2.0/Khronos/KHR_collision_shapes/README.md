@@ -25,7 +25,7 @@ This extension adds the ability to specify collision primitives inside a glTF as
 
 ### Shapes
 
-This extension provides a set of document-level objects, which can be referenced by objects in the scene. The precise usage of these primitives should be specified by the extensions which utilize the shapes. The intended purpose of these these objects are to specify geometry which can be used for collision detection, which has informed the set of shapes which we have defined.. Typically, the geometry specified by the shape will be simpler than any render meshes used by the node or it's children, enabling real-time applications to perform queries such as intersection tests.
+This extension provides a set of document-level objects, which can be referenced by objects in the scene. The precise usage of these primitives should be specified by the extensions which utilize the shapes. The intended purpose of these these objects are to specify geometry which can be used for collision detection, which has informed the set of shapes which we have defined. Typically, the geometry specified by the shape will be simpler than any render meshes used by the node or it's children, enabling real-time applications to perform queries such as intersection tests.
 
 Each shape defines a mandatory `type` property that designates the type of shape, as well as an additional structure which provides parameterizations specific to that type.
 
@@ -47,6 +47,31 @@ If you want your shape to have an offset from the local space of the node the sh
 ### JSON Schema
 
 * **JSON schema**: [glTF.KHR_collision_shapes.schema.json](schema/glTF.KHR_collision_shapes.schema.json)
+
+### Object Model
+
+With consideration to the glTF 2.0 Asset Object Model Specification document, the following pointer templates represent mutable properties defined in this extension.
+
+| Pointer | Type|
+|-|-|
+| `/extensions/KHR_collision_shapes/shapes/{}/box/size` | `float3`|
+| `/extensions/KHR_collision_shapes/shapes/{}/capsule/height` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/capsule/radiusBottom` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/capsule/radiusTop` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/cylinder/height` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/cylinder/radiusBottom` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/cylinder/radiusTop` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/sphere/radius` | `float`|
+
+Additional read-only properties
+
+| Pointer | Type|
+|-|-|
+| `/extensions/KHR_collision_shapes/shapes.length` | `int`|
+| `/extensions/KHR_collision_shapes/shapes/{}/convex/mesh` | `ID`|
+| `/extensions/KHR_collision_shapes/shapes/{}/trimesh/mesh` | `ID`|
+
+TODO.EOIN Check above IDs!
 
 ## Known Implementations
 
