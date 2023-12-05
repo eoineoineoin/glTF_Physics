@@ -21,7 +21,7 @@ This specification will be updated to add support for the forthcoming glTF Inter
 
 This extension adds the ability to specify physical properties to a glTF asset, suitable for a rigid body simulation. An implementation of this extension can use the properties described by this extension to animate node transforms by simulating them using a rigid body simulation engine. Objects within the asset can collide with each other and be constrained together to produce physically plausible interactions. For shorthand, this document will refer to a "simulation," "engine," or "physics engine" - this should be understood to mean "rigid body simulation software."
 
-![Object relationship diagram](figures/Overview.png)
+![Object relationship diagram](doc/images/Overview.png)
 This diagram augments the overview diagram in the [main glTF repository](https://github.com/KhronosGroup/glTF).
 
 
