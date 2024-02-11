@@ -1,0 +1,72 @@
+{
+    "asset": {
+        "version": "2.0"
+    },
+    "extensionsUsed": ["KHR_collision_shapes", "KHR_physics_rigid_bodies"],
+    "extensions": {
+        "KHR_collision_shapes": {
+            "shapes": [
+                {
+                    "type": "box",
+                    "box": {
+                        "size": [3, 1, 1]
+                    }
+                },
+                {
+                    "type": "box",
+                    "box": {
+                        "size": [1, 3, 1]
+                    }
+                }
+            ]
+        }
+    },
+    "nodes": [
+        {
+            "children": [1, 2, 3],
+            "extensions": {
+                "KHR_physics_rigid_bodies": {
+                    "trigger": {
+                        "nodes": [1, 2]
+                    }
+                }
+            },
+            "name": "CompoundTriggerL"
+        },
+        {
+            "extensions": {
+                "KHR_physics_rigid_bodies": {
+                    "trigger": {
+                        "shape": 0
+                    }
+                }
+            },
+            "name": "BottomOfL",
+            "translation": [1, 0, 0]
+        },
+        {
+            "extensions": {
+                "KHR_physics_rigid_bodies": {
+                    "trigger": {
+                        "shape": 1
+                    }
+                }
+            },
+            "name": "TopOfL",
+            "translation": [0, 2, 0]
+        },
+        {
+            "extensions": {
+                "KHR_physics_rigid_bodies": {
+                    "trigger": {
+                        "shape": 0
+                    }
+                }
+            },
+            "name": "SeparateTrigger",
+            "translation": [0, 0, 4]
+        }
+    ],
+    "scene": 0,
+    "scenes": [{ "nodes": [0] }]
+}
