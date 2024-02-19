@@ -22,8 +22,22 @@
             "allOf": [{ "$ref": "glTFid.schema.json" }],
             "description": "The index of the filter information in the top level collisionFilters array."
         },
-        "extensions": {},
-        "extras": {}
+        "extensions": { },
+        "extras": { }
     },
-    "oneOf": [{ "required": ["shape"] }, { "required": ["nodes"] }]
+    "anyOf": [
+        {
+            "allOf": [
+                { "required": ["shape"] },
+                { "not": { "required": ["nodes"] } }
+            ]
+        },
+        {
+            "allOf": [
+                { "required": ["nodes"] },
+                { "not": { "required": ["shape"] } },
+                { "not": { "required": ["collisionFilter"] } }
+            ]
+        }
+    ]
 }
