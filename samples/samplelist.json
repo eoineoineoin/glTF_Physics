@@ -33,6 +33,12 @@
         "asset": "https://raw.githubusercontent.com/eoineoineoin/glTF_Physics/master/samples/WaterWheel/WaterWheel.glb",
         "link": "https://github.com/eoineoineoin/glTF_Physics/tree/master/samples/WaterWheel",
         "title": "Water Wheel", "description": "A complex asset using most functionality"
+    },
+    {
+        "asset": "https://raw.githubusercontent.com/eoineoineoin/glTF_Physics/master/samples/Triggers/Triggers.glb",
+        "link": "https://github.com/eoineoineoin/glTF_Physics/tree/master/samples/Triggers",
+        "title": "Triggers", "description": "Shows trigger configurations"
     }
+
 
 ]
