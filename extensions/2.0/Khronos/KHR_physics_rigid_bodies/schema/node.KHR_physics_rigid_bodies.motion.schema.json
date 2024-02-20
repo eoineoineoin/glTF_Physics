@@ -13,7 +13,6 @@
         "mass": {
             "type": "number",
             "description": "The mass of the object.",
-            "default": 1.0,
             "minimum": 0,
             "exclusiveMinimum": false
         },
@@ -24,8 +23,7 @@
                 "type": "number"
             },
             "minItems": 3,
-            "maxItems": 3,
-            "default": [ 0.0, 0.0, 0.0 ]
+            "maxItems": 3
         },
         "inertiaDiagonal": {
             "type": "array",
@@ -36,8 +34,7 @@
                 "exclusiveMinimum": false
             },
             "minItems": 3,
-            "maxItems": 3,
-            "default": [ 1.0, 1.0, 1.0 ]
+            "maxItems": 3
         },
         "inertiaOrientation": {
             "type": "array",
@@ -46,8 +43,7 @@
                 "type": "number"
             },
             "minItems": 4,
-            "maxItems": 4,
-            "default": [ 0.0, 0.0, 0.0, 1.0 ]
+            "maxItems": 4
         },
         "linearVelocity": {
             "type": "array",
