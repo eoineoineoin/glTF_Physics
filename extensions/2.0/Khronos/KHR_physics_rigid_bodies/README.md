@@ -133,9 +133,17 @@ Note, that this can generate asymmetric states - `A` might determine that it _do
 
 ### Triggers
 
-A useful construct in a physics engine is a collision volume which does not generate impulses when overlapping with other volumes - implementations may use this behavior to generate events, which can implement application-specific logic; such objects are typically called "triggers", "phantoms", "sensors", or "overlap volumes" in physics simulation engines.
+A useful construct in a physics engine is a collision volume which does not generate impulses when overlapping with other volumes. Triggers allow specifying such volumes either as a single shape or combination of shapes.
 
-A node may have a `trigger` property set; this is similar to the `collider` in that it references a collision volume defined by the `KHR_collision_shapes` extension but lacks a physics material. It does, however, provide a collision filter with the same semantics as the `collider`.
+Implementations may use these objects as sensors which generate events and can be used to trigger application-specific logic. These objects are typically called "triggers", "sensors", "phantoms", or "overlap volumes" in physics simulation engines.
+
+A node may have a `trigger` property set, which is similar to the `collider` property. Both have a `shape` property that references a geometric shape defined by the `KHR_collision_shapes` extension, and both provide a collision filter with the same semantics. However, the `trigger` property lacks a physics material. Alternatively, a `trigger` may have a `nodes` property, which is an array of descendant glTF nodes with a trigger property, which make up a compound trigger on this glTF node.
+
+| |Type|Description|
+| - | - | -|
+|**shape**|`integer`| The index of a top level `Shape`, which provides the geometry of the trigger.|
+|**nodes**|`[integer]`|For compound triggers, the set of descendant glTF nodes with a trigger property that make up this compound trigger.|
+|**collisionFilter**|`integer`|Indexes into the top level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 
 Describing the precise mechanism by which overlap events are generated and what occurs as a result is beyond the scope of this specification; simulation software will typically output overlap begin/end events as an output from the simulation step, which is hooked into application-specific business logic.
 
