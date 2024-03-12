@@ -11,6 +11,12 @@
 
 Draft
 
+<!--
+TODO:
+    "top level" -vs- "child of root"?
+    Tables sometimes for node, sometimes childOfRoot. Be explicit.
+-->
+
 ## Dependencies <!-- omit in toc -->
 
 Written against glTF 2.0 spec.
@@ -33,6 +39,7 @@ This specification will be updated to add support for the forthcoming glTF Inter
 - [JSON Schema](#json-schema)
 - [Known Implementations](#known-implementations)
 - [Validator](#validator)
+- [Appendix: Constraint Limit Metrics](#appendix-constraint-limit-metrics)
 
 
 ## Overview
@@ -90,13 +97,13 @@ Rigid body motions have the following properties:
 |-|-|-|
 |**isKinematic**|`boolean`|Treat the rigid body as having infinite mass. Its velocity will be constant during simulation.|
 |**mass**|`number`|The mass of the rigid body. Larger values imply the rigid body is harder to move.|
-|**inertiaOrientation**|`number[4]`|The rotation quaternion rotating from inertia major axis space to body space|
-|**inertiaDiagonal**|`number[3]`|The principal moments of inertia.  Larger values imply the rigid body is harder to rotate.|
+|**inertiaOrientation**|`number[4]`|The quaternion rotating from inertia major axis space to body space.|
+|**inertiaDiagonal**|`number[3]`|The principal moments of inertia. Larger values imply the rigid body is harder to rotate.|
 |**centerOfMass**|`number[3]`|Center of mass of the rigid body in local space.|
 |**linearVelocity**|`number[3]`|Initial linear velocity of the rigid body in local space.|
 |**angularVelocity**|`number[3]`|Initial angular velocity of the rigid body in local space.|
 
-If not provided, the mass and inertia properties should be calculated by the simulation engine. These values are typically derived from the collision geometry used by the rigid body.
+If not provided, the mass and inertia properties should be calculated by the simulation engine. These values are typically derived from the volume of the collision geometry used by the rigid body. The 3x3 inertia tensor can be calculated as the product of the `inertiaOrientation` (in matrix form) and the matrix whose diagonal is `inertiaDiagonal`.
 
 ### Colliders
 
@@ -150,9 +157,9 @@ In some scenarios, this is undesirable; a collision filter allows control over w
 
 | |Type|Description|
 |-|-|-|
-|**collisionSystems**|`[string]`|An array of arbitrary strings indicating the "system" a node is a member of.|
-|**notCollideWithSystems**|`[string]`|An array of strings representing the systems which this node will _not_ collide with|
-|**collideWithSystems**|`[string]`|An array of strings representing the systems which this node can collide with|
+|**collisionSystems**|`string[1-*]`|An array of arbitrary strings indicating the "system" a node is a member of.|
+|**notCollideWithSystems**|`string[1-*]`|An array of strings representing the systems which this node will _not_ collide with|
+|**collideWithSystems**|`string[1-*]`|An array of strings representing the systems which this node can collide with|
 
 Both `collideWithSystems` and `notCollideWithSystems` are provided so that users can override the default collision behavior with minimal configuration -- only one of these should be specified per object. Note, given knowledge of all the systems in a scene and one of the values `notCollideWithSystems`/`collideWithSystems` the unspecified field can be calculated: `collideWithSystems = notCollideWithSystems'`
 
@@ -176,22 +183,30 @@ Alternatively, a `trigger` may have a `nodes` property, which is an array of glT
 | |Type|Description|
 | - | - | -|
 |**shape**|`integer`| The index of a top level `KHR_collision_shapes.shape`, which provides the geometry of the trigger.|
-|**nodes**|`[integer]`|For compound triggers, the set of descendant glTF nodes with a trigger property that make up this compound trigger.|
+|**nodes**|`integer[1-*]`|For compound triggers, the set of descendant glTF nodes with a trigger property that make up this compound trigger.|
 |**collisionFilter**|`integer`|Indexes into the top level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 
 Describing the precise mechanism by which overlap events are generated and what occurs as a result is beyond the scope of this specification; simulation software will typically output overlap begin/end events as an output from the simulation step, which is hooked into application-specific business logic.
 
 ### Joints
 
-If a `node` has `joint` properties, that implies it should be constrained to another object during physics simulation.
-Joints require a `connectedNode` property, defining the other end of the joint, in addition to a `joint` property, which indexes into the top level array of `physicsJoints` and determines how the range of motion is restricted.
-In order for the joint to have any effect on the simulation, at least one of the connected nodes or its ancestors should have `motion` properties (otherwise the nodes cannot be moved by the physics engine).
+A `node` may have a `joint` property, which describes a physical connection to another object, constraining the relative motion of those two objects in some manner. Rather than defining explicit types of connections, joints are composed of simple primitive limits, which can be composed to build complex joints.
 
-The transform of the joint node from the first parent `motion` (or the simulation's fixed reference frame, if no such `motion` exists) defines the constraint space in that body. Similarly, the transform from the `connectedNode` to the first ancestor `motion` (or fixed frame) defines the constraint space within that body. If a joint were to eliminate all degrees of freedom, the physics simulation should attempt to move the `motion` nodes such that the transforms of the constrained child nodes (i.e. the `joint` node and the node at index `connectedNode`) become aligned with each other in world space.
+A `joint` is composed of:
 
-The top level array of `physicsJoints` objects is provided by adding the `KHR_physics_rigid_bodies` extension to any root `glTF` object and contains an array of joint descriptions. Joints must contain one of more `joint_limit` objects and may contain zero or more `joint_drive` objects. Each of the limit objects remove some of the relative movement permitted between the two connected nodes, while the drive objects apply forces to achieve a relative transform or velocity between the joint node and the connected node.
+- Two attachment frames, defining the position and orientation of the joint pivots in each object.
+- A set of limits, which restrict the relative motion of the attachment frames.
+- Optional set of drives, which can apply forces to the attachment frames.
 
-Each limit object contains the following properties:
+The attachment frames are specified using the transforms of `node` objects; the first of which is the `node` of the `joint` object itself. A `joint` must have a `connectedNode` property, which is the index of the `node` which supplies the second attachment frame. For each of these frames, the relative transform between the `node` and the first parent `motion` (or the simulation's fixed reference frame, if no such `motion` exists) define the constraint space in that rigid body. In order for the joint to have any effect on the simulation, at least one of the pair of nodes or its ancestors should have `motion` properties.
+
+A node's `joint` must specify a `joint` property, which indexes into the top level array of `physicsJoints` inside the `KHR_physics_rigid_bodies` extension object. This object describes the limits and drives utilized by the joint in a shareable manner.
+
+A joint description must contain one of more `joint_limit` objects and zero or more `joint_drive` objects. Each of the limit objects remove some of the relative movement permitted between the two attachment frames, while the drive objects apply forces to achieve a relative transform or velocity between the attachment frames.
+
+If a joint were to eliminate all degrees of freedom, the physics simulation should attempt to move the `motion` nodes such that the transforms of the constrained child nodes (i.e. the `joint` node and the node at index `connectedNode`) become aligned with each other in world space. <!--TODO: remove?-->
+
+Each `joint_limit` contains the following properties:
 
 | |Type|Description|
 |-|-|-|
@@ -202,25 +217,19 @@ Each limit object contains the following properties:
 |**stiffness**|`number`|Optional softness of the limits when beyond the limits.|
 |**damping**|`number`|Optional spring damping applied when beyond the limits.|
 
-Each constraint must provide an array of axes which are restricted.
-These axes refer to the columns of the basis defined by the transform of the connected nodes and as such, should be in the range 0 to 2.
-The number of axes provided determines whether is should be a 1, 2 or 3 dimensional constraint as follows:
-* For linear constraints, a 1D constraint will keep that axis within the `min` and `max` distance from the infinite plane defined by the other two axes.
-A 2D constraint will keep the node translations within a certain distance from an infinite line (i.e., within an infinite cylinder) and a 3D constraint will keep the nodes within a certain distance from a point (i.e. within a sphere).
-* For angular constraints, a 1D constraint restricts angular movement about one axis, as in a universal joint.
-A 2D constraint restricts angular movement about two - keeping the pivots within a cone.
+Each limit must provide either `linearAxes` or `angularAxes`, declaring which are restricted. The indices in these arrays refer to the columns of the basis defined by the attachment frame of the joint and as such, must be in the range 0 to 2. The number of axes determines whether the limit should be a 1, 2, or 3 dimensional constraint as follows:
 
-Each constraint contains a `min` and `max` parameter, describing the range of allowed difference between the two node transforms - within this range, the constraint is considered non-violating and no corrective forces are applied.
-These values represent a _distance_ for linear constraints, or an _angle_ in radians for angular constraints.
+* A 1D linear constraint should keep the world-space translation of the attachment frames within the signed distance from the infinite plane spanned by the other two axes.
+* A 2D linear constraint should keep the attachment frame translations within a distance from the infinite line along the remaining axis.
+* A 3D linear constraint should keep the attachment frame translations within a distance from each other.
+* A 1D angular constraint should restrict the attachment frame rotation about that axis, as in a universal joint.
+* A 2D angular constraint should restrict the attachment frame rotations to a cone oriented along the remaining axis.
 
-Additionally, each constraint has an optional `stiffness` and `damping` which specify the proportion of the recovery applied to the constraint.
-By default, an infinite spring constant is assumed, implying hard limits. Specifying a finite stiffness will cause the constraint to become soft at the limits.
+Each limit contains a `min` and `max` parameter, describing the range of allowed difference between the two node transforms - within this range, the constraint is considered non-violating and no corrective forces are applied. These values represent a _distance_ in meters for linear constraints, or an _angle_ in radians for angular constraints.
 
-This approach of building joints from a set of individual constraints is flexible enough to allow for many types of bilateral joints.
-For example, to define a hinged door can be constructed by locating connected nodes at the point where the physical hinge would be on each body, adding a 3D linear constraint with zero maximum distance, a 1D angular constraint describing the swing of the door around it's vertical axis, and a 2D angular constraint with zero limits about the remaining two axes.
+Additionally, each `joint_limit` has an optional `stiffness` and `damping` which specify the proportion of the recovery applied to the limit. By default, an infinite spring constant is assumed, implying hard limits. Specifying a finite stiffness will cause the constraint to become soft at the limits.
 
-Note however that some types of constraint are currently not possible to describe.
-For example, a pulley, which needs a third transform in order to calculate a distance, cannot be described. Similarly, this does not have a mechanism to link two axes by some factor, such as a screw, whose translation is affected by the amount of rotation about some axis.
+This approach of building joints from a set of individual constraints is flexible enough to allow for many types of bilateral joints. For example, a hinged door can be constructed by locating the attachment frames at the point where the physical hinge would be on each body, adding a 3D linear constraint with zero maximum distance, a 1D angular constraint with `min`/`max` describing the swing of the door around it's vertical axis, and a 2D angular constraint with zero limits about the remaining two axes.
 
 Addition of drive objects to a joint allows the joint to apply additional forces to modify the relative transform between the joint object and the connected node. A `joint_drive` object models a forced, damped spring and contains the following properties:
 
@@ -228,14 +237,14 @@ Addition of drive objects to a joint allows the joint to apply additional forces
 |-|-|-|
 |**type**|`string`|Determines if the drive affects is a `linear` or `angular` drive|
 |**mode**|`string`|Determines if the drive is operating in `force` or `acceleration` mode|
-|**axis**|`integer[1..3]`|The index of the axis which this drive affects|
+|**axis**|`integer`|The index of the axis which this drive affects|
 |**maxForce**|`number`|The maximum force that the drive can apply|
 |**positionTarget**|`number`|The desired relative target between the pivot axes|
 |**velocityTarget**|`number`|The desired relative velocity of the pivot axes|
 |**stiffness**|`number`|The drive's stiffness, used to achieve the position target|
 |**damping**|`number`|The damping factor applied to reach the velocity target|
 
-Each `joint_drive` describes a force applied to one degree of freedom in constraint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - currentPosition) + damping * (velocityTarget - currentVelocity)` where `currentPosition` and `currentVelocity` are the signed values of the position and velocity of the connected node in constraint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
+Each `joint_drive` describes a force applied to one degree of freedom in constraint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - currentPosition) + damping * (velocityTarget - currentVelocity)` where `currentPosition` and `currentVelocity` are the signed values of the position and velocity of the connected node in joint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
 
 
 ### JSON Schema
@@ -253,3 +262,27 @@ Each `joint_drive` describes a force applied to one degree of freedom in constra
 ## Validator
 
 [glTF validator](https://github.com/eoineoineoin/glTF-Validator)
+
+
+## Appendix: Constraint Limit Metrics
+
+*This section is non-normative.*
+
+To determine if a particular constraint limit is violated, it is useful to determine a metric for each type of limit. For each of these limits, the constraint limit is considered non-violating if the metric evaluates to a value in the range (`min`, `max`).
+
+|Type|Metric|
+|-|-|
+|linearLimits=[i]|$e_i \cdot (t_b - t_a)$|
+|linearLimits=[i,j]|$\lvert(t_b - t_a) - (e_k \cdot (t_b - t_a))e_k\rvert$|
+|linearLimits=[i,j,k]|$\lvert(t_b - t_a)\rvert$|
+|angularLimits=[i]|$\arccos(q_a e_{i+1\mod3} \cdot q_b e_{i+1 \mod3})$|
+|angularLimits=[i,j]|$\arccos(q_a e_k \cdot q_b e_k)$|
+|angularLimits=[i,j,k]|$2\arccos(\mathrm{Re}(q_a^* q_b))$
+
+Where:
+- $e_i$ is the $i$-th basis vector
+- $t_a$ is the translation of the joint node in world space
+- $t_b$ is the translation of the attached node in world space
+- $q_a$ is the orientation of the joint node in world space
+- $q_b$ is the orientation of the attached node in world space
+- $\mathrm{Re}$ is the function which extracts the real component of a quaternion
