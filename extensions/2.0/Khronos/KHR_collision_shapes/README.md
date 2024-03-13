@@ -2,8 +2,8 @@
 
 ## Contributors
 
+* Eoin Mcloughlin, Microsoft, <mailto:eomcl@microsoft.com>
 * Rory Mullane, Microsoft, <mailto:romul@microsoft.com>
-* Eoin McLoughlin, Microsoft, <mailto:eomcl@microsoft.com>
 * George Tian, Microsoft, <mailto:geotian@microsoft.com>
 * Aaron Franke, Godot Engine, <mailto:arnfranke@yahoo.com>
 

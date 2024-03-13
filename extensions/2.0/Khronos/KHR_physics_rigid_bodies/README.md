@@ -2,20 +2,14 @@
 
 ## Contributors <!-- omit in toc -->
 
+* Eoin Mcloughlin, Microsoft, <mailto:eomcl@microsoft.com>
 * Rory Mullane, Microsoft, <mailto:romul@microsoft.com>
-* Eoin McLoughlin, Microsoft, <mailto:eomcl@microsoft.com>
 * George Tian, Microsoft, <mailto:geotian@microsoft.com>
 * Aaron Franke, Godot Engine, <mailto:arnfranke@yahoo.com>
 
 ## Status <!-- omit in toc -->
 
 Draft
-
-<!--
-TODO:
-    "top level" -vs- "child of root"?
-    Tables sometimes for node, sometimes childOfRoot. Be explicit.
--->
 
 ## Dependencies <!-- omit in toc -->
 
@@ -44,17 +38,19 @@ This specification will be updated to add support for the forthcoming glTF Inter
 
 ## Overview
 
-This extension defines a set of properties which may be added to glTF nodes, making them suitable for rigid body simulation. Such a simulation may update node transforms, effectively animating node transforms procedurally in a physically plausible manner.
+This extension defines a set of properties which may be added to glTF nodes, making them suitable for rigid body dynamics simulation. Such a simulation may update node transforms, effectively animating node transforms procedurally in a physically plausible manner.
 
 Properties added by this extension include:
 
-- Collision geometry, used to determine when nodes are physically overlapping.
+- Collision shapes, used to determine when nodes are physically overlapping.
   - Collision filters, which allow for control over which pairs of nodes should collide.
+  - Physics materials, which describe how pairs of objects react to collisions.
 - Joints, which describe physical connections between nodes.
 - Mass and velocity, describing the movement of nodes.
 
+The following diagram augments the overview diagram in the [main glTF repository](https://github.com/KhronosGroup/glTF) and shows the relationships between new properties added by this extension and existing objects in the glTF specification.
+
 ![Object relationship diagram](figures/Overview.png)
-This diagram augments the overview diagram in the [main glTF repository](https://github.com/KhronosGroup/glTF).
 
 Note, amongst rigid body engines which exist today, there are a wide variety of approximations and solving strategies in use which result in differing behavior. As such, the same asset is very likely to behave differently in different simulation engines or with different settings applied to one simulation engine. An implementation should make a best effort to implement this specification within those limitations; this requires some discretion on the part of the implementer - for example, a video game is very likely willing to accept inaccuracies which would be unacceptable in a robotic training application.
 
@@ -77,7 +73,7 @@ The `KHR_physics_rigid_bodies` extension may be added to any `node` to define on
 
 | |Type|Description|
 |-|-|-|
-|**motion**|`object`|Allows the physics engine to move this node, describing parameters for that motion.|
+|**motion**|`object`|Allows the simulation to move this node, describing parameters for that motion.|
 |**collider**|`object`|Describes the physical representation of a node's shape.|
 |**trigger**|`object`|Describes a volume which can detect collisions, but not react to them.|
 |**joint**|`object`|Constrains the motion of this node relative to another.|
@@ -89,7 +85,7 @@ If a `node` has `motion` properties, that node should be represented by a rigid 
 
 As the simulation engine updates the local transform of a node, all descendant nodes should move with that node - i.e. the physics engine should treat them as part of a single rigid body. However, if a descendant node has its own `motion` properties, that node must be treated as an independent rigid body during simulation - there is no implicit requirement that it follows its 'parent' rigid body.
 
-If a rigid body node's transform is animated by animations in the file, those animations should take priority over the physics simulation. Rigid bodies should follow the transforms provided by the animations. A simulation engine has several options for how this can be achieved - for example, the rigid body may be instantaneously teleported, without traversing the intermediate space. Alternatively, a simulation engine may set velocities or joint motors such that the node reaches the target transform within the simulation step.
+If a rigid body node's transform is animated by animations in the file, those animations should take priority over the physics simulation. Rigid bodies should follow the transforms provided by the animations. A simulation engine has several options for how this can be achieved at the discretion of the implementer - for example, the rigid body may be instantaneously teleported without traversing the intermediate space. Alternatively, a simulation engine may set velocities or joint motors such that the node reaches the target transform within the simulation step.
 
 Rigid body motions have the following properties:
 
@@ -105,6 +101,8 @@ Rigid body motions have the following properties:
 
 If not provided, the mass and inertia properties should be calculated by the simulation engine. These values are typically derived from the volume of the collision geometry used by the rigid body. The 3x3 inertia tensor can be calculated as the product of the `inertiaOrientation` (in matrix form) and the matrix whose diagonal is `inertiaDiagonal`.
 
+JSON is unable to represent infinite values; however, a value of infinity is useful for both `mass` and `inertiaDiagonal`. As zero is an *invalid* value for these properties, a value of zero in `mass` or any of the components of `inertiaDiagnal` should be understood to represent a value of infinity.
+
 ### Colliders
 
 Pairs of triangulated meshes are typically unsuitable for collision detection. As such, this extension adds an additional `collider` property to a node. This property is used to describe the geometry and collision response of this node.
@@ -115,14 +113,14 @@ The `collider` property supplies three fields; the `shape` property indexes into
 | |Type|Description|
 |-|-|-|
 |**shape**|`integer`|The index of a top level `KHR_collision_shapes.shape`, which provides the geometry of the collider.|
-|**physicsMaterial**|`integer`|Indexes into the top level `physicsMaterials` and describes the physics material which the collider is made from.|
 |**collisionFilter**|`integer`|Indexes into the top level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
+|**physicsMaterial**|`integer`|Indexes into the top level `physicsMaterials` and describes how the collider should respond to collisions.|
 
-If the node is part of a rigid body (i.e. itself or an ascendant has `motion` properties) then the collider belongs to that rigid body and must move with it during simulation. Otherwise the collider exists as a static object in the physics simulation which can be collided with but must not be moved as a result of solving collisions or joints. A rigid body may have multiple descendent `collider` nodes.
+If the node is part of a dynamic rigid body (i.e. itself or an ascendant has `motion` properties) then the collider belongs to that rigid body and must move with it during simulation. Otherwise the collider exists as a static object in the physics simulation which can be collided with but must not be moved as a result of solving collisions or joints. A rigid body may have multiple descendent `collider` nodes.
 
 Implementations of this extension should ensure that collider transforms are always kept in sync with node transforms - for example animated node transforms should be applied to the physics engine (even for static colliders).
 
-Note, `convex` and `trimesh` colliders can impose a large computational cost when converting to native types if the source mesh contains many vertices. In addition, real-time engines generally recommend against allowing collisions between two `trimesh` objects. For best performance and behavior, consult the manual for the physics simulation engine you are using.
+Note, `convex` and `trimesh` colliders can impose a large computational cost when converting to native types if the source mesh contains many vertices. In addition, real-time engines generally recommend against allowing collisions between pairs of `trimesh` objects. For best performance and behavior, consult the manual for the physics simulation engine you are using.
 
 ### Physics Materials
 
@@ -151,17 +149,17 @@ When a pair of physics materials interact during a simulation step, the applied 
 
 ### Collision Filtering
 
-With exception of colliders which are descendants of the same rigid body, every `collider` in a scene should generate a collision response with every other `collider` when they are sufficiently close together to be considered in contact.
+Colliders from distinct rigid bodies should generate a collision response when they are sufficiently close together to be considered in contact.
 
-In some scenarios, this is undesirable; a collision filter allows control over which pairs of `collider` objects may interact. An array of `collisionFilters` are provided by the `KHR_physics_rigid_bodies` extension on the root `glTF` object. Each filter contains a subset of the fields:
+In some scenarios this is undesirable, so a collision filter allows control over which pairs of `collider` objects may interact. An array of `collisionFilters` are provided by the `KHR_physics_rigid_bodies` extension on the root `glTF` object. Each filter contains a subset of the fields:
 
 | |Type|Description|
 |-|-|-|
 |**collisionSystems**|`string[1-*]`|An array of arbitrary strings indicating the "system" a node is a member of.|
-|**notCollideWithSystems**|`string[1-*]`|An array of strings representing the systems which this node will _not_ collide with|
+|**notCollideWithSystems**|`string[1-*]`|An array of strings representing the systems which this node can _not_ collide with|
 |**collideWithSystems**|`string[1-*]`|An array of strings representing the systems which this node can collide with|
 
-Both `collideWithSystems` and `notCollideWithSystems` are provided so that users can override the default collision behavior with minimal configuration -- only one of these should be specified per object. Note, given knowledge of all the systems in a scene and one of the values `notCollideWithSystems`/`collideWithSystems` the unspecified field can be calculated: `collideWithSystems = notCollideWithSystems'`
+Both `collideWithSystems` and `notCollideWithSystems` are provided so that users can override the default collision behavior with minimal configuration -- only one of these should be specified per object. Note, given knowledge of all the systems in a scene and one of the values `notCollideWithSystems`/`collideWithSystems` the unspecified field can be calculated as the inverse of the other.
 
 `notCollideWithSystems` is useful for an object which should collide with everything except those listed in `notCollideWithSystems` (i.e., used to opt-out of collisions) while `collideWithSystems` is the inverse -- the collider should not collide with any other collider except those listed in `collideWithSystems`
 
@@ -196,7 +194,7 @@ A `joint` is composed of:
 
 - Two attachment frames, defining the position and orientation of the joint pivots in each object.
 - A set of limits, which restrict the relative motion of the attachment frames.
-- Optional set of drives, which can apply forces to the attachment frames.
+- An optional set of drives, which can apply forces to the attachment frames.
 
 The attachment frames are specified using the transforms of `node` objects; the first of which is the `node` of the `joint` object itself. A `joint` must have a `connectedNode` property, which is the index of the `node` which supplies the second attachment frame. For each of these frames, the relative transform between the `node` and the first parent `motion` (or the simulation's fixed reference frame, if no such `motion` exists) define the constraint space in that rigid body. In order for the joint to have any effect on the simulation, at least one of the pair of nodes or its ancestors should have `motion` properties.
 
@@ -244,7 +242,7 @@ Addition of drive objects to a joint allows the joint to apply additional forces
 |**stiffness**|`number`|The drive's stiffness, used to achieve the position target|
 |**damping**|`number`|The damping factor applied to reach the velocity target|
 
-Each `joint_drive` describes a force applied to one degree of freedom in constraint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - currentPosition) + damping * (velocityTarget - currentVelocity)` where `currentPosition` and `currentVelocity` are the signed values of the position and velocity of the connected node in joint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
+Each `joint_drive` describes a force applied to one degree of freedom in constraint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - positionCurrent) + damping * (velocityTarget - velocityCurrent)` where `positionCurrent` and `velocityCurrent` are the signed values of the position and velocity of the connected node in joint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
 
 
 ### JSON Schema
@@ -275,14 +273,15 @@ To determine if a particular constraint limit is violated, it is useful to deter
 |linearLimits=[i]|$e_i \cdot (t_b - t_a)$|
 |linearLimits=[i,j]|$\lvert(t_b - t_a) - (e_k \cdot (t_b - t_a))e_k\rvert$|
 |linearLimits=[i,j,k]|$\lvert(t_b - t_a)\rvert$|
-|angularLimits=[i]|$\arccos(q_a e_{i+1\mod3} \cdot q_b e_{i+1 \mod3})$|
+|angularLimits=[i]|$2\arccos(\mathrm{Tw_i(q_a^* q_b)})$|
 |angularLimits=[i,j]|$\arccos(q_a e_k \cdot q_b e_k)$|
 |angularLimits=[i,j,k]|$2\arccos(\mathrm{Re}(q_a^* q_b))$
 
 Where:
-- $e_i$ is the $i$-th basis vector
-- $t_a$ is the translation of the joint node in world space
-- $t_b$ is the translation of the attached node in world space
-- $q_a$ is the orientation of the joint node in world space
-- $q_b$ is the orientation of the attached node in world space
-- $\mathrm{Re}$ is the function which extracts the real component of a quaternion
+- $e_i$ is the $i$-th basis vector.
+- $t_a$ is the translation of the joint node in world space.
+- $t_b$ is the translation of the attached node in world space.
+- $q_a$ is the orientation of the joint node in world space.
+- $q_b$ is the orientation of the attached node in world space.
+- $\mathrm{Tw_i}$ is the function which returns the twist component of the twist-swing decomposition of a quaternion.
+- $\mathrm{Re}$ is the function which extracts the real component of a quaternion.
