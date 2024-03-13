@@ -33,7 +33,7 @@ This specification will be updated to add support for the forthcoming glTF Inter
 - [JSON Schema](#json-schema)
 - [Known Implementations](#known-implementations)
 - [Validator](#validator)
-- [Appendix: Constraint Limit Metrics](#appendix-constraint-limit-metrics)
+- [Appendix: Joint Limit Metrics](#appendix-joint-limit-metrics)
 
 
 ## Overview
@@ -217,17 +217,17 @@ Each `joint_limit` contains the following properties:
 
 Each limit must provide either `linearAxes` or `angularAxes`, declaring which are restricted. The indices in these arrays refer to the columns of the basis defined by the attachment frame of the joint and as such, must be in the range 0 to 2. The number of axes determines whether the limit should be a 1, 2, or 3 dimensional constraint as follows:
 
-* A 1D linear constraint should keep the world-space translation of the attachment frames within the signed distance from the infinite plane spanned by the other two axes.
-* A 2D linear constraint should keep the attachment frame translations within a distance from the infinite line along the remaining axis.
-* A 3D linear constraint should keep the attachment frame translations within a distance from each other.
-* A 1D angular constraint should restrict the attachment frame rotation about that axis, as in a universal joint.
-* A 2D angular constraint should restrict the attachment frame rotations to a cone oriented along the remaining axis.
+* A 1D linear limit should keep the world-space translation of the attachment frames within the signed distance from the infinite plane spanned by the other two axes.
+* A 2D linear limit should keep the attachment frame translations within a distance from the infinite line along the remaining axis.
+* A 3D linear limit should keep the attachment frame translations within a distance from each other.
+* A 1D angular limit should restrict the attachment frame rotation about that axis, as in a universal joint.
+* A 2D angular limit should restrict the attachment frame rotations to a cone oriented along the remaining axis.
 
-Each limit contains a `min` and `max` parameter, describing the range of allowed difference between the two node transforms - within this range, the constraint is considered non-violating and no corrective forces are applied. These values represent a _distance_ in meters for linear constraints, or an _angle_ in radians for angular constraints.
+Each limit contains a `min` and `max` parameter, describing the range of allowed difference between the two node transforms - within this range, the limit is considered non-violating and no corrective forces are applied. These values represent a _distance_ in meters for linear limit, or an _angle_ in radians for angular limit.
 
-Additionally, each `joint_limit` has an optional `stiffness` and `damping` which specify the proportion of the recovery applied to the limit. By default, an infinite spring constant is assumed, implying hard limits. Specifying a finite stiffness will cause the constraint to become soft at the limits.
+Additionally, each `joint_limit` has an optional `stiffness` and `damping` which specify the proportion of the recovery applied to the limit. By default, an infinite spring constant is assumed, implying hard limits. Specifying a finite stiffness will cause the limit to become soft at the limits.
 
-This approach of building joints from a set of individual constraints is flexible enough to allow for many types of bilateral joints. For example, a hinged door can be constructed by locating the attachment frames at the point where the physical hinge would be on each body, adding a 3D linear constraint with zero maximum distance, a 1D angular constraint with `min`/`max` describing the swing of the door around it's vertical axis, and a 2D angular constraint with zero limits about the remaining two axes.
+This approach of building joints from a set of individual limit is flexible enough to allow for many types of bilateral joints. For example, a hinged door can be constructed by locating the attachment frames at the point where the physical hinge would be on each body, adding a 3D linear limit with zero maximum distance, a 1D angular limit with `min`/`max` describing the swing of the door around it's vertical axis, and a 2D angular limit with zero limits about the remaining two axes.
 
 Addition of drive objects to a joint allows the joint to apply additional forces to modify the relative transform between the joint object and the connected node. A `joint_drive` object models a forced, damped spring and contains the following properties:
 
@@ -242,7 +242,7 @@ Addition of drive objects to a joint allows the joint to apply additional forces
 |**stiffness**|`number`|The drive's stiffness, used to achieve the position target|
 |**damping**|`number`|The damping factor applied to reach the velocity target|
 
-Each `joint_drive` describes a force applied to one degree of freedom in constraint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - positionCurrent) + damping * (velocityTarget - velocityCurrent)` where `positionCurrent` and `velocityCurrent` are the signed values of the position and velocity of the connected node in joint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
+Each `joint_drive` describes a force applied to one degree of freedom in joint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - positionCurrent) + damping * (velocityTarget - velocityCurrent)` where `positionCurrent` and `velocityCurrent` are the signed values of the position and velocity of the connected node in joint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
 
 
 ### JSON Schema
@@ -262,11 +262,11 @@ Each `joint_drive` describes a force applied to one degree of freedom in constra
 [glTF validator](https://github.com/eoineoineoin/glTF-Validator)
 
 
-## Appendix: Constraint Limit Metrics
+## Appendix: Joint Limit Metrics
 
 *This section is non-normative.*
 
-To determine if a particular constraint limit is violated, it is useful to determine a metric for each type of limit. For each of these limits, the constraint limit is considered non-violating if the metric evaluates to a value in the range (`min`, `max`).
+To determine if a particular joint limit is violated, it is useful to determine a metric for each type of limit. For each of these limits, the joint limit is considered non-violating if the metric evaluates to a value in the range (`min`, `max`).
 
 |Type|Metric|
 |-|-|
