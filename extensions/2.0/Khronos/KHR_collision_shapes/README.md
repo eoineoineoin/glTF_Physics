@@ -11,8 +11,6 @@
 
 Draft
 
-This specification will be updated to add support for the forthcoming glTF Interactivity and Animation Pointer (glTF Object Model) extensions. These are expected to be additional, non-breaking changes.
-
 ## Dependencies
 
 Written against glTF 2.0 spec.
@@ -47,6 +45,27 @@ If a shape is required to have an offset from the local space of the node the sh
 ### JSON Schema
 
 * **JSON schema**: [glTF.KHR_collision_shapes.schema.json](schema/glTF.KHR_collision_shapes.schema.json)
+
+### Object Model
+
+With consideration to the glTF 2.0 Asset Object Model Specification document, the following pointer templates represent mutable properties defined in this extension.
+
+| Pointer | Type|
+|-|-|
+| `/extensions/KHR_collision_shapes/shapes/{}/box/size` | `float3`|
+| `/extensions/KHR_collision_shapes/shapes/{}/capsule/height` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/capsule/radiusBottom` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/capsule/radiusTop` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/cylinder/height` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/cylinder/radiusBottom` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/cylinder/radiusTop` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/sphere/radius` | `float`|
+
+Additional read-only properties
+
+| Pointer | Type|
+|-|-|
+| `/extensions/KHR_collision_shapes/shapes.length` | `int`|
 
 ## Known Implementations
 
