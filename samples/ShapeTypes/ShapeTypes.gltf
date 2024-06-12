@@ -1,6 +1,6 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.0.44",
+		"generator":"Khronos glTF Blender I/O v4.1.63",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
@@ -41,27 +41,31 @@
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":6
+					"type":"mesh",
+					"mesh":{
+						"mesh":6,
+						"convexHull":true
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":7
+					"type":"mesh",
+					"mesh":{
+						"mesh":7,
+						"convexHull":true
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":8
+					"type":"mesh",
+					"mesh":{
+						"mesh":8,
+						"convexHull":true
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":9
+					"type":"mesh",
+					"mesh":{
+						"mesh":9,
+						"convexHull":true
 					}
 				},
 				{
@@ -73,9 +77,10 @@
 					}
 				},
 				{
-					"type":"trimesh",
-					"trimesh":{
-						"mesh":11
+					"type":"mesh",
+					"mesh":{
+						"mesh":11,
+						"convexHull":false
 					}
 				},
 				{
@@ -85,9 +90,10 @@
 					}
 				},
 				{
-					"type":"trimesh",
-					"trimesh":{
-						"mesh":13
+					"type":"mesh",
+					"mesh":{
+						"mesh":13,
+						"convexHull":false
 					}
 				},
 				{
@@ -645,20 +651,6 @@
 			}
 		},
 		{
-			"doubleSided":true,
-			"name":"Yellowish",
-			"pbrMetallicRoughness":{
-				"baseColorFactor":[
-					0.8000000715255737,
-					0.7555356621742249,
-					0.0002703802892938256,
-					1
-				],
-				"metallicFactor":0.5,
-				"roughnessFactor":0.800000011920929
-			}
-		},
-		{
 			"alphaMode":"BLEND",
 			"doubleSided":true,
 			"name":"TransparentGreen",
@@ -710,7 +702,7 @@
 						"NORMAL":6
 					},
 					"indices":7,
-					"material":1
+					"material":0
 				}
 			]
 		},
@@ -795,7 +787,7 @@
 						"TEXCOORD_0":30
 					},
 					"indices":31,
-					"material":2
+					"material":1
 				}
 			]
 		},
@@ -809,7 +801,7 @@
 						"TEXCOORD_0":34
 					},
 					"indices":31,
-					"material":2
+					"material":1
 				}
 			]
 		},
@@ -883,7 +875,7 @@
 						"TANGENT":55
 					},
 					"indices":56,
-					"material":3
+					"material":2
 				}
 			]
 		},
@@ -896,7 +888,7 @@
 						"NORMAL":58
 					},
 					"indices":59,
-					"material":1
+					"material":0
 				}
 			]
 		},
@@ -909,7 +901,7 @@
 						"NORMAL":61
 					},
 					"indices":62,
-					"material":1
+					"material":0
 				}
 			]
 		}

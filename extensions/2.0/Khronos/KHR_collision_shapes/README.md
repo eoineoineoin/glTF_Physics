@@ -17,15 +17,32 @@ Written against glTF 2.0 spec.
 
 ## Overview
 
-This extension adds the ability to specify collision primitives inside a glTF asset. This extension does not mandate any particular behaviour for those objects aside from their collision geometry. These types are to be used in combination with additional extensions. For example, the KHR\_rigid\_bodies extension adds additional properties to glTF nodes which reference these collision primitives.
+This extension adds the ability to specify collision primitives inside a glTF asset. This extension does not mandate any particular behaviour for those objects aside from their collision geometry. These types are to be used in combination with other extensions that reference these collision primitives.
 
 ## glTF Schema Updates
 
 ### Shapes
 
-This extension provides a set of document-level objects, which can be referenced by objects in the scene. The precise usage of these primitives should be specified by the extensions which utilize the shapes. The intended purpose of these these objects are to specify geometry which can be used for collision detection, which has informed the set of shapes which we have defined. Typically, the geometry specified by the shape will be simpler than any render meshes used by the node or it's children, enabling real-time applications to perform queries such as intersection tests.
+This extension provides a set of document-level objects, which can be referenced by objects in the scene. The precise usage of these primitives should be specified by the extensions which utilize the shapes. The intended purpose of these these objects are to specify geometry which can be used for collision detection, which has informed the set of shapes which we have defined. Typically, the geometry specified by the shape will be simpler than any render meshes used by the node or its children, enabling real-time applications to perform queries such as intersection tests.
 
-Each shape defines a mandatory `type` property which designates the type of shape, as well as an additional structure which provides parameterizations specific to that type.
+Shapes are defined within a dictionary property in the glTF scene description file, by adding an `extensions` property to the top-level glTF 2.0 object and defining a `KHR_collision_shapes` property with a `shapes` array inside it.
+
+Each shape defines a mandatory `type` property which designates the type of shape, as well as an additional structure which provides parameterizations specific to that type. The following example defines a sphere.
+
+```javascript
+"extensions": {
+    "KHR_collision_shapes" : {
+        "shapes": [
+            {
+                "sphere": { "radius": 0.1 },
+                "type": "sphere"
+            }
+        ]
+    }
+}
+```
+
+Shapes are parameterized in local space of the node they are associated with. If a shape is required to have an offset from the local space of the node the shape is associated with (for example a sphere _not_ centered at local origin or a rotated box,) a child node should be added with the desired offset applied, and the shape properties added to that child.
 
 To describe the geometry which represents the object, shapes must define at most one of the following properties:
 
@@ -33,14 +50,17 @@ To describe the geometry which represents the object, shapes must define at most
 |-|-|-|
 |**sphere**|`object`|A sphere centered at the origin in local space.|
 |**box**|`object`|An axis-aligned box centered at the origin in local space.|
-|**capsule**|`object`|A capsule centered at the origin and defined by two "capping" spheres with potentially different radii, aligned along the Y axis in local space.|
 |**cylinder**|`object`|A cylinder centered at the origin and aligned along the Y axis in local space, with potentially different radii at each end.|
-|**convex**|`object`|A convex hull wrapping a `mesh` object.|
-|**trimesh**|`object`|A triangulated representation of a `mesh` object.|
+|**capsule**|`object`|A capsule (cylinder with hemispherical ends) centered at the origin and defined by two "capping" spheres with potentially different radii, aligned along the Y axis in local space.|
+|**mesh**|`object`|A shape generated from a `mesh` object.|
 
-The sphere, box, capsule, cylinder and convex types all represent convex objects with a volume, however, the trimesh type always represents an infinitely thin shell or sheet - for example a trimesh created from a `mesh` object in the shape of a box will be represented as a hollow box.
+The sphere, box, capsule, and cylinder all represent convex objects with a volume. However, the mesh type presents two options; when the `convexHull` property is `false`, the shape represents the surface of a referenced mesh. When `convexHull` is `true`, the shape represents the convex hull of a referenced mesh. The input mesh to a convex hull is not required to be convex itself, nor is there any requirement for the geometry to be closed. An implementation must generate a convex hull from the input mesh.
 
-If a shape is required to have an offset from the local space of the node the shape is associated with (for example a sphere _not_ centered at local origin or a rotated box,) a child node should be added with the desired offset applied, and the shape properties should be added to that child.
+As the mesh shape references a `mesh`, it additionally allows for optional `skin` and `weights` properties, which have the same semantics and requirements enforced by the properties of the same name associated with a `node`. When specified on a mesh whose `convexHull` property is `true`, the resulting collision shape should be the convex hull of the deformed mesh. As collision detection is typically performed on CPU, the performance impact of deforming a mesh in such a use-case is typically higher than inside a vertex shader. As such, use of this functionality should be given careful consideration with respect to performance.
+
+Degenerate shapes are prohibited. A sphere must have a positive, non-zero radius. A box shape must have positive non-zero values for each component of `size`. The cylinder and capsule shapes must have a positive, non-zero `height` and both `radiusTop` and `radiusBottom` should be positive; at least one of the radii should be non-zero. For mesh shapes whose `convexHull` property is `false`, the referenced mesh must contain at least one non-degenerate triangle primitive. For mesh shapes whose `convexHull` property is `true`, the referenced mesh must contain contain primitives with at least four non-coplanar vertices.
+
+A nodes scale presents some special cases that must be handled. In accordance with the glTF specification on [https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#transformations](transformations), a shape referenced by a node whose scale is zero on all three axes should be considered disabled. When an analytical shape is referenced by a node whose whose scale is negative on one or more axes, the resulting shape size should be the absolute value of the nodes scale applied to the input shape parameters. i.e. a box with `size` of `[1.0, 1.0, 1.0]` associated with a node whose scale is `[1.0, -2.0, 3.0]` should result in a box of size `[1.0, 2.0, 3.0]` in world space.
 
 ### JSON Schema
 
@@ -60,12 +80,16 @@ With consideration to the glTF 2.0 Asset Object Model Specification document, th
 | `/extensions/KHR_collision_shapes/shapes/{}/cylinder/radiusBottom` | `float`|
 | `/extensions/KHR_collision_shapes/shapes/{}/cylinder/radiusTop` | `float`|
 | `/extensions/KHR_collision_shapes/shapes/{}/sphere/radius` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/mesh/weights/{}` | `float`|
+| `/extensions/KHR_collision_shapes/shapes/{}/mesh/weights` | `float[]`|
 
 Additional read-only properties
 
 | Pointer | Type|
 |-|-|
 | `/extensions/KHR_collision_shapes/shapes.length` | `int`|
+| `/extensions/KHR_collision_shapes/shapes/{}/mesh/weights.length` | `int`|
+| `/extensions/KHR_collision_shapes/shapes/{}/mesh/convexHull` | `boolean`|
 
 ## Known Implementations
 
@@ -74,10 +98,6 @@ Additional read-only properties
 [Babylon.js importer](https://github.com/eoineoineoin/glTF_Physics_Babylon)
 
 [Godot importer](https://github.com/eoineoineoin/glTF_Physics_Godot_Importer)
-
-## Validator
-
-[glTF validator](https://github.com/eoineoineoin/glTF-Validator)
 
 ## Appendix: Full Khronos Copyright Statement
 

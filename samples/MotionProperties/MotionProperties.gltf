@@ -1,6 +1,6 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.0.44",
+		"generator":"Khronos glTF Blender I/O v4.1.63",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
@@ -33,39 +33,45 @@
 					}
 				},
 				{
-					"type":"trimesh",
-					"trimesh":{
-						"mesh":2
+					"type":"mesh",
+					"mesh":{
+						"mesh":2,
+						"convexHull":false
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":3
+					"type":"mesh",
+					"mesh":{
+						"mesh":3,
+						"convexHull":true
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":4
+					"type":"mesh",
+					"mesh":{
+						"mesh":4,
+						"convexHull":true
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":5
+					"type":"mesh",
+					"mesh":{
+						"mesh":5,
+						"convexHull":true
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":6
+					"type":"mesh",
+					"mesh":{
+						"mesh":6,
+						"convexHull":true
 					}
 				},
 				{
-					"type":"trimesh",
-					"trimesh":{
-						"mesh":7
+					"type":"mesh",
+					"mesh":{
+						"mesh":7,
+						"convexHull":false
 					}
 				},
 				{
@@ -77,9 +83,10 @@
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":9
+					"type":"mesh",
+					"mesh":{
+						"mesh":9,
+						"convexHull":true
 					}
 				}
 			]

@@ -18,95 +18,56 @@
                 },
                 {
                     "enum": [ "capsule" ],
-                    "description": "A capsule shape, centered at the origin in local space, equivalent to the convex hull of two spheres of radius `radius` located along the Y axis (in local space) at a distance `height` from each other. i.e., the sphere centers are located at (0, ±height/2, 0)"
+                    "description": "A capsule shape, centered at the origin in local space, equivalent to the convex hull of two spheres located along the Y axis (in local space) at a specified distance."
                 },
                 {
                     "enum": [ "cylinder" ],
-                    "description": "A cylinder shape, centered at the origin in local space, equivalent to the convex hull of two circles in the X/Z plane of radius `radius` located along the Y axis (in local space) at a distance `height` from each other. i.e., the circle centers are located at (0, ±height/2, 0)"
+                    "description": "A cylinder shape, centered at the origin in local space, equivalent to the convex hull of two circles in the X/Z plane positioned along the Y axis at a specified distance."
                 },
                 {
-                    "enum": [ "convex" ],
-                    "description": "A shape defined as the convex hull of a referenced `mesh` (which itself need not be convex) in local space."
-                },
-                {
-                    "enum": [ "trimesh" ],
-                    "description": "An infinitely thin surface defined by the triangles in the referenced `mesh` in local space."
+                    "enum": [ "mesh" ],
+                    "description": "A shape generated from a referenced `mesh` object"
                 },
                 {
                     "type": "string"
                 }
             ]
         },
+        "sphere": {
+            "type": "object",
+            "description": "A set of parameter values that are used to define a sphere shape.",
+            "$ref": "glTF.KHR_collision_shapes.shape.sphere.schema.json"
+        },
+        "box": {
+            "type": "object",
+            "description": "A set of parameter values that are used to define a box shape.",
+            "$ref": "glTF.KHR_collision_shapes.shape.box.schema.json"
+        },
+        "capsule": {
+            "type": "object",
+            "description": "A set of parameter values that are used to define a capsule shape.",
+            "$ref": "glTF.KHR_collision_shapes.shape.capsule.schema.json"
+        },
+        "cylinder": {
+            "type": "object",
+            "description": "A set of parameter values that are used to define a cylinder shape.",
+            "$ref": "glTF.KHR_collision_shapes.shape.cylinder.schema.json"
+        },
+        "mesh": {
+            "type": "object",
+            "description": "A set of parameter values that are used to define a shape derived from a mesh.",
+            "$ref": "glTF.KHR_collision_shapes.shape.mesh.schema.json"
+        },
+        "name": { },
         "extensions": { },
         "extras": { }
     },
     "oneOf": [
-        {
-            "type": "object",
-            "description": "A set of parameter values that are used to define a sphere shape.",
-            "properties": {
-                "sphere": {
-                    "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.shape.sphere.schema.json"
-                }
-            },
-            "required": ["sphere"]
-        },
-        {
-            "type": "object",
-            "description": "A set of parameter values that are used to define a box shape.",
-            "properties": {
-                "box": {
-                    "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.shape.box.schema.json"
-                }
-            },
-            "required": ["box"]
-        },
-        {
-            "type": "object",
-            "description": "A set of parameter values that are used to define a capsule shape.",
-            "properties": {
-                "capsule": {
-                    "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.shape.capsule.schema.json"
-                }
-            },
-            "required": ["capsule"]
-        },
-        {
-            "type": "object",
-            "description": "A set of parameter values that are used to define a cylinder shape.",
-            "properties": {
-                "cylinder": {
-                    "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.shape.cylinder.schema.json"
-                }
-            },
-            "required": ["cylinder"]
-        },
-        {
-            "type": "object",
-            "description": "A set of parameter values that are used to define a convex shape.",
-            "properties": {
-                "convex": {
-                    "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.shape.convex.schema.json"
-                }
-            },
-            "required": ["convex"]
-        },
-        {
-            "type": "object",
-            "description": "A set of parameter values that are used to define a mesh shape.",
-            "properties": {
-                "mesh": {
-                    "type": "object",
-                    "$ref": "glTF.KHR_collision_shapes.shape.trimesh.schema.json"
-                }
-            },
-            "required": ["trimesh"]
-        }
+        { "required": ["sphere"] },
+        { "required": ["box"] },
+        { "required": ["capsule"] },
+        { "required": ["cylinder"] },
+        { "required": ["mesh"] }
     ],
     "required": [
         "type"

@@ -1,6 +1,6 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.0.44",
+		"generator":"Khronos glTF Blender I/O v4.1.63",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
@@ -35,15 +35,17 @@
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":5
+					"type":"mesh",
+					"mesh":{
+						"mesh":5,
+						"convexHull":true
 					}
 				},
 				{
-					"type":"convex",
-					"convex":{
-						"mesh":6
+					"type":"mesh",
+					"mesh":{
+						"mesh":6,
+						"convexHull":true
 					}
 				}
 			]
