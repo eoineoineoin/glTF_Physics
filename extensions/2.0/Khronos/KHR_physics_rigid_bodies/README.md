@@ -15,25 +15,26 @@ Draft
 
 Written against glTF 2.0 spec.
 
-This specification depends on `KHR_collision_shapes` to describe geometries used for collision detection.
+This specification depends on [KHR\_collision\_shapes](../KHR_collision_shapes/README.md) to describe geometries used for collision detection.
 
-This specification will be updated to add support for the forthcoming glTF Interactivity and Animation Pointer (glTF Object Model) extensions. These are expected to be additional, non-breaking changes.
+This specification will be updated to add support for the forthcoming glTF Interactivity extension. These are expected to be additional, non-breaking changes.
 
 ## Table of Contents <!-- omit in toc -->
 
 - [Overview](#overview)
 - [Units](#units)
-- [glTF Schema Updates](#gltf-schema-updates)
+- [Adding Rigid Body Properties to Nodes](#adding-rigid-body-properties-to-nodes)
   - [Motions](#motions)
   - [Colliders](#colliders)
   - [Physics Materials](#physics-materials)
   - [Collision Filtering](#collision-filtering)
   - [Triggers](#triggers)
   - [Joints](#joints)
-- [JSON Schema](#json-schema)
+- [glTF Schema Updates](#gltf-schema-updates)
+- [Object Model](#object-model)
 - [Known Implementations](#known-implementations)
-- [Validator](#validator)
 - [Appendix: Joint Limit Metrics](#appendix-joint-limit-metrics)
+- [Appendix: Full Khronos Copyright Statement](#appendix-full-khronos-copyright-statement)
 
 
 ## Overview
@@ -67,21 +68,42 @@ Units used in this specification are the same as those in the [glTF specificatio
 |`joint_limit.stiffness`, <br /> `joint_drive.stiffness`|Newton per meter (N·m<sup>-1</sup>) for linear limits <br /> Newton meter per radian (N·m·rad<sup>-1</sup>) for angular limits|
 |`joint_limit.damping`, <br /> `joint_drive.damping`|Newton second per meter (N·s·m<sup>-1</sup>) for linear limits <br />Newton second meter per radian (N·s·m·rad<sup>-1</sup>) for angular limits|
 
-## glTF Schema Updates
+## Adding Rigid Body Properties to Nodes
 
-The `KHR_physics_rigid_bodies` extension may be added to any `node` to define one or more of the following properties:
+Rigid body properties are attached to a node by defining the `extensions.KHR_physics_rigid_bodies` property with values appropriate for the desired behaviour of that node. The `KHR_physics_rigid_bodies` extension object may contain one or more of the following properties:
 
 | |Type|Description|
 |-|-|-|
 |**motion**|`object`|Allows the simulation to move this node, describing parameters for that motion.|
-|**collider**|`object`|Describes the physical representation of a node's shape.|
-|**trigger**|`object`|Describes a volume which can detect collisions, but not react to them.|
+|**collider**|`object`|Describes the physical representation of a node's shape for collision detection.|
+|**trigger**|`object`|Describes a volume which can detect collisions, but does not generate a physical response.|
 |**joint**|`object`|Constrains the motion of this node relative to another.|
 
+The following creates a node with a renderable mesh, a defined mass, initial linear velocity, and a collision shape with a physical material.
+
+```
+"nodes" : [
+    {
+        "mesh": 0,
+        "extensions": {
+            "KHR_physics_rigid_bodies": {
+                "motion": {
+                    "mass": 5.0,
+                    "linearVelocity": [1.0, 0.0, 0.0]
+                },
+                "collider": {
+                    "shape": 0,
+                    "physicsMaterial": 0
+                }
+            }
+        }
+    }
+]
+```
 
 ### Motions
 
-If a `node` has `motion` properties, that node should be represented by a rigid body in the simulation engine and the node's local transform should be updated by the physics engine after every simulation step.
+When a `node` has `motion` properties, that node should be represented by a dynamic rigid body in the simulation engine and the node's local transform should be updated by the physics engine after every simulation step.
 
 As the simulation engine updates the local transform of a node, all descendant nodes should move with that node - i.e. the physics engine should treat them as part of a single rigid body. However, if a descendant node has its own `motion` properties, that node must be treated as an independent rigid body during simulation - there is no implicit requirement that it follows its 'parent' rigid body.
 
@@ -91,42 +113,55 @@ Rigid body motions have the following properties:
 
 | |Type|Description|
 |-|-|-|
-|**isKinematic**|`boolean`|Treat the rigid body as having infinite mass. Its velocity will be constant during simulation.|
+|**isKinematic**|`boolean`|When true, treat the rigid body as having infinite mass. Its velocity will be constant during simulation.|
 |**mass**|`number`|The mass of the rigid body. Larger values imply the rigid body is harder to move.|
-|**inertiaOrientation**|`number[4]`|The quaternion rotating from inertia major axis space to body space.|
+|**inertiaOrientation**|`number[4]`|The quaternion rotating from inertia major axis space to node space.|
 |**inertiaDiagonal**|`number[3]`|The principal moments of inertia. Larger values imply the rigid body is harder to rotate.|
-|**centerOfMass**|`number[3]`|Center of mass of the rigid body in local space.|
-|**linearVelocity**|`number[3]`|Initial linear velocity of the rigid body in local space.|
-|**angularVelocity**|`number[3]`|Initial angular velocity of the rigid body in local space.|
+|**centerOfMass**|`number[3]`|Center of mass of the rigid body in node space.|
+|**linearVelocity**|`number[3]`|Initial linear velocity of the rigid body in node space.|
+|**angularVelocity**|`number[3]`|Initial angular velocity of the rigid body in node space.|
 
 If not provided, the mass and inertia properties should be calculated by the simulation engine. These values are typically derived from the volume of the collision geometry used by the rigid body. The 3x3 inertia tensor can be calculated as the product of the `inertiaOrientation` (in matrix form) and the matrix whose diagonal is `inertiaDiagonal`.
 
-JSON is unable to represent infinite values; however, a value of infinity is useful for both `mass` and `inertiaDiagonal`. As zero is an *invalid* value for these properties, a value of zero in `mass` or any of the components of `inertiaDiagnal` should be understood to represent a value of infinity.
+JSON is unable to represent infinite values; however, a value of infinity is useful for both `mass` and the components of `inertiaDiagonal`. As zero is an *invalid* value for these properties, a value of zero in `mass` or any of the components of `inertiaDiagnal` should be understood to represent a value of infinity.
 
 ### Colliders
 
-Pairs of triangulated meshes are typically unsuitable for collision detection. As such, this extension adds an additional `collider` property to a node. This property is used to describe the geometry and collision response of this node.
+Rather than using a node's render mesh to perform collision detection, collision geometry must be explicitly declared by adding an additional `collider` property to a node.
 
-
-The `collider` property supplies three fields; the `shape` property indexes into the set of top level collision shapes (provided by `KHR_collision_shapes`) and describes the collision volume used by that node. The `physicsMaterial` indexes into the top level set of physics materials (see the "[Physics Materials](#physics-materials)" section of this document.) Finally, the `collisionFilter` indexes into the top level set of collision filters (see the "Collision Filtering" section of this document).
+The `collider` property supplies three fields. The `shape` field describes the geometry which should be used to perform collision detection; the value indexes into the set of top-level collision shapes provided by the [KHR\_collision\_shapes](../KHR_collision_shapes/README.md) extension. The `physicsMaterial` indexes into the top-level set of physics materials, described in the "[Physics Materials](#physics-materials)" section of this document. Finally, the `collisionFilter` indexes into the top-level set of collision filters, described by the "[Collision Filtering](#collision-filtering)" section of this document.
 
 | |Type|Description|
 |-|-|-|
-|**shape**|`integer`|The index of a top level `KHR_collision_shapes.shape`, which provides the geometry of the collider.|
-|**collisionFilter**|`integer`|Indexes into the top level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
-|**physicsMaterial**|`integer`|Indexes into the top level `physicsMaterials` and describes how the collider should respond to collisions.|
+|**shape**|`integer`|The index of a top-level `KHR_collision_shapes.shape`, which provides the geometry of the collider.|
+|**physicsMaterial**|`integer`|Indexes into the top-level `physicsMaterials` and describes how the collider should respond to collisions.|
+|**collisionFilter**|`integer`|Indexes into the top-level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 
-If the node is part of a dynamic rigid body (i.e. itself or an ascendant has `motion` properties) then the collider belongs to that rigid body and must move with it during simulation. Otherwise the collider exists as a static object in the physics simulation which can be collided with but must not be moved as a result of solving collisions or joints. A rigid body may have multiple descendent `collider` nodes.
+If the node is part of a dynamic rigid body (i.e. itself or an ascendant has `motion` properties) then the collider belongs to that rigid body and must move with it during simulation. Otherwise the collider exists as a static object in the physics simulation which can be collided with but must not be moved as a result of solving collisions or joints. A rigid body may have a compound constructed from several collision shapes by supplying multiple descendent `collider` nodes.
 
 Implementations of this extension should ensure that collider transforms are always kept in sync with node transforms - for example animated node transforms should be applied to the physics engine (even for static colliders).
 
-Note, `convex` and `trimesh` colliders can impose a large computational cost when converting to native types if the source mesh contains many vertices. In addition, real-time engines generally recommend against allowing collisions between pairs of `trimesh` objects. For best performance and behavior, consult the manual for the physics simulation engine you are using.
+Note that `mesh` colliders can incur a large computational cost when converting to native types if the source mesh contains many vertices. In addition, real-time engines generally recommend against allowing collisions between pairs of triangulated mesh objects, preferring to collide collections of convex shapes instead. For best performance and behavior, consult the manual for the physics simulation engine you are using.
 
 ### Physics Materials
 
-When a pair of nodes collide with each other, additional properties are needed to determine the collision response. This response is partly controlled by the physics materials of each collider.
+When a pair of nodes collide with each other, additional properties are needed to determine the collision response. This response is partly controlled by the physics materials of each collider. Physics materials may be shared between different colliders and are defined by adding an `extensions` property to the top-level glTF 2.0 object and defining a `KHR_physics_rigid_bodies` property with a `physicsMaterials` array inside it.
 
-The top level array of `physicsMaterials` is provided by adding the `KHR_physics_rigid_bodies` extension to the root `glTF` object. If a collider has no physics material assigned, the simulation engine may choose any appropriate default values.
+```
+"extensions": {
+    "KHR_physics_rigid_bodies": {
+        "physicsMaterials": [
+            {
+                "staticFriction": 0.8,
+                "dynamicFriction": 0.7,
+                "restitution": 0.1
+            }
+        ]
+    }
+}
+```
+
+A collider's `physicsMaterial` property indexes into this array to determine the appropriate material values to use during collision response. If a collider has no physics material assigned, the simulation engine may choose any appropriate default values.
 
 Physics materials offer the following properties:
 
@@ -151,7 +186,22 @@ When a pair of physics materials interact during a simulation step, the applied 
 
 Colliders from distinct rigid bodies should generate a collision response when they are sufficiently close together to be considered in contact.
 
-In some scenarios this is undesirable, so a collision filter allows control over which pairs of `collider` objects may interact. An array of `collisionFilters` are provided by the `KHR_physics_rigid_bodies` extension on the root `glTF` object. Each filter contains a subset of the fields:
+In some scenarios this is undesirable, so a collision filter allows control over which pairs of `collider` objects may interact. Collision filter descriptions may be shared amongst several objects and are defined by adding an `extensions` property to the top-level glTF 2.0 object and defining a `KHR_physics_rigid_bodies`property with a `collisionFilters` array inside it.
+
+```
+"extensions": {
+    "KHR_physics_rigid_bodies": {
+        "collisionFilters": [
+            {
+                "collisionSystems": ["character"],
+                "collideWithSystems": ["landscape", "debris"]
+            }
+        ]
+    }
+}
+```
+
+Each collision filter filter contains a subset of the fields:
 
 | |Type|Description|
 |-|-|-|
@@ -159,7 +209,7 @@ In some scenarios this is undesirable, so a collision filter allows control over
 |**notCollideWithSystems**|`string[1-*]`|An array of strings representing the systems which this node can _not_ collide with|
 |**collideWithSystems**|`string[1-*]`|An array of strings representing the systems which this node can collide with|
 
-Both `collideWithSystems` and `notCollideWithSystems` are provided so that users can override the default collision behavior with minimal configuration -- only one of these should be specified per object. Note, given knowledge of all the systems in a scene and one of the values `notCollideWithSystems`/`collideWithSystems` the unspecified field can be calculated as the inverse of the other.
+Both `collideWithSystems` and `notCollideWithSystems` are provided so that users can override the default collision behavior with minimal configuration -- only one of these must be specified per object. Note, given knowledge of all the systems in a scene and one of the values `notCollideWithSystems`/`collideWithSystems` the unspecified field can be calculated as the inverse of the other.
 
 `notCollideWithSystems` is useful for an object which should collide with everything except those listed in `notCollideWithSystems` (i.e., used to opt-out of collisions) while `collideWithSystems` is the inverse -- the collider should not collide with any other collider except those listed in `collideWithSystems`
 
@@ -180,9 +230,9 @@ Alternatively, a `trigger` may have a `nodes` property, which is an array of glT
 
 | |Type|Description|
 | - | - | -|
-|**shape**|`integer`| The index of a top level `KHR_collision_shapes.shape`, which provides the geometry of the trigger.|
+|**shape**|`integer`| The index of a top-level `KHR_collision_shapes.shape`, which provides the geometry of the trigger.|
 |**nodes**|`integer[1-*]`|For compound triggers, the set of descendant glTF nodes with a trigger property that make up this compound trigger.|
-|**collisionFilter**|`integer`|Indexes into the top level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
+|**collisionFilter**|`integer`|Indexes into the top-level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 
 Describing the precise mechanism by which overlap events are generated and what occurs as a result is beyond the scope of this specification; simulation software will typically output overlap begin/end events as an output from the simulation step, which is hooked into application-specific business logic.
 
@@ -198,7 +248,7 @@ A `joint` is composed of:
 
 The attachment frames are specified using the transforms of `node` objects; the first of which is the `node` of the `joint` object itself. A `joint` must have a `connectedNode` property, which is the index of the `node` which supplies the second attachment frame. For each of these frames, the relative transform between the `node` and the first parent `motion` (or the simulation's fixed reference frame, if no such `motion` exists) define the constraint space in that rigid body. In order for the joint to have any effect on the simulation, at least one of the pair of nodes or its ancestors should have `motion` properties.
 
-A node's `joint` must specify a `joint` property, which indexes into the top level array of `physicsJoints` inside the `KHR_physics_rigid_bodies` extension object. This object describes the limits and drives utilized by the joint in a shareable manner.
+A node's `joint` must specify a `joint` property, which indexes into the top-level array of `physicsJoints` inside the `KHR_physics_rigid_bodies` extension object. This object describes the limits and drives utilized by the joint in a shareable manner.
 
 A joint description must contain one of more `joint_limit` objects and zero or more `joint_drive` objects. Each of the limit objects remove some of the relative movement permitted between the two attachment frames, while the drive objects apply forces to achieve a relative transform or velocity between the attachment frames.
 
@@ -245,9 +295,45 @@ Addition of drive objects to a joint allows the joint to apply additional forces
 Each `joint_drive` describes a force applied to one degree of freedom in joint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - positionCurrent) + damping * (velocityTarget - velocityCurrent)` where `positionCurrent` and `velocityCurrent` are the signed values of the position and velocity of the connected node in joint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
 
 
-### JSON Schema
+### glTF Schema Updates
 
 * **JSON schema**: [glTF.KHR_physics_rigid_bodies.schema.json](schema/glTF.KHR_physics_rigid_bodies.schema.json)
+
+### Object Model
+
+With consideration to the glTF 2.0 Asset Object Model Specification document, the following pointer templates represent mutable properties defined in this extension.
+
+| Pointer | Type|
+|-|-|
+| `/extensions/KHR_physics_rigid_bodies/physicsMaterials/{}/staticFriction` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsMaterials/{}/dynamicFriction` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsMaterials/{}/restitution` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/limits/{}/min` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/limits/{}/max` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/limits/{}/stiffness` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/limits/{}/damping` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/maxForce` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/positionTarget` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/velocityTarget` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/stiffness` | `float`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints/{}/drives/{}/damping` | `float`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/isKinematic` | `boolean`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/mass` | `float`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/centerOfMass` | `float3`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/inertiaDiagonal` | `float3`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/inertiaOrientation` | `float4`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/linearVelocity` | `float3`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/angularVelocity` | `float3`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/motion/gravityFactor` | `float`|
+| `/nodes/{}/extensions/KHR_physics_rigid_bodies/joint/enableCollision` | `boolean`|
+
+Additional read-only properties
+
+| Pointer | Type|
+|-|-|
+| `/extensions/KHR_physics_rigid_bodies/physicsMaterials.length` | `int`|
+| `/extensions/KHR_physics_rigid_bodies/physicsJoints.length` | `int`|
+| `/extensions/KHR_physics_rigid_bodies/collisionFilters.length` | `int`|
 
 ## Known Implementations
 
@@ -256,11 +342,6 @@ Each `joint_drive` describes a force applied to one degree of freedom in joint s
 [Babylon.js importer](https://github.com/eoineoineoin/glTF_Physics_Babylon)
 
 [Godot importer](https://github.com/eoineoineoin/glTF_Physics_Godot_Importer)
-
-## Validator
-
-[glTF validator](https://github.com/eoineoineoin/glTF-Validator)
-
 
 ## Appendix: Joint Limit Metrics
 
@@ -285,3 +366,54 @@ Where:
 - $q_b$ is the orientation of the attached node in world space.
 - $\mathrm{Tw_i}$ is the function which returns the twist component of the twist-swing decomposition of a quaternion.
 - $\mathrm{Re}$ is the function which extracts the real component of a quaternion.
+
+## Appendix: Full Khronos Copyright Statement
+
+Copyright 2021-2023 The Khronos Group Inc.
+
+This specification is protected by copyright laws and contains material proprietary
+to Khronos. Except as described by these terms, it or any components
+may not be reproduced, republished, distributed, transmitted, displayed, broadcast,
+or otherwise exploited in any manner without the express prior written permission
+of Khronos.
+
+This specification has been created under the Khronos Intellectual Property Rights
+Policy, which is Attachment A of the Khronos Group Membership Agreement available at
+https://www.khronos.org/files/member_agreement.pdf. Khronos grants a conditional
+copyright license to use and reproduce the unmodified specification for any purpose,
+without fee or royalty, EXCEPT no licenses to any patent, trademark or other
+intellectual property rights are granted under these terms. Parties desiring to
+implement the specification and make use of Khronos trademarks in relation to that
+implementation, and receive reciprocal patent license protection under the Khronos
+IP Policy must become Adopters under the process defined by Khronos for this specification;
+see https://www.khronos.org/conformance/adopters/file-format-adopter-program.
+
+Some parts of this Specification are purely informative and do not define requirements
+necessary for compliance and so are outside the Scope of this Specification. These
+parts of the Specification are marked as being non-normative, or identified as
+**Implementation Notes**.
+
+Where this Specification includes normative references to external documents, only the
+specifically identified sections and functionality of those external documents are in
+Scope. Requirements defined by external documents not created by Khronos may contain
+contributions from non-members of Khronos not covered by the Khronos Intellectual
+Property Rights Policy.
+
+Khronos makes no, and expressly disclaims any, representations or warranties,
+express or implied, regarding this specification, including, without limitation:
+merchantability, fitness for a particular purpose, non-infringement of any
+intellectual property, correctness, accuracy, completeness, timeliness, and
+reliability. Under no circumstances will Khronos, or any of its Promoters,
+Contributors or Members, or their respective partners, officers, directors,
+employees, agents or representatives be liable for any damages, whether direct,
+indirect, special or consequential damages for lost revenues, lost profits, or
+otherwise, arising from or in connection with these materials.
+
+Khronos® and Vulkan® are registered trademarks, and ANARI™, WebGL™, glTF™, NNEF™, OpenVX™,
+SPIR™, SPIR&#8209;V™, SYCL™, OpenVG™ and 3D Commerce™ are trademarks of The Khronos Group Inc.
+OpenXR™ is a trademark owned by The Khronos Group Inc. and is registered as a trademark in
+China, the European Union, Japan and the United Kingdom. OpenCL™ is a trademark of Apple Inc.
+and OpenGL® is a registered trademark and the OpenGL ES™ and OpenGL SC™ logos are trademarks
+of Hewlett Packard Enterprise used under license by Khronos. ASTC is a trademark of
+ARM Holdings PLC. All other product names, trademarks, and/or company names are used solely
+for identification and belong to their respective owners.
