@@ -6,8 +6,14 @@
     "allOf": [{ "$ref": "glTFProperty.schema.json" }],
     "properties": {
         "shape": {
-            "allOf": [{ "$ref": "glTFid.schema.json" }],
-            "description": "The index of the shape in the top level shapes array."
+            "allOf": [{ "$ref": "node.KHR_collision_shapes.shape_reference.schema.json" }],
+            "description": "A shape reference which describes the collision geometry of this trigger."
+        },
+        "convexHull": {
+            "type": "boolean",
+            "description": "Specifies whether the collision geometry is a surface or a convex hull.",
+            "gltf_detailedDescription": "Specifies how the collision shape is generated from the referenced mesh. When this value is false, the collision volume of this shape is the surface of the referenced mesh. When this value is true, this shape represents the convex hull of the set of primitives in the referenced mesh.",
+            "default": false
         },
         "nodes": {
             "type": "array",

@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "title": "KHR_collision_shapes glTF Node Shape Reference",
+    "type": "object",
+    "description": "Properties enabling a node extension to reference a collision shape",
+    "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
+    "properties": {
+        "shape": {
+            "allOf": [ { "$ref": "glTFid.schema.json" } ],
+            "description": "The index of the shape in the top level shapes array."
+        },
+        "useNodeWeights": {
+            "type": "boolean",
+            "description": "If true, use weights associated with this node to deform the referenced mesh",
+            "gltf_detailedDescription": "This allows assets to describe the common use-case of animating an equivalent deformation to a node's render mesh and the collision geometry, without having to duplicate the weights between the node and the collision shape. When true, the referenced shape **MUST** be a mesh type, which **MUST** use the same number of morph targets as the node which this object is attached to. Note, the mesh referenced by the shape **MAY** differ from the mesh referenced by the node, provided they have the same number of morph targets; this allows collision shapes to use simplified geometry.",
+            "default": false
+        },
+        "extensions": { },
+        "extras": { }
+    }
+}

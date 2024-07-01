@@ -133,7 +133,8 @@ The `collider` property supplies three fields. The `shape` field describes the g
 
 | |Type|Description|
 |-|-|-|
-|**shape**|`integer`|The index of a top-level `KHR_collision_shapes.shape`, which provides the geometry of the collider.|
+|**shape**|`object`|A `node.KHR_collision_shapes._shape_reference`, which provides the geometry of the collider.|
+|**convexHull**|`boolean`|Flag to indicate that the collider should be generated from the convex hull of the referenced shape.|
 |**physicsMaterial**|`integer`|Indexes into the top-level `physicsMaterials` and describes how the collider should respond to collisions.|
 |**collisionFilter**|`integer`|Indexes into the top-level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 
@@ -141,7 +142,7 @@ If the node is part of a dynamic rigid body (i.e. itself or an ascendant has `mo
 
 Implementations of this extension should ensure that collider transforms are always kept in sync with node transforms - for example animated node transforms should be applied to the physics engine (even for static colliders).
 
-Note that `mesh` colliders can incur a large computational cost when converting to native types if the source mesh contains many vertices. In addition, real-time engines generally recommend against allowing collisions between pairs of triangulated mesh objects, preferring to collide collections of convex shapes instead. For best performance and behavior, consult the manual for the physics simulation engine you are using.
+Physics simulations typically recommend against allowing collisions between pairs of triangulated mesh objects, preferring to collide pairs of convex shapes instead. To support this, a collider may specify the `convexHull` parameter; when set to `true`, the referenced shape should be a `mesh` type and an implementation should generate the convex hull of the referenced mesh to use for collision detection. When used on a mesh shape which is skinned or uses morph targets, the resulting shape should be the convex hull of the deformed mesh.
 
 ### Physics Materials
 
@@ -230,7 +231,8 @@ Alternatively, a `trigger` may have a `nodes` property, which is an array of glT
 
 | |Type|Description|
 | - | - | -|
-|**shape**|`integer`| The index of a top-level `KHR_collision_shapes.shape`, which provides the geometry of the trigger.|
+|**shape**|`object`|A `node.KHR_collision_shapes.shape_reference`, which provides the geometry of the trigger.|
+|**convexHull**|`boolean`|Flag to indicate that the trigger should be generated from the convex hull of the referenced shape.|
 |**nodes**|`integer[1-*]`|For compound triggers, the set of descendant glTF nodes with a trigger property that make up this compound trigger.|
 |**collisionFilter**|`integer`|Indexes into the top-level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 
