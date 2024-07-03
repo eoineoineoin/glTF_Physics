@@ -21,10 +21,20 @@
                 "type": "number"
             }
         },
+        "useNodeWeights": {
+            "type": "boolean",
+            "description": "Use weights supplied by a node which references this shape. When true, a node referencing this shape **MUST** have a weights property, the length of which which **MUST** match the number of morph targets of the weights of the mesh referenced by this shape.",
+            "default": false
+        },
         "extensions": { },
         "extras": { }
     },
     "required": [
         "mesh"
-    ]
+    ],
+    "not": {
+        "allOf": [
+            { "required": [ "weights", "useNodeWeights" ] }
+        ]
+    }
 }

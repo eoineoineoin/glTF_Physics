@@ -6,6 +6,7 @@
 * Rory Mullane, Microsoft, <mailto:romul@microsoft.com>
 * George Tian, Microsoft, <mailto:geotian@microsoft.com>
 * Aaron Franke, Godot Engine, <mailto:arnfranke@yahoo.com>
+* Eric Griffith, Meta, <mailto:ericgriffith@meta.com>
 
 ## Status
 
@@ -42,29 +43,6 @@ Each shape defines a mandatory `type` property which designates the type of shap
 }
 ```
 
-To associate a shape with a node, an extension should utilize the `node.KHR_collision_shapes.shape_reference` structure.
-
-```javascript
-"nodes": [
-    {
-        "extensions": {
-            "VENDOR_extension_name": {
-                "collisionShape": {
-                    "shape": 0
-                }
-            }
-        }
-    }
-]
-```
-
-The shape\_reference structure contains several properties.
-
-| |Type|Description|
-|-|-|-|
-|**shape**|`integer`|Index of the shape in the top level shapes array|
-|**useNodeWeights**|`boolean`|If true, use the node instance weights to deform a referenced mesh|
-
 Shapes are parameterized in local space of the node they are associated with. If a shape is required to have an offset from the local space of the node the shape is associated with (for example a sphere _not_ centered at local origin or a rotated box,) a child node should be added with the desired offset applied, and the shape properties added to that child.
 
 To describe the geometry which represents the object, shapes must define at most one of the following properties:
@@ -79,7 +57,7 @@ To describe the geometry which represents the object, shapes must define at most
 
 The sphere, box, capsule, and cylinder all represent convex objects with a volume, while the mesh represents the surface of a referenced mesh object.
 
-As the mesh shape references a `mesh`, it additionally allows for optional `skin` and `weights` properties, which have the same semantics and requirements enforced by the properties of the same name associated with a `node`. Note that within the core glTF specification, there are two methods to specify morph target weights - the mesh object itself may have a `weights` parameter, while a node may specify per-instance weights, which take priority over the weights specified by the mesh. Analogously, a collision shape may reference a mesh which has a set of weights; the collision shape itself may specify weights which take priority over those specified in the mesh; finally, when a shape reference specifies `useNodeWeights` as `true`, the weights used by that node should take priority. This construct allows for a node's instance weights to animate a collision shape without having to additionally propagate the weights to the shape. When `useNodeWeights` is `true`, the mesh referenced by the shape must have the same number of morph targets as the mesh reference by the node.
+As the mesh shape references a `mesh`, it additionally allows for optional `skin` and `weights` properties, which have the same semantics and requirements enforced by the properties of the same name associated with a `node`. Within the core glTF specification, there are two methods to specify morph target weights - the mesh object itself may have a `weights` parameter, while a node may specify per-instance weights, which take priority over the weights specified by the mesh. Analogously, a collision shape may reference a mesh which has a set of weights, while the collision shape itself may specify weights which take priority over those specified in the mesh; finally, when a mesh shape specifies `useNodeWeights` as `true`, the weights used by that node referencing that shape take priority. This construct allows for a node's instance weights to animate a collision shape without having to additionally propagate the weights to the shape. When `useNodeWeights` is `true`, the mesh referenced by the shape must have the same number of morph targets as the mesh referenced by the node.
 
 Degenerate shapes are prohibited. A sphere must have a positive, non-zero radius. A box shape must have positive non-zero values for each component of `size`. The cylinder and capsule shapes must have a positive, non-zero `height` and both `radiusTop` and `radiusBottom` should be positive; at least one of the radii should be non-zero. For mesh shapes, the referenced mesh should contain at least one non-degenerate triangle primitive.
 

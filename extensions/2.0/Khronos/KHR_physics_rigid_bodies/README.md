@@ -6,6 +6,7 @@
 * Rory Mullane, Microsoft, <mailto:romul@microsoft.com>
 * George Tian, Microsoft, <mailto:geotian@microsoft.com>
 * Aaron Franke, Godot Engine, <mailto:arnfranke@yahoo.com>
+* Eric Griffith, Meta, <mailto:ericgriffith@meta.com>
 
 ## Status <!-- omit in toc -->
 
@@ -133,8 +134,7 @@ The `collider` property supplies three fields. The `shape` field describes the g
 
 | |Type|Description|
 |-|-|-|
-|**shape**|`object`|A `node.KHR_collision_shapes._shape_reference`, which provides the geometry of the collider.|
-|**convexHull**|`boolean`|Flag to indicate that the collider should be generated from the convex hull of the referenced shape.|
+|**shape**|`integer`| The index of a top-level `KHR_collision_shapes.shape`, which provides the geometry of the trigger.|
 |**physicsMaterial**|`integer`|Indexes into the top-level `physicsMaterials` and describes how the collider should respond to collisions.|
 |**collisionFilter**|`integer`|Indexes into the top-level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 
@@ -142,7 +142,36 @@ If the node is part of a dynamic rigid body (i.e. itself or an ascendant has `mo
 
 Implementations of this extension should ensure that collider transforms are always kept in sync with node transforms - for example animated node transforms should be applied to the physics engine (even for static colliders).
 
-Physics simulations typically recommend against allowing collisions between pairs of triangulated mesh objects, preferring to collide pairs of convex shapes instead. To support this, a collider may specify the `convexHull` parameter; when set to `true`, the referenced shape should be a `mesh` type and an implementation should generate the convex hull of the referenced mesh to use for collision detection. When used on a mesh shape which is skinned or uses morph targets, the resulting shape should be the convex hull of the deformed mesh.
+
+#### Convex Hull Colliders
+
+Physics simulations typically recommend against allowing collisions between pairs of triangulated mesh objects, preferring to collide pairs of convex shapes instead. To support this, the `KHR_physics_rigid_bodies` extension may be defined on a `KHR_collision_shapes.shape` object.
+
+```javascript
+"extensions": {
+    "KHR_collision_shapes" : {
+        "shapes": [
+            {
+                "mesh": { "mesh": 0 },
+                "type": "mesh",
+                "extensions": {
+                    "KHR_physics_rigid_bodies": {
+                        "convexHull": true
+                    }
+                }
+             }
+        ]
+    }
+}
+```
+
+The extension object contains a single property:
+
+| |Type|Description|
+|-|-|-|
+|**convexHull**|`boolean`|Flag to indicate that the shape should be generated from the convex hull of the shape.|
+
+When the `convexHull` parameter is set to `true`, the collision shape used by the rigid body simulation should be the convex hull of the described shape. When used on a mesh shape which is skinned or uses morph targets, the resulting shape should be the convex hull of the deformed mesh. Note that of the shape types contained in `KHR_collision_shapes`, only the `mesh` type allows concave geometries to be described. This flag has no effect on the remaining shape types, though future extensions may add additional concave shapes.
 
 ### Physics Materials
 
@@ -231,8 +260,7 @@ Alternatively, a `trigger` may have a `nodes` property, which is an array of glT
 
 | |Type|Description|
 | - | - | -|
-|**shape**|`object`|A `node.KHR_collision_shapes.shape_reference`, which provides the geometry of the trigger.|
-|**convexHull**|`boolean`|Flag to indicate that the trigger should be generated from the convex hull of the referenced shape.|
+|**shape**|`integer`| The index of a top-level `KHR_collision_shapes.shape`, which provides the geometry of the trigger.|
 |**nodes**|`integer[1-*]`|For compound triggers, the set of descendant glTF nodes with a trigger property that make up this compound trigger.|
 |**collisionFilter**|`integer`|Indexes into the top-level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 
