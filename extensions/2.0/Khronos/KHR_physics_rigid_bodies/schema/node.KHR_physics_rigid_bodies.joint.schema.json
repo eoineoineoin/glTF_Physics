@@ -1,5 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "node.KHR_physics_rigid_bodies.joint.schema.json",
     "title": "KHR_physics_rigid_bodies Node Joint Property",
     "type": "object",
     "description": "Parameters describing how the relative motion of a pair of nodes is constrained.",

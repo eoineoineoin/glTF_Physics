@@ -1,5 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "glTF.KHR_physics_rigid_bodies.material.schema.json",
     "title": "KHR_physics_rigid_bodies Physics Material",
     "type": "object",
     "description": "Parameters describing how an object should respond to collisions during physics simulation.",

@@ -64,8 +64,8 @@ Units used in this specification are the same as those in the [glTF specificatio
 |`motion.inertiaDiagonal`|Kilogram meter squared (kg·m<sup>2</sup>)|
 |`motion.linearVelocity`|Meter per second (m·s<sup>-1</sup>)|
 |`motion.angularVelocity`|Radian per second (rad·s<sup>-1</sup>)|
-|`joint_limit.stiffness`, <br /> `joint_drive.stiffness`|Newton per meter (N·m<sup>-1</sup>) for linear limits <br /> Newton meter per radian (N·m·rad<sup>-1</sup>) for angular limits|
-|`joint_limit.damping`, <br /> `joint_drive.damping`|Newton second per meter (N·s·m<sup>-1</sup>) for linear limits <br />Newton second meter per radian (N·s·m·rad<sup>-1</sup>) for angular limits|
+|`joint.limit.stiffness`, <br /> `joint.drive.stiffness`|Newton per meter (N·m<sup>-1</sup>) for linear limits <br /> Newton meter per radian (N·m·rad<sup>-1</sup>) for angular limits|
+|`joint.limit.damping`, <br /> `joint.drive.damping`|Newton second per meter (N·s·m<sup>-1</sup>) for linear limits <br />Newton second meter per radian (N·s·m·rad<sup>-1</sup>) for angular limits|
 
 ## glTF Schema Updates
 
@@ -200,11 +200,11 @@ The attachment frames are specified using the transforms of `node` objects; the 
 
 A node's `joint` must specify a `joint` property, which indexes into the top level array of `physicsJoints` inside the `KHR_physics_rigid_bodies` extension object. This object describes the limits and drives utilized by the joint in a shareable manner.
 
-A joint description must contain one of more `joint_limit` objects and zero or more `joint_drive` objects. Each of the limit objects remove some of the relative movement permitted between the two attachment frames, while the drive objects apply forces to achieve a relative transform or velocity between the attachment frames.
+A joint description must contain one of more `joint.limit` objects and zero or more `joint.drive` objects. Each of the limit objects remove some of the relative movement permitted between the two attachment frames, while the drive objects apply forces to achieve a relative transform or velocity between the attachment frames.
 
 If a joint were to eliminate all degrees of freedom, the physics simulation should attempt to move the `motion` nodes such that the transforms of the constrained child nodes (i.e. the `joint` node and the node at index `connectedNode`) become aligned with each other in world space. <!--TODO: remove?-->
 
-Each `joint_limit` contains the following properties:
+Each `joint.limit` contains the following properties:
 
 | |Type|Description|
 |-|-|-|
@@ -225,11 +225,11 @@ Each limit must provide either `linearAxes` or `angularAxes`, declaring which ar
 
 Each limit contains a `min` and `max` parameter, describing the range of allowed difference between the two node transforms - within this range, the limit is considered non-violating and no corrective forces are applied. These values represent a _distance_ in meters for linear limit, or an _angle_ in radians for angular limit.
 
-Additionally, each `joint_limit` has an optional `stiffness` and `damping` which specify the proportion of the recovery applied to the limit. By default, an infinite spring constant is assumed, implying hard limits. Specifying a finite stiffness will cause the limit to become soft at the limits.
+Additionally, each `joint.limit` has an optional `stiffness` and `damping` which specify the proportion of the recovery applied to the limit. By default, an infinite spring constant is assumed, implying hard limits. Specifying a finite stiffness will cause the limit to become soft at the limits.
 
 This approach of building joints from a set of individual limit is flexible enough to allow for many types of bilateral joints. For example, a hinged door can be constructed by locating the attachment frames at the point where the physical hinge would be on each body, adding a 3D linear limit with zero maximum distance, a 1D angular limit with `min`/`max` describing the swing of the door around it's vertical axis, and a 2D angular limit with zero limits about the remaining two axes.
 
-Addition of drive objects to a joint allows the joint to apply additional forces to modify the relative transform between the joint object and the connected node. A `joint_drive` object models a forced, damped spring and contains the following properties:
+Addition of drive objects to a joint allows the joint to apply additional forces to modify the relative transform between the joint object and the connected node. A `joint.drive` object models a forced, damped spring and contains the following properties:
 
 | |Type|Description|
 |-|-|-|
@@ -242,7 +242,7 @@ Addition of drive objects to a joint allows the joint to apply additional forces
 |**stiffness**|`number`|The drive's stiffness, used to achieve the position target|
 |**damping**|`number`|The damping factor applied to reach the velocity target|
 
-Each `joint_drive` describes a force applied to one degree of freedom in joint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - positionCurrent) + damping * (velocityTarget - velocityCurrent)` where `positionCurrent` and `velocityCurrent` are the signed values of the position and velocity of the connected node in joint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
+Each `joint.drive` describes a force applied to one degree of freedom in joint space, specified with a combination of the `type` and `axis` parameters and drives to either a target position, velocity, or both. The drive force is proportional to `stiffness * (positionTarget - positionCurrent) + damping * (velocityTarget - velocityCurrent)` where `positionCurrent` and `velocityCurrent` are the signed values of the position and velocity of the connected node in joint space. To assist with tuning the drive parameters, a drive can be configured to be in an `acceleration` `mode` which scales the force by the effective mass of the driven degree of freedom. This mode is typically easier to tune to achieve the desired behaviour, particularly in scenarios where the masses of the connected nodes are not known in advance.
 
 
 ### JSON Schema

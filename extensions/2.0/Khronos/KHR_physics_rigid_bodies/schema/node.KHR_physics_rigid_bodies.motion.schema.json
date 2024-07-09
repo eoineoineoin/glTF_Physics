@@ -1,5 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "node.KHR_physics_rigid_bodies.motion.schema.json",
     "title": "KHR_physics_rigid_bodies Node Motion Property",
     "type": "object",
     "description": "Parameters describing how a node's transform should be driven by physics simulation.",
@@ -13,8 +14,7 @@
         "mass": {
             "type": "number",
             "description": "The mass of the object.",
-            "minimum": 0,
-            "exclusiveMinimum": false
+            "exclusiveMinimum": 0.0
         },
         "centerOfMass": {
             "type": "array",
@@ -30,8 +30,7 @@
             "description": "The principal moments of inertia.  Larger values imply the rigid body is harder to rotate.",
             "items": {
                 "type": "number",
-                "minimum": 0,
-                "exclusiveMinimum": false
+                "exclusiveMinimum": 0.0
             },
             "minItems": 3,
             "maxItems": 3

@@ -1,5 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "glTF.KHR_physics_rigid_bodies.collision_filter.schema.json",
     "title": "KHR_physics_rigid_bodies Collision Filter",
     "type": "object",
     "description": "Parameters describing a parameterization of a collision filter, allowing for disabling collision between pairs of shapes.",
