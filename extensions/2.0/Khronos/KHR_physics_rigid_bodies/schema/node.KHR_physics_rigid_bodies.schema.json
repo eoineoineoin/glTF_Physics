@@ -1,5 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "node.KHR_physics_rigid_bodies.schema.json",
     "title": "KHR_physics_rigid_bodies glTF Node Extension",
     "type": "object",
     "description": "Physics properties for a node.",

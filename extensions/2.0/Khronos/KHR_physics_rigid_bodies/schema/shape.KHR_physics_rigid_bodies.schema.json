@@ -1,5 +1,6 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "glTF.KHR_collision_shapes.shape.KHR_physics_rigid_bodies.schema.json",
     "title": "KHR_physics_rigid_bodies Mesh Shape Info",
     "type": "object",
     "description": "Additional arguments for generating a collision shape from a mesh",
