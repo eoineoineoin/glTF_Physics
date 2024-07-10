@@ -7,8 +7,8 @@
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
     "properties": {
         "shape": {
-            "allOf": [ { "$ref": "glTFid.schema.json" } ],
-            "description": "The index of the collider in the top level shapes array."
+            "allOf": [{ "$ref": "glTFid.schema.json" }],
+            "description": "The index of the shape in the top level shapes array."
         },
         "physicsMaterial": {
             "allOf": [ { "$ref": "glTFid.schema.json" } ],

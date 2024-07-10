@@ -43,29 +43,45 @@
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":6,
-						"convexHull":true
+						"mesh":6
+					},
+					"extensions":{
+						"KHR_physics_rigid_bodies":{
+							"convexHull":true
+						}
 					}
 				},
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":7,
-						"convexHull":true
+						"mesh":7
+					},
+					"extensions":{
+						"KHR_physics_rigid_bodies":{
+							"convexHull":true
+						}
 					}
 				},
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":8,
-						"convexHull":true
+						"mesh":8
+					},
+					"extensions":{
+						"KHR_physics_rigid_bodies":{
+							"convexHull":true
+						}
 					}
 				},
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":9,
-						"convexHull":true
+						"mesh":9
+					},
+					"extensions":{
+						"KHR_physics_rigid_bodies":{
+							"convexHull":true
+						}
 					}
 				},
 				{
@@ -79,8 +95,7 @@
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":11,
-						"convexHull":false
+						"mesh":11
 					}
 				},
 				{
@@ -92,8 +107,7 @@
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":13,
-						"convexHull":false
+						"mesh":13
 					}
 				},
 				{
