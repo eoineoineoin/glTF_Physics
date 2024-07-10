@@ -37,15 +37,23 @@
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":5,
-						"convexHull":true
+						"mesh":5
+					},
+					"extensions":{
+						"KHR_physics_rigid_bodies":{
+							"convexHull":true
+						}
 					}
 				},
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":6,
-						"convexHull":true
+						"mesh":6
+					},
+					"extensions":{
+						"KHR_physics_rigid_bodies":{
+							"convexHull":true
+						}
 					}
 				}
 			]

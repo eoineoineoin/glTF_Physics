@@ -168,8 +168,7 @@
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":0,
-						"convexHull":false
+						"mesh":0
 					}
 				},
 				{
@@ -181,43 +180,42 @@
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":2,
-						"convexHull":true
+						"mesh":2
+					},
+					"extensions":{
+						"KHR_physics_rigid_bodies":{
+							"convexHull":true
+						}
 					}
 				},
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":3,
-						"convexHull":false
+						"mesh":3
 					}
 				},
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":4,
-						"convexHull":false
+						"mesh":4
 					}
 				},
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":5,
-						"convexHull":false
+						"mesh":5
 					}
 				},
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":6,
-						"convexHull":false
+						"mesh":6
 					}
 				},
 				{
 					"type":"mesh",
 					"mesh":{
-						"mesh":14,
-						"convexHull":false
+						"mesh":14
 					}
 				}
 			]
