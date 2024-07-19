@@ -3,7 +3,7 @@
     "$id": "glTF.KHR_physics_rigid_bodies.material.schema.json",
     "title": "KHR_physics_rigid_bodies Physics Material",
     "type": "object",
-    "description": "Parameters describing the physical properties of a surface in a physics simulation.",
+    "description": "Parameters describing the collision response of a surface in a physics simulation.",
     "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],
     "properties": {
         "staticFriction": {
