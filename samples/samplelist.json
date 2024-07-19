@@ -41,7 +41,6 @@
     },
     {
         "asset": "https://raw.githubusercontent.com/eoineoineoin/glTF_Physics/master/samples/Robot_skinned/Robot_skinned.glb",
-        "asset": "http://localhost:8000/Robot_skinned/Robot_skinned.glb",
         "link": "https://github.com/eoineoineoin/glTF_Physics/tree/master/samples/Robot_skinned",
         "title": "Tin Robot", "description": "Complex rigged object with motorized joints"
     }
