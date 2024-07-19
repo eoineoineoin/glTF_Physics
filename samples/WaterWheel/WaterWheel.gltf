@@ -53,6 +53,17 @@
 							"min":0,
 							"max":0
 						}
+					],
+					"drives":[
+						{
+							"type":"angular",
+							"mode":"acceleration",
+							"axis":0,
+							"positionTarget":0,
+							"velocityTarget":0,
+							"stiffness":0,
+							"damping":0.15000000596046448
+						}
 					]
 				},
 				{
@@ -438,7 +449,6 @@
 					}
 				}
 			},
-			"mesh":3,
 			"name":"ArchimedesScrew_Insert.001",
 			"rotation":[
 				-0.0005147010087966919,
