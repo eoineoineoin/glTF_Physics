@@ -41,7 +41,7 @@
         "axis": {
             "type": "integer",
             "minimum": 0,
-            "maximum": 3,
+            "maximum": 2,
             "description": "The index of the axis which this drive applies forces on."
         },
         "maxForce": {
