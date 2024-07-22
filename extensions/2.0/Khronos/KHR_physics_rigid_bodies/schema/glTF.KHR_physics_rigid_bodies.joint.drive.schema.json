@@ -74,5 +74,11 @@
         "type",
         "mode",
         "axis"
-    ]
+    ],
+    "dependencies": {
+        "positionTarget": [ "stiffness" ],
+        "stiffness": [ "positionTarget" ],
+        "velocityTarget": [ "damping" ],
+        "damping": [ "velocityTarget" ]
+    }
 }
