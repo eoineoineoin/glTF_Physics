@@ -41,50 +41,6 @@
 					}
 				},
 				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":6
-					},
-					"extensions":{
-						"KHR_physics_rigid_bodies":{
-							"convexHull":true
-						}
-					}
-				},
-				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":7
-					},
-					"extensions":{
-						"KHR_physics_rigid_bodies":{
-							"convexHull":true
-						}
-					}
-				},
-				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":8
-					},
-					"extensions":{
-						"KHR_physics_rigid_bodies":{
-							"convexHull":true
-						}
-					}
-				},
-				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":9
-					},
-					"extensions":{
-						"KHR_physics_rigid_bodies":{
-							"convexHull":true
-						}
-					}
-				},
-				{
 					"type":"cylinder",
 					"cylinder":{
 						"height":1,
@@ -93,24 +49,12 @@
 					}
 				},
 				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":11
-					}
-				},
-				{
 					"type":"sphere",
 					"sphere":{
 						"radius":0.3417187615099374
 					}
 				},
-				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":13
-					}
-				},
-				{
+                {
 					"type":"cylinder",
 					"cylinder":{
 						"height":1,
@@ -349,7 +293,10 @@
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"collider":{
-						"shape":3,
+						"mesh": {
+                            "mesh": 6,
+                            "convexHull": true
+                        },
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -367,7 +314,10 @@
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"trigger":{
-						"shape":4,
+						"mesh": {
+                            "mesh": 7,
+                            "convexHull": true
+                        },
 						"collisionFilter":0
 					}
 				}
@@ -395,7 +345,10 @@
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"trigger":{
-						"shape":5,
+                        "mesh": {
+                            "mesh": 8,
+                            "convexHull": true
+                        },
 						"collisionFilter":0
 					}
 				}
@@ -454,7 +407,10 @@
 						"mass":1
 					},
 					"collider":{
-						"shape":6,
+						"mesh": {
+                            "mesh": 9,
+                            "convexHull": true
+                        },
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -475,7 +431,7 @@
 						"mass":1
 					},
 					"collider":{
-						"shape":7,
+						"shape":5,
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -496,7 +452,9 @@
 						"mass":1
 					},
 					"collider":{
-						"shape":8,
+						"mesh": {
+                            "mesh": 11
+                        },
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -517,7 +475,7 @@
 						"mass":1
 					},
 					"collider":{
-						"shape":9,
+						"shape":6,
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -554,7 +512,9 @@
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"collider":{
-						"shape":10,
+						"mesh": {
+                            "mesh": 13
+                        },
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -601,7 +561,7 @@
 						"mass":1
 					},
 					"collider":{
-						"shape":11,
+						"shape":7,
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -622,7 +582,7 @@
 						"mass":1
 					},
 					"collider":{
-						"shape":12,
+						"shape":8,
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
