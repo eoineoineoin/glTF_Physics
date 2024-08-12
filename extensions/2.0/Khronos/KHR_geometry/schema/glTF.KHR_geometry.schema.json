@@ -1,17 +1,17 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "glTF.KHR_collision_shapes.schema.json",
-    "title": "KHR_collision_shapes glTF Document Extension",
+    "$id": "glTF.KHR_geometry.schema.json",
+    "title": "KHR_geometry glTF Document Extension",
     "type": "object",
     "description": "Top level collision primitives.",
     "allOf": [ { "$ref" : "glTFProperty.schema.json" } ],
     "properties": {
-        "shapes": {
+        "geometries": {
             "type": "array",
-            "description": "An array of shape descriptions.",
+            "description": "An array of geometry descriptions.",
             "items": {
                 "type": "object",
-                "$ref": "glTF.KHR_collision_shapes.shape.schema.json"
+                "$ref": "glTF.KHR_geometry.geometry.schema.json"
             },
             "minItems": 1
         },
@@ -19,6 +19,6 @@
         "extras": { }
     },
     "required": [
-        "shapes"
+        "geometries"
     ]
 }

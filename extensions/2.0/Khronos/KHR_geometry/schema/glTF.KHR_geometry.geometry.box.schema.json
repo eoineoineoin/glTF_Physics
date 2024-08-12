@@ -1,9 +1,9 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "glTF.KHR_collision_shapes.shape.box.schema.json",
-    "title": "KHR_collision_shapes Box Shape",
+    "$id": "glTF.KHR_geometry.geometry.box.schema.json",
+    "title": "KHR_geometry Box",
     "type": "object",
-    "description": "Parameters describing a box shape.",
+    "description": "Parameters describing a box.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
     "properties": {
         "size": {

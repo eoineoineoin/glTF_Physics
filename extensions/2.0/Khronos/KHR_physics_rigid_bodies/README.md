@@ -16,7 +16,7 @@ Draft
 
 Written against glTF 2.0 spec.
 
-This specification depends on [KHR\_collision\_shapes](../KHR_collision_shapes/README.md) to describe geometries used for collision detection.
+This specification depends on [KHR\_geometry](../KHR_geometry/README.md) to describe geometries used for collision detection.
 
 ## Table of Contents <!-- omit in toc -->
 
@@ -128,11 +128,11 @@ JSON is unable to represent infinite values; however, a value of infinity is use
 
 Rather than using a node's render mesh to perform collision detection, collision geometry must be explicitly declared by adding an additional `collider` property to a node.
 
-The `collider` property supplies three fields. The `shape` field describes the geometry which should be used to perform collision detection; the value indexes into the set of top-level collision shapes provided by the [KHR\_collision\_shapes](../KHR_collision_shapes/README.md) extension. The `physicsMaterial` indexes into the top-level set of physics materials, described in the "[Physics Materials](#physics-materials)" section of this document. Finally, the `collisionFilter` indexes into the top-level set of collision filters, described by the "[Collision Filtering](#collision-filtering)" section of this document.
+The `collider` property supplies three fields. The `shape` field describes the geometry which should be used to perform collision detection; the value indexes into the set of top-level collision shapes provided by the [KHR\_collision\_shapes](../KHR_geometry/README.md) extension. The `physicsMaterial` indexes into the top-level set of physics materials, described in the "[Physics Materials](#physics-materials)" section of this document. Finally, the `collisionFilter` indexes into the top-level set of collision filters, described by the "[Collision Filtering](#collision-filtering)" section of this document.
 
 | |Type|Description|
 |-|-|-|
-|**shape**|`integer`| The index of a top-level `KHR_collision_shapes.shape`, which provides the geometry of the trigger.|
+|**shape**|`integer`| The index of a top-level `KHR_geometry.geometry`, which provides the geometry of the trigger.|
 |**physicsMaterial**|`integer`|Indexes into the top-level `physicsMaterials` and describes how the collider should respond to collisions.|
 |**collisionFilter**|`integer`|Indexes into the top-level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 
@@ -143,12 +143,12 @@ Implementations of this extension should ensure that collider transforms are alw
 
 #### Convex Hull Colliders
 
-Physics simulations typically recommend against allowing collisions between pairs of triangulated mesh objects, preferring to collide pairs of convex shapes instead. To support this, the `KHR_physics_rigid_bodies` extension may be defined on a `KHR_collision_shapes.shape` object.
+Physics simulations typically recommend against allowing collisions between pairs of triangulated mesh objects, preferring to collide pairs of convex shapes instead. To support this, the `KHR_physics_rigid_bodies` extension may be defined on a `KHR_geometry.geometry` object.
 
 ```javascript
 "extensions": {
-    "KHR_collision_shapes" : {
-        "shapes": [
+    "KHR_geometry" : {
+        "geometries": [
             {
                 "mesh": { "mesh": 0 },
                 "type": "mesh",
@@ -169,7 +169,7 @@ The extension object contains a single property:
 |-|-|-|
 |**convexHull**|`boolean`|Flag to indicate that the shape should be generated from the convex hull of the shape.|
 
-When the `convexHull` parameter is set to `true`, the collision shape used by the rigid body simulation should be the convex hull of the described shape. When used on a mesh shape which is skinned or uses morph targets, the resulting shape should be the convex hull of the deformed mesh. Note that of the shape types contained in `KHR_collision_shapes`, only the `mesh` type allows concave geometries to be described. This flag has no effect on the remaining shape types, though future extensions may add additional concave shapes.
+When the `convexHull` parameter is set to `true`, the collision shape used by the rigid body simulation should be the convex hull of the described shape. When used on a mesh shape which is skinned or uses morph targets, the resulting shape should be the convex hull of the deformed mesh. Note that of the shape types contained in `KHR_geometry`, only the `mesh` type allows concave geometries to be described. This flag has no effect on the remaining shape types, though future extensions may add additional concave shapes.
 
 ### Physics Materials
 
@@ -252,13 +252,13 @@ A useful construct in a physics engine is a collision volume which does not gene
 
 A trigger is added to a node by specifying the `trigger` property.
 
-A `trigger` may specify a `shape` property which references a geometric shape defined by the `KHR_collision_shapes` extension as well as an optional `collisionFilter` parameter, with the same semantics as a `collider`.
+A `trigger` may specify a `shape` property which references a geometric shape defined by the `KHR_geometry` extension as well as an optional `collisionFilter` parameter, with the same semantics as a `collider`.
 
 Alternatively, a `trigger` may have a `nodes` property, which is an array of glTF nodes which make up a compound trigger on this glTF node. The nodes in this array must be descendent nodes which must have `trigger` properties.
 
 | |Type|Description|
 | - | - | -|
-|**shape**|`integer`| The index of a top-level `KHR_collision_shapes.shape`, which provides the geometry of the trigger.|
+|**shape**|`integer`| The index of a top-level `KHR_geometry.geometry`, which provides the geometry of the trigger.|
 |**nodes**|`integer[1-*]`|For compound triggers, the set of descendant glTF nodes with a trigger property that make up this compound trigger.|
 |**collisionFilter**|`integer`|Indexes into the top-level `collisionFilters` and describes a filter which determines if this collider should perform collision detection against another collider.|
 

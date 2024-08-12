@@ -1,9 +1,9 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "glTF.KHR_collision_shapes.shape.mesh.schema.json",
-    "title": "KHR_collision_shapes Mesh Shape",
+    "$id": "glTF.KHR_geometry.geometry.mesh.schema.json",
+    "title": "KHR_geometry Mesh",
     "type": "object",
-    "description": "Parameters describing a mesh shape.",
+    "description": "Parameters describing a mesh.",
     "allOf": [ { "$ref": "glTFProperty.schema.json" } ],
     "properties": {
         "mesh": {
@@ -24,7 +24,7 @@
         },
         "useNodeWeights": {
             "type": "boolean",
-            "description": "Use weights supplied by a node which references this shape. When true, a node referencing this shape **MUST** have a weights property, the length of which which **MUST** match the number of morph targets of the weights of the mesh referenced by this shape.",
+            "description": "Use weights supplied by a node which references this geometry. When true, a node referencing this object **MUST** have a weights property, the length of which which **MUST** match the number of morph targets of the weights of the mesh referenced by this object.",
             "default": false
         },
         "extensions": { },
