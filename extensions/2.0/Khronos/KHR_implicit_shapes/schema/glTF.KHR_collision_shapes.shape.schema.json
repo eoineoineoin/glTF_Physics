@@ -26,10 +26,6 @@
                     "description": "A cylinder shape, centered at the origin in local space, equivalent to the convex hull of two circles in the X/Z plane positioned along the Y axis at a specified distance."
                 },
                 {
-                    "const": "mesh",
-                    "description": "A shape generated from a referenced `mesh` object"
-                },
-                {
                     "type": "string"
                 }
             ]
@@ -54,11 +50,6 @@
             "description": "A set of parameter values that are used to define a cylinder shape.",
             "$ref": "glTF.KHR_collision_shapes.shape.cylinder.schema.json"
         },
-        "mesh": {
-            "type": "object",
-            "description": "A set of parameter values that are used to define a shape derived from a mesh.",
-            "$ref": "glTF.KHR_collision_shapes.shape.mesh.schema.json"
-        },
         "name": { },
         "extensions": { },
         "extras": { }
@@ -67,8 +58,7 @@
         { "required": ["sphere"] },
         { "required": ["box"] },
         { "required": ["capsule"] },
-        { "required": ["cylinder"] },
-        { "required": ["mesh"] }
+        { "required": ["cylinder"] }
     ],
     "required": [
         "type"

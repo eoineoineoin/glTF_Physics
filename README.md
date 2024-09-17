@@ -1,10 +1,11 @@
 This repository contains two proposed glTF extensions.
 This repository will be kept up to date with [another repository](https://github.com/eoineoineoin/glTF) which contains these extensions suitable for merging into the Khronos glTF repository. In addition, this repository contains some additional samples. These samples will later be merged into the official Khronos samples repository.
 
-## KHR_collision_shapes
+## KHR_implicit_shapes
 
-Allows a document to specify primitive geometric types, suitable for real-time collision detection.
-[KHR_collision_shapes](extensions/2.0/Khronos/KHR_collision_shapes)
+Allows a document to specify primitive geometric types.
+
+[KHR_implicit_shapes](extensions/2.0/Khronos/KHR_implicit_shapes)
 
 ## KHR_physics_rigid_bodies
 
