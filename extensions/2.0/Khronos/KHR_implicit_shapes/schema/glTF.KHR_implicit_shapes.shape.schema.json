@@ -1,7 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "glTF.KHR_collision_shapes.shape.schema.json",
-    "title": "KHR_collision_shapes Shape Resource",
+    "$id": "glTF.KHR_implicit_shapes.shape.schema.json",
+    "title": "KHR_implicit_shapes Shape Resource",
     "type": "object",
     "description": "Parameters describing a node's physics collision geometry.",
     "allOf": [ { "$ref": "glTFChildOfRootProperty.schema.json" } ],
@@ -33,22 +33,22 @@
         "sphere": {
             "type": "object",
             "description": "A set of parameter values that are used to define a sphere shape.",
-            "$ref": "glTF.KHR_collision_shapes.shape.sphere.schema.json"
+            "$ref": "glTF.KHR_implicit_shapes.shape.sphere.schema.json"
         },
         "box": {
             "type": "object",
             "description": "A set of parameter values that are used to define a box shape.",
-            "$ref": "glTF.KHR_collision_shapes.shape.box.schema.json"
+            "$ref": "glTF.KHR_implicit_shapes.shape.box.schema.json"
         },
         "capsule": {
             "type": "object",
             "description": "A set of parameter values that are used to define a capsule shape.",
-            "$ref": "glTF.KHR_collision_shapes.shape.capsule.schema.json"
+            "$ref": "glTF.KHR_implicit_shapes.shape.capsule.schema.json"
         },
         "cylinder": {
             "type": "object",
             "description": "A set of parameter values that are used to define a cylinder shape.",
-            "$ref": "glTF.KHR_collision_shapes.shape.cylinder.schema.json"
+            "$ref": "glTF.KHR_implicit_shapes.shape.cylinder.schema.json"
         },
         "name": { },
         "extensions": { },

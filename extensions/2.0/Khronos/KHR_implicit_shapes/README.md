@@ -66,20 +66,20 @@ With consideration to the glTF 2.0 Asset Object Model Specification document, th
 
 | Pointer | Type|
 |-|-|
-| `/extensions/KHR_collision_shapes/shapes/{}/box/size` | `float3`|
-| `/extensions/KHR_collision_shapes/shapes/{}/capsule/height` | `float`|
-| `/extensions/KHR_collision_shapes/shapes/{}/capsule/radiusBottom` | `float`|
-| `/extensions/KHR_collision_shapes/shapes/{}/capsule/radiusTop` | `float`|
-| `/extensions/KHR_collision_shapes/shapes/{}/cylinder/height` | `float`|
-| `/extensions/KHR_collision_shapes/shapes/{}/cylinder/radiusBottom` | `float`|
-| `/extensions/KHR_collision_shapes/shapes/{}/cylinder/radiusTop` | `float`|
-| `/extensions/KHR_collision_shapes/shapes/{}/sphere/radius` | `float`|
+| `/extensions/KHR_implicit_shapes/shapes/{}/box/size` | `float3`|
+| `/extensions/KHR_implicit_shapes/shapes/{}/capsule/height` | `float`|
+| `/extensions/KHR_implicit_shapes/shapes/{}/capsule/radiusBottom` | `float`|
+| `/extensions/KHR_implicit_shapes/shapes/{}/capsule/radiusTop` | `float`|
+| `/extensions/KHR_implicit_shapes/shapes/{}/cylinder/height` | `float`|
+| `/extensions/KHR_implicit_shapes/shapes/{}/cylinder/radiusBottom` | `float`|
+| `/extensions/KHR_implicit_shapes/shapes/{}/cylinder/radiusTop` | `float`|
+| `/extensions/KHR_implicit_shapes/shapes/{}/sphere/radius` | `float`|
 
 Additional read-only properties
 
 | Pointer | Type|
 |-|-|
-| `/extensions/KHR_collision_shapes/shapes.length` | `int`|
+| `/extensions/KHR_implicit_shapes/shapes.length` | `int`|
 
 ## Known Implementations
 
