@@ -140,7 +140,6 @@ If the node is part of a dynamic rigid body (i.e. itself or an ascendant has `mo
 
 Implementations of this extension should ensure that collider transforms are always kept in sync with node transforms - for example animated node transforms should be applied to the physics engine (even for static colliders).
 
-
 #### Geometry
 
 The `geometry` object is used to specify the shape used for collision detection and contains the following properties:
@@ -380,57 +379,162 @@ When used in conjunction with `KHR_interactivity`, this extension describes addi
 
 #### Velocity modification nodes
 
-|Type|`rigid_body/applyImpulse`| Apply an impulse to a body |
+|Type|`rigidBody/applyImpulse`| Apply an impulse to a body |
 |-|-|-|
 | Input flow sockets | `in` | The entry point into this node |
 | Input value sockets | `int nodeIndex` | The node to which the impulse should be applied |
 | | `float3 linearImpulse` | Linear impulse to apply (global space, default 0,0,0) |
 | | `float3 angularImpulse` | Angular impulse to apply (global space, default 0,0,0) |
+| Output value sockets | `out` | The flow to be activated if the input values are valid |
+| | `err` | The flow to be activated if the input values are invalid |
 
-|Type|`rigid_body/applyPointImpulse`| Apply a point impulse to a body |
+This node is used to apply an impulse to a dynamic rigid body, useful when the mass or inertia of a motion is not known in advance. The `nodeIndex` should refer to a `node` which has `motion` properties, or is a descendant of a node with `motion` properties. `linearImpulse` is a vector with units kilogram meter per second (kg·m·s<sup>-1</sup>). `angularImpulse` is a vector with units kilogram meter squared per second (kg·m<sup>2</sup>·s<sup>-1</sup>).
+
+This node has no internal state.
+
+When the `in` input flow is activated:
+
+1. Evaluate all input values.
+1. If the `nodeIndex` input value is negative or greater than or equal to the number of glTF nodes in the asset,
+    1. Activate the `err` output flow and skip the next steps.
+1. If the `nodeIndex` refers to a `node` which does not have `motion` properties and `nodeIndex` refers to a `node` which is not a descendent of a node with `motion` properties,
+    1. Activate the `err` output flow and skip the next steps.
+1. If any component of `linearImpulse` is NaN or infinite,
+    1. Activate the `err` output flow and skip the next steps.
+1. If any component of `angularImpulse` is NaN or infinite,
+    1. Activate the `err` output flow and skip the next steps.
+1. Apply the impulses to the `motion` object referred to by `nodeIndex`
+1. If the `motion` specifies the `linearVelocity` field,
+    1. The `linearVelocity` field is updated to the new linear velocity of the motion
+1. If the `motion` specifies the `angularVelocity` field,
+    1. The `angularVelocity` field is updated to the new angular velocity of the motion
+1. Activate the `out` flow
+
+|Type|`rigidBody/applyPointImpulse`| Apply a point impulse to a body |
 |-|-|-|
 | Input flow sockets | `in` | The entry point into this node |
 | Input value sockets | `int nodeIndex` | The node to which the impulse should be applied |
 | |`float3 impulse` | Impulse to apply (global space) |
 | | `float3 position` | Position at which to apply impulse (global space) |
+| Output value sockets | `out` | The flow to be activated if the input values are valid |
+| | `err` | The flow to be activated if the input values are invalid |
 
-These nodes are used to apply impulses to a dynamic rigid body, useful when the mass or inertia of a motion is not known in advance. In order to have an effect, the input node index must refer to a node which has `motion` properties or is a descendent of a node with `motion` properties.
+This node is used to apply an impulse to a dynamic rigid body at a particular point in space, useful when the mass or inertia of a motion is not known in advance. The `nodeIndex` should refer to a `node` which has `motion` properties, or is a descendant of a node with `motion` properties. `impulse` is a vector with units kilogram meter per second (kg·m·s<sup>-1</sup>). `position` is a position in global space.
+
+This node has no internal state.
+
+When the `in` input flow is activated:
+
+1. Evaluate all input values.
+1. If the `nodeIndex` input value is negative or greater than or equal to the number of glTF nodes in the asset,
+    1. Activate the `err` output flow and skip the next steps.
+1. If the `nodeIndex` refers to a `node` which does not have `motion` properties and `nodeIndex` refers to a `node` which is not a descendent of a node with `motion` properties,
+    1. Activate the `err` output flow and skip the next steps.
+1. If any component of `impulse` is NaN or infinite,
+    1. Activate the `err` output flow and skip the next steps.
+1. If any component of `position` is NaN or infinite,
+    1. Activate the `err` output flow and skip the next steps.
+1. Apply the impulse to the `motion` object referred to by `nodeIndex`
+1. If the `motion` specifies the `linearVelocity` field,
+    1. The `linearVelocity` field is updated to the new linear velocity of the motion
+1. If the `motion` specifies the `angularVelocity` field,
+    1. The `angularVelocity` field is updated to the new angular velocity of the motion
+1. Activate the `out` flow
 
 #### Scene query nodes
 
-|Type|`rigid_body/rayCast`| Perform a ray segment intersection against colliders in the scene |
+|Type|`rigidBody/rayCast`| Perform a ray segment intersection against colliders in the scene |
 |-|-|-|
 | Input flow sockets | `in` | The entry point into this node |
 | Output flow sockets | `hit` | The flow triggered when this query detects an intersection |
 | | `miss` | The flow triggered when this query does not detect an intersection |
+| | `err` | The flow to be activated if the input values are invalid |
 | Input value sockets | `float3 rayStart` | Start position of ray segment (global space) |
 | | `float3 rayEnd` | End position of ray segment (global space) |
 | | `int collisionFilterIndex` | Optional collision filter to apply (default -1) |
 | Output value sockets | `int hitNodeIndex` | Index of the node which detected an intersection |
 | | `float hitFraction` | Fraction along ray segment where intersection occurred |
 | |`float3 hitNormal` | The normal of the shape at the point of intersection (global space) |
+| Output value sockets | `out` | The flow to be activated if the input values are valid |
+| | `err` | The flow to be activated if the input values are invalid |
 
-This node can be activated to determine the intersection of a ray segment with any colliders in the scene. When a ray segment intersects multiple colliders, the output `hitNodeIndex` should be set to the node closest to the start position of the ray, i.e. the collider with the minimal `hitFraction`. The output value sockets are only valid when the `hit` flow is triggered.
+This node can be activated to determine the first intersection of a ray segment with any colliders in the scene.
+
+The internal state of this node consists of an integer `hitNodeIndex` value initialized to -1 a float `hitFraction` value initialized to NaN and a float3 `hitNormal` initialized to (NaN, NaN, NaN).
+
+When the `in` input flow is activated:
+
+1. Evaluate all input values.
+1. If any component of the `rayStart` input is NaN or infinite,
+    1. Activate the `err` output flow and skip the next steps.
+1. If any component of the `rayEnd` input is NaN or infinite,
+    1. Activate the `err` output flow and skip the next steps.
+1. If the `collisionFilterIndex` input is less than -1 or greater than the number of `collisionFilters` objects
+    1. Activate the `err` output flow and skip the next steps.
+1. Perform an intersection test against all the `collider` objects in the scene and the ray segment defined by the interval (`rayStart`, `rayEnd`).
+    1. If the `collisionFilterIndex` is not -1, only colliders whose `collisionFilter` allows for a collision against the collision filter at index `collisionFilterIndex`.
+1. If the ray segment intersects no collider objects,
+    1. Set the `hitNodeIndex` value to -1.
+    1. Set the `hitFraction` value to NaN.
+    1. Set the `hitNormal` value to NaN.
+    1. Activate the `miss` output flow and skip the next steps.
+1. If the ray segment intersects at least one collider,
+    1. Determine the collider which intersects the ray segment first.
+    1. If multiple colliders intersect the ray segment at the exact same point, an implementation may choose any.
+    1. Set the `hitNodeIndex` value to the index of the `node` containing the hit collider.
+    1. Set the `hitFraction` value to the interval along the ray segment (`rayStart`, `rayEnd`) where the intersection occurred.
+    1. Set the `hitNormal` value to the surface normal (in global space) of the collider at the intersection point.
+1. Activate the `hit` output flow.
+
+TODO.eoin Probably want to be async. Issues with iteration on hits?
+TODO.eoin Preferable to trigger `hit` multiple times on multiple hits? Configuration value?
 
 #### Simulation notification nodes
 
-|Type|`event/rigid_body_triggerEntered`| Trigger entered event |
+|Type|`event/rigidBodyTriggerEntered`| Trigger entered event |
 |-|-|-|
-| Output flow sockets | `out` | The flow to be activated when a rigid body node enters a trigger |
-| Configuration | `int nodeIndex` | Index of a trigger node |
+| Output flow sockets | `entered` | The flow to be activated when a rigid body node enters a trigger |
+| Configuration | `int triggerNodeIndex` | Index of a trigger node |
 | Output value sockets | `int colliderNodeIndex` | Node index of entering collider |
 | | `int motionNodeIndex`| Node index of entering motion (default -1) |
 
-|Type|`event/rigid_body_triggerExited`| Trigger exited event |
+This node is activated when a collider enters the trigger attached to `triggerNodeIndex`. Entering a trigger is defined to occur when *any* intersection begins to occur between the collider and the trigger - the collider need not be completely enclosed within the trigger.
+
+The internal state of this node consists of two integer values, `colliderNodeIndex` and `motionNodeIndex`, initialized to -1.
+
+If the `triggerNodeIndex` configuration value is negative or greater than or equal to the number of glTF nodes in the asset, or does not refer to a node with a `trigger` property, the event node is invalid. A behavior graph **must not** contain two or more nodes of the same event nodes with identical `nodeIndex` configuration values.
+
+When a simulation determines that the trigger has been entered:
+
+1. Set the `colliderNodeIndex` to the index of the node associated with the collider which entered the trigger
+1. If the `colliderNodeIndex` is a descendant of a node with `motion` properties,
+    1. Set `motionNodeIndex` value to the index of the first ancestor node with `motion` properties and skip the next step
+1. Set the `motionNodeIndex` value to -1
+1. Activate the `entered` output flow
+
+|Type|`event/rigidBodyTriggerExited`| Trigger exited event |
 |-|-|-|
 | Output flow sockets | `out` | The flow to be activated when a rigid body node exits a trigger |
-| Configuration | `int nodeIndex` | Index of a trigger node |
+| Configuration | `int triggerNodeIndex` | Index of a trigger node |
 | Output value sockets| `int colliderNodeIndex` | Node index of exiting collider |
 | | `int motionNodeIndex`| Node index of exiting motion (default -1) |
 
-Trigger event nodes are activated when an collider enters or exits a trigger attached to `nodeIndex`. Entering a trigger is defined to occur when **any** intersection begins to occur between the trigger and the collider - the collider need not be completely enclosed within the trigger. Exiting is defined to occur when such an intersection no longer exists. When the collider which entered the trigger has a `motion` property, or is a child of a node with a `motion` property, the `motionNodeIndex` must be set to the index of the node containing the `motion`, otherwise, `motionNodeIndex` must be initialized to -1. These events may be raised multiple times between a pair of `event/onTick` events in scenarios where multiple objects entered a trigger.
+This node is activated when a collider exits the trigger attached to `triggerNodeIndex`. Exiting a trigger is defined to occur when an intersection ceases to exist between a collider and a trigger.
 
-If the `nodeIndex` configuration value is negative or greater than or equal to the number of glTF nodes in the asset, or does not refer to a node with a `trigger` property, the event node is invalid. A behavior graph **MUST NOT** contain two or more nodes of the same event nodes with identical `nodeIndex` configuration values.
+The internal state of this node consists of two integer values, `colliderNodeIndex` and `motionNodeIndex`, initialized to -1.
+
+If the `triggerNodeIndex` configuration value is negative or greater than or equal to the number of glTF nodes in the asset, or does not refer to a node with a `trigger` property, the event node is invalid. A behavior graph **must not** contain two or more nodes of the same event nodes with identical `nodeIndex` configuration values.
+
+When a simulation determines that the trigger has been exited:
+
+1. Set the `colliderNodeIndex` to the index of the node associated with the collider which exited the trigger
+1. If the `colliderNodeIndex` is a descendant of a node with `motion` properties,
+    1. Set `motionNodeIndex` value to the index of the first ancestor node with `motion` properties and skip the next step
+1. Set the `motionNodeIndex` value to -1
+1. Activate the `exited` output flow
+
+
+TODO.eoin Merge these two into a single event, with two output flows?
 
 ## Known Implementations
 
