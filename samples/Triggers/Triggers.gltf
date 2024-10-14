@@ -1,11 +1,11 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.1.63",
+		"generator":"Khronos glTF Blender I/O v4.2.60",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
 		"KHR_lights_punctual",
-		"KHR_collision_shapes",
+		"KHR_implicit_shapes",
 		"KHR_physics_rigid_bodies"
 	],
 	"extensionsRequired":[
@@ -26,7 +26,7 @@
 				}
 			]
 		},
-		"KHR_collision_shapes":{
+		"KHR_implicit_shapes":{
 			"shapes":[
 				{
 					"type":"box",
@@ -36,50 +36,6 @@
 							0.3404197692871094,
 							10.376665115356445
 						]
-					}
-				},
-				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":1
-					},
-					"extensions":{
-						"KHR_physics_rigid_bodies":{
-							"convexHull":true
-						}
-					}
-				},
-				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":2
-					},
-					"extensions":{
-						"KHR_physics_rigid_bodies":{
-							"convexHull":true
-						}
-					}
-				},
-				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":3
-					},
-					"extensions":{
-						"KHR_physics_rigid_bodies":{
-							"convexHull":true
-						}
-					}
-				},
-				{
-					"type":"mesh",
-					"mesh":{
-						"mesh":4
-					},
-					"extensions":{
-						"KHR_physics_rigid_bodies":{
-							"convexHull":true
-						}
 					}
 				}
 			]
@@ -117,8 +73,8 @@
 				0,
 				1,
 				2,
-				3,
-				7
+				4,
+				11
 			]
 		}
 	],
@@ -161,7 +117,9 @@
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"collider":{
-						"shape":0,
+						"geometry":{
+							"shape":0
+						},
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -176,13 +134,31 @@
 			]
 		},
 		{
+			"mesh":1,
+			"name":"physicsMeshDataNode",
+			"rotation":[
+				0,
+				1,
+				0,
+				0
+			],
+			"translation":[
+				0,
+				0,
+				0
+			]
+		},
+		{
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"motion":{
 						"mass":1
 					},
 					"collider":{
-						"shape":1,
+						"geometry":{
+							"convexHull":true,
+							"node":3
+						},
 						"physicsMaterial":1,
 						"collisionFilter":0
 					}
@@ -197,10 +173,28 @@
 			]
 		},
 		{
+			"mesh":2,
+			"name":"physicsMeshDataNode",
+			"rotation":[
+				0,
+				1,
+				0,
+				0
+			],
+			"translation":[
+				0,
+				0,
+				0
+			]
+		},
+		{
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"trigger":{
-						"shape":2,
+						"geometry":{
+							"convexHull":true,
+							"node":5
+						},
 						"collisionFilter":0
 					}
 				}
@@ -220,10 +214,28 @@
 			]
 		},
 		{
+			"mesh":3,
+			"name":"physicsMeshDataNode",
+			"rotation":[
+				0,
+				1,
+				0,
+				0
+			],
+			"translation":[
+				0,
+				0,
+				0
+			]
+		},
+		{
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"trigger":{
-						"shape":3,
+						"geometry":{
+							"convexHull":true,
+							"node":7
+						},
 						"collisionFilter":0
 					}
 				}
@@ -243,10 +255,28 @@
 			]
 		},
 		{
+			"mesh":4,
+			"name":"physicsMeshDataNode",
+			"rotation":[
+				0,
+				1,
+				0,
+				0
+			],
+			"translation":[
+				0,
+				0,
+				0
+			]
+		},
+		{
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"trigger":{
-						"shape":4,
+						"geometry":{
+							"convexHull":true,
+							"node":9
+						},
 						"collisionFilter":0
 					}
 				}
@@ -267,9 +297,9 @@
 		},
 		{
 			"children":[
-				4,
-				5,
-				6
+				6,
+				8,
+				10
 			],
 			"name":"Triggers"
 		}
@@ -336,10 +366,9 @@
 					"attributes":{
 						"POSITION":0,
 						"NORMAL":1,
-						"TEXCOORD_0":2,
-						"TANGENT":3
+						"TEXCOORD_0":2
 					},
-					"indices":4,
+					"indices":3,
 					"material":0
 				}
 			]
@@ -349,12 +378,11 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":5,
-						"NORMAL":6,
-						"TEXCOORD_0":7,
-						"TANGENT":8
+						"POSITION":4,
+						"NORMAL":5,
+						"TEXCOORD_0":6
 					},
-					"indices":9,
+					"indices":7,
 					"material":1
 				}
 			]
@@ -364,12 +392,11 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":10,
-						"NORMAL":11,
-						"TEXCOORD_0":12,
-						"TANGENT":13
+						"POSITION":8,
+						"NORMAL":9,
+						"TEXCOORD_0":10
 					},
-					"indices":9,
+					"indices":7,
 					"material":2
 				}
 			]
@@ -379,12 +406,11 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":14,
-						"NORMAL":15,
-						"TEXCOORD_0":16,
-						"TANGENT":17
+						"POSITION":11,
+						"NORMAL":12,
+						"TEXCOORD_0":13
 					},
-					"indices":9,
+					"indices":7,
 					"material":2
 				}
 			]
@@ -394,12 +420,11 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":18,
-						"NORMAL":19,
-						"TEXCOORD_0":20,
-						"TANGENT":21
+						"POSITION":14,
+						"NORMAL":15,
+						"TEXCOORD_0":16
 					},
-					"indices":9,
+					"indices":7,
 					"material":2
 				}
 			]
@@ -449,18 +474,12 @@
 		},
 		{
 			"bufferView":3,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":4,
 			"componentType":5123,
 			"count":36,
 			"type":"SCALAR"
 		},
 		{
-			"bufferView":5,
+			"bufferView":4,
 			"componentType":5126,
 			"count":24,
 			"max":[
@@ -476,31 +495,25 @@
 			"type":"VEC3"
 		},
 		{
-			"bufferView":6,
+			"bufferView":5,
 			"componentType":5126,
 			"count":24,
 			"type":"VEC3"
 		},
 		{
-			"bufferView":7,
+			"bufferView":6,
 			"componentType":5126,
 			"count":24,
 			"type":"VEC2"
 		},
 		{
-			"bufferView":8,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":9,
+			"bufferView":7,
 			"componentType":5123,
 			"count":36,
 			"type":"SCALAR"
 		},
 		{
-			"bufferView":10,
+			"bufferView":8,
 			"componentType":5126,
 			"count":24,
 			"max":[
@@ -516,22 +529,44 @@
 			"type":"VEC3"
 		},
 		{
+			"bufferView":9,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":10,
+			"componentType":5126,
+			"count":24,
+			"type":"VEC2"
+		},
+		{
 			"bufferView":11,
 			"componentType":5126,
 			"count":24,
+			"max":[
+				0.277789443731308,
+				0.8446961641311646,
+				0.277789443731308
+			],
+			"min":[
+				-0.277789443731308,
+				-0.277789443731308,
+				-0.277789443731308
+			],
 			"type":"VEC3"
 		},
 		{
 			"bufferView":12,
 			"componentType":5126,
 			"count":24,
-			"type":"VEC2"
+			"type":"VEC3"
 		},
 		{
 			"bufferView":13,
 			"componentType":5126,
 			"count":24,
-			"type":"VEC4"
+			"type":"VEC2"
 		},
 		{
 			"bufferView":14,
@@ -539,7 +574,7 @@
 			"count":24,
 			"max":[
 				0.277789443731308,
-				0.8446961641311646,
+				0.276752769947052,
 				0.277789443731308
 			],
 			"min":[
@@ -560,46 +595,6 @@
 			"componentType":5126,
 			"count":24,
 			"type":"VEC2"
-		},
-		{
-			"bufferView":17,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":18,
-			"componentType":5126,
-			"count":24,
-			"max":[
-				0.277789443731308,
-				0.276752769947052,
-				0.277789443731308
-			],
-			"min":[
-				-0.277789443731308,
-				-0.277789443731308,
-				-0.277789443731308
-			],
-			"type":"VEC3"
-		},
-		{
-			"bufferView":19,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC3"
-		},
-		{
-			"bufferView":20,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC2"
-		},
-		{
-			"bufferView":21,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC4"
 		}
 	],
 	"bufferViews":[
@@ -623,45 +618,51 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":384,
-			"byteOffset":768,
-			"target":34962
-		},
-		{
-			"buffer":0,
 			"byteLength":72,
-			"byteOffset":1152,
+			"byteOffset":768,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":288,
-			"byteOffset":1224,
+			"byteOffset":840,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":288,
-			"byteOffset":1512,
+			"byteOffset":1128,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":192,
-			"byteOffset":1800,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":384,
-			"byteOffset":1992,
+			"byteOffset":1416,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":72,
-			"byteOffset":2376,
+			"byteOffset":1608,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":1680,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":288,
+			"byteOffset":1968,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":192,
+			"byteOffset":2256,
+			"target":34962
 		},
 		{
 			"buffer":0,
@@ -683,56 +684,20 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":384,
+			"byteLength":288,
 			"byteOffset":3216,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":288,
-			"byteOffset":3600,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":288,
-			"byteOffset":3888,
+			"byteOffset":3504,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":192,
-			"byteOffset":4176,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":384,
-			"byteOffset":4368,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":288,
-			"byteOffset":4752,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":288,
-			"byteOffset":5040,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":192,
-			"byteOffset":5328,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":384,
-			"byteOffset":5520,
+			"byteOffset":3792,
 			"target":34962
 		}
 	],
@@ -744,7 +709,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":5904,
+			"byteLength":3984,
 			"uri":"Triggers.bin"
 		}
 	]

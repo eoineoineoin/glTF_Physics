@@ -1,11 +1,11 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.1.63",
+		"generator":"Khronos glTF Blender I/O v4.2.60",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
 		"KHR_lights_punctual",
-		"KHR_collision_shapes",
+		"KHR_implicit_shapes",
 		"KHR_physics_rigid_bodies"
 	],
 	"extensionsRequired":[
@@ -30,7 +30,7 @@
 				}
 			]
 		},
-		"KHR_collision_shapes":{
+		"KHR_implicit_shapes":{
 			"shapes":[
 				{
 					"type":"box",
@@ -156,7 +156,9 @@
 						"mass":1
 					},
 					"collider":{
-						"shape":0,
+						"geometry":{
+							"shape":0
+						},
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -188,7 +190,9 @@
 						"mass":1
 					},
 					"collider":{
-						"shape":1,
+						"geometry":{
+							"shape":1
+						},
 						"physicsMaterial":1,
 						"collisionFilter":0
 					}
@@ -217,7 +221,9 @@
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"collider":{
-						"shape":2,
+						"geometry":{
+							"shape":2
+						},
 						"physicsMaterial":2,
 						"collisionFilter":0
 					}
@@ -362,10 +368,9 @@
 					"attributes":{
 						"POSITION":14,
 						"NORMAL":15,
-						"TEXCOORD_0":16,
-						"TANGENT":17
+						"TEXCOORD_0":16
 					},
-					"indices":18,
+					"indices":17,
 					"material":3
 				}
 			]
@@ -539,12 +544,6 @@
 		},
 		{
 			"bufferView":17,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":18,
 			"componentType":5123,
 			"count":36,
 			"type":"SCALAR"
@@ -655,14 +654,8 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":384,
-			"byteOffset":254600,
-			"target":34962
-		},
-		{
-			"buffer":0,
 			"byteLength":72,
-			"byteOffset":254984,
+			"byteOffset":254600,
 			"target":34963
 		}
 	],
@@ -674,7 +667,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":255056,
+			"byteLength":254672,
 			"uri":"Materials_Friction.bin"
 		}
 	]

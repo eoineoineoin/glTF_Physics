@@ -1,11 +1,11 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.1.63",
+		"generator":"Khronos glTF Blender I/O v4.2.60",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
 		"KHR_lights_punctual",
-		"KHR_collision_shapes",
+		"KHR_implicit_shapes",
 		"KHR_physics_rigid_bodies"
 	],
 	"extensionsRequired":[
@@ -26,7 +26,7 @@
 				}
 			]
 		},
-		"KHR_collision_shapes":{
+		"KHR_implicit_shapes":{
 			"shapes":[
 				{
 					"type":"box",
@@ -135,7 +135,9 @@
 			"extensions":{
 				"KHR_physics_rigid_bodies":{
 					"collider":{
-						"shape":0,
+						"geometry":{
+							"shape":0
+						},
 						"physicsMaterial":0,
 						"collisionFilter":0
 					}
@@ -156,7 +158,9 @@
 						"mass":0.5799999833106995
 					},
 					"collider":{
-						"shape":1,
+						"geometry":{
+							"shape":1
+						},
 						"physicsMaterial":1,
 						"collisionFilter":0
 					}
@@ -177,7 +181,9 @@
 						"mass":1
 					},
 					"collider":{
-						"shape":2,
+						"geometry":{
+							"shape":2
+						},
 						"physicsMaterial":2,
 						"collisionFilter":0
 					}
@@ -259,10 +265,9 @@
 					"attributes":{
 						"POSITION":0,
 						"NORMAL":1,
-						"TEXCOORD_0":2,
-						"TANGENT":3
+						"TEXCOORD_0":2
 					},
-					"indices":4,
+					"indices":3,
 					"material":0
 				}
 			]
@@ -272,12 +277,11 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":5,
-						"NORMAL":6,
-						"TEXCOORD_0":7,
-						"TANGENT":8
+						"POSITION":4,
+						"NORMAL":5,
+						"TEXCOORD_0":6
 					},
-					"indices":9,
+					"indices":7,
 					"material":1
 				}
 			]
@@ -287,11 +291,11 @@
 			"primitives":[
 				{
 					"attributes":{
-						"POSITION":10,
-						"NORMAL":11,
-						"TEXCOORD_0":12
+						"POSITION":8,
+						"NORMAL":9,
+						"TEXCOORD_0":10
 					},
-					"indices":13,
+					"indices":11,
 					"material":2
 				}
 			]
@@ -386,20 +390,14 @@
 		},
 		{
 			"bufferView":3,
-			"componentType":5126,
-			"count":24,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":4,
 			"componentType":5123,
 			"count":36,
 			"type":"SCALAR"
 		},
 		{
-			"bufferView":5,
+			"bufferView":4,
 			"componentType":5126,
-			"count":2864,
+			"count":1637,
 			"max":[
 				0.11753767728805542,
 				0.11820516735315323,
@@ -413,31 +411,25 @@
 			"type":"VEC3"
 		},
 		{
-			"bufferView":6,
+			"bufferView":5,
 			"componentType":5126,
-			"count":2864,
+			"count":1637,
 			"type":"VEC3"
 		},
 		{
-			"bufferView":7,
+			"bufferView":6,
 			"componentType":5126,
-			"count":2864,
+			"count":1637,
 			"type":"VEC2"
 		},
 		{
-			"bufferView":8,
-			"componentType":5126,
-			"count":2864,
-			"type":"VEC4"
-		},
-		{
-			"bufferView":9,
+			"bufferView":7,
 			"componentType":5123,
 			"count":5760,
 			"type":"SCALAR"
 		},
 		{
-			"bufferView":10,
+			"bufferView":8,
 			"componentType":5126,
 			"count":1438,
 			"max":[
@@ -453,19 +445,19 @@
 			"type":"VEC3"
 		},
 		{
-			"bufferView":11,
+			"bufferView":9,
 			"componentType":5126,
 			"count":1438,
 			"type":"VEC3"
 		},
 		{
-			"bufferView":12,
+			"bufferView":10,
 			"componentType":5126,
 			"count":1438,
 			"type":"VEC2"
 		},
 		{
-			"bufferView":13,
+			"bufferView":11,
 			"componentType":5123,
 			"count":6984,
 			"type":"SCALAR"
@@ -492,68 +484,56 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":384,
-			"byteOffset":768,
-			"target":34962
-		},
-		{
-			"buffer":0,
 			"byteLength":72,
-			"byteOffset":1152,
+			"byteOffset":768,
 			"target":34963
 		},
 		{
 			"buffer":0,
-			"byteLength":34368,
-			"byteOffset":1224,
+			"byteLength":19644,
+			"byteOffset":840,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":34368,
-			"byteOffset":35592,
+			"byteLength":19644,
+			"byteOffset":20484,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":22912,
-			"byteOffset":69960,
-			"target":34962
-		},
-		{
-			"buffer":0,
-			"byteLength":45824,
-			"byteOffset":92872,
+			"byteLength":13096,
+			"byteOffset":40128,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":11520,
-			"byteOffset":138696,
+			"byteOffset":53224,
 			"target":34963
 		},
 		{
 			"buffer":0,
 			"byteLength":17256,
-			"byteOffset":150216,
+			"byteOffset":64744,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":17256,
-			"byteOffset":167472,
+			"byteOffset":82000,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":11504,
-			"byteOffset":184728,
+			"byteOffset":99256,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":13968,
-			"byteOffset":196232,
+			"byteOffset":110760,
 			"target":34963
 		}
 	],
@@ -565,7 +545,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":210200,
+			"byteLength":124728,
 			"uri":"Materials_Restitution.bin"
 		}
 	]
