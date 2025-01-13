@@ -1,6 +1,6 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.2.60",
+		"generator":"Khronos glTF Blender I/O v4.3.47",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
@@ -189,9 +189,9 @@
 			"name":"physicsMeshDataNode",
 			"rotation":[
 				0,
-				1,
 				0,
-				0
+				0,
+				1
 			],
 			"translation":[
 				0,
@@ -225,9 +225,9 @@
 			"name":"physicsMeshDataNode",
 			"rotation":[
 				0,
-				1,
 				0,
-				0
+				0,
+				1
 			],
 			"translation":[
 				0,
@@ -276,9 +276,9 @@
 			"name":"physicsMeshDataNode",
 			"rotation":[
 				0,
-				1,
 				0,
-				0
+				0,
+				1
 			],
 			"translation":[
 				0,
@@ -327,9 +327,9 @@
 			"name":"physicsMeshDataNode",
 			"rotation":[
 				0,
-				1,
 				0,
-				0
+				0,
+				1
 			],
 			"translation":[
 				0,
@@ -378,9 +378,9 @@
 			"name":"physicsMeshDataNode",
 			"rotation":[
 				0,
-				1,
 				0,
-				0
+				0,
+				1
 			],
 			"translation":[
 				0,
@@ -429,9 +429,9 @@
 			"name":"physicsMeshDataNode",
 			"rotation":[
 				0,
-				1,
 				0,
-				0
+				0,
+				1
 			],
 			"translation":[
 				0,
@@ -516,9 +516,9 @@
 			"name":"physicsMeshDataNode",
 			"rotation":[
 				0,
-				1,
 				0,
-				0
+				0,
+				1
 			],
 			"translation":[
 				0,
