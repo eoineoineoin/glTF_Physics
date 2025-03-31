@@ -148,6 +148,7 @@ Implementations of this extension should ensure that collider transforms are alw
 The `geometry` object is used to specify the shape used for collision detection and contains the following properties:
 
 | |Type|Description|
+|-|-|-|
 |**shape**|`integer`| The index of a top-level `KHR_implicit_shapes.shape`, providing an implicit representation of the geometry. |
 |**node**|`integer`| The index of a glTF `node` which provides a mesh representation of the geometry. |
 |**convexHull**|`boolean`|Flag to indicate that the geometry should be a convex hull.|
