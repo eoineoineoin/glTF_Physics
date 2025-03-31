@@ -1,6 +1,6 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.3.47",
+		"generator":"Khronos glTF Blender I/O v4.4.55",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
@@ -36,7 +36,7 @@
 					"type":"cylinder",
 					"cylinder":{
 						"height":2.3964407444000244,
-						"radiusBottom":1.1922440038017514,
+						"radiusBottom":1.1922439336776733,
 						"radiusTop":0
 					}
 				}
@@ -450,10 +450,10 @@
 							0
 						],
 						"inertiaOrientation":[
-							1,
 							0,
 							0,
-							0
+							0,
+							1
 						],
 						"gravityFactor":0
 					},
@@ -537,10 +537,10 @@
 							0
 						],
 						"inertiaOrientation":[
-							1,
 							0,
 							0,
-							0
+							0,
+							1
 						]
 					},
 					"collider":{

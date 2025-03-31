@@ -1,6 +1,6 @@
 {
 	"asset":{
-		"generator":"Khronos glTF Blender I/O v4.3.47",
+		"generator":"Khronos glTF Blender I/O v4.4.55",
 		"version":"2.0"
 	},
 	"extensionsUsed":[
@@ -294,10 +294,10 @@
 							0.10000000149011612
 						],
 						"inertiaOrientation":[
-							1,
 							0,
 							0,
-							0
+							0,
+							1
 						]
 					},
 					"collider":{
