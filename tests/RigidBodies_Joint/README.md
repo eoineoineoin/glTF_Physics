@@ -21,9 +21,9 @@ The following table shows the properties that are set for a given model.
 | :---: | :---: | :---: |
 | [00](RigidBodies_Joint_00.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_00.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_00.png) | Fixed joint |
 | [01](RigidBodies_Joint_01.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_01.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_01.png) | Ball and socket joint |
-| [02](RigidBodies_Joint_02.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_02.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_02.png) | Hinge joint with free rotation axis = $0 |
-| [03](RigidBodies_Joint_03.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_03.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_03.png) | Hinge joint with free rotation axis = $1 |
-| [04](RigidBodies_Joint_04.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_04.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_04.png) | Hinge joint with free rotation axis = $2 |
+| [02](RigidBodies_Joint_02.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_02.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_02.png) | Hinge joint with free rotation axis = 0 |
+| [03](RigidBodies_Joint_03.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_03.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_03.png) | Hinge joint with free rotation axis = 1 |
+| [04](RigidBodies_Joint_04.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_04.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_04.png) | Hinge joint with free rotation axis = 2 |
 | [05](RigidBodies_Joint_05.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_05.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_05.png) | Prismatic joint |
 | [06](RigidBodies_Joint_06.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_06.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_06.png) | Prismatic joint, collision enabled |
 | [07](RigidBodies_Joint_07.gltf) | [<img src="Figures/Thumbnails/RigidBodies_Joint_07.png" align="middle">](Figures/SampleImages/RigidBodies_Joint_07.png) | Stiff spring joint |
