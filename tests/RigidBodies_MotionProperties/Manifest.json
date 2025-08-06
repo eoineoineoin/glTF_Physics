@@ -1,0 +1,78 @@
+{
+  "folder": "RigidBodies_MotionProperties",
+  "id": 29,
+  "models": [
+    {
+      "fileName": "RigidBodies_MotionProperties_00.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_MotionProperties_00.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_MotionProperties_01.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_MotionProperties_01.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_MotionProperties_02.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_MotionProperties_02.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_MotionProperties_03.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_MotionProperties_03.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_MotionProperties_04.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_MotionProperties_04.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_MotionProperties_05.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_MotionProperties_05.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    }
+  ]
+}

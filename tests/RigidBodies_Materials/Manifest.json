@@ -1,0 +1,42 @@
+{
+  "folder": "RigidBodies_Materials",
+  "id": 30,
+  "models": [
+    {
+      "fileName": "RigidBodies_Materials_00.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Materials_00.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Materials_01.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Materials_01.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Materials_02.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Materials_02.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    }
+  ]
+}

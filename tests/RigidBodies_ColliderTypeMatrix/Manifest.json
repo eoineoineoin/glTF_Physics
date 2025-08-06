@@ -1,0 +1,438 @@
+{
+  "folder": "RigidBodies_ColliderTypeMatrix",
+  "id": 28,
+  "models": [
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_00.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_00.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_01.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_01.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_02.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_02.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_03.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_03.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_04.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_04.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_05.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_05.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_06.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_06.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_07.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_07.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_08.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_08.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_09.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_09.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_10.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_10.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_11.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_11.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_12.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_12.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_13.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_13.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_14.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_14.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_15.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_15.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_16.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_16.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_17.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_17.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_18.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_18.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_19.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_19.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_20.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_20.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_21.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_21.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_22.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_22.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_23.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_23.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_24.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_24.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_25.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_25.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_26.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_26.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_27.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_27.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_28.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_28.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_29.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_29.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_30.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_30.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_31.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_31.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_32.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_32.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_33.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_33.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_34.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_34.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_ColliderTypeMatrix_35.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_ColliderTypeMatrix_35.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    }
+  ]
+}

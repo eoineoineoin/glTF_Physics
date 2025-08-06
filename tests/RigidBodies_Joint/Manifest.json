@@ -1,0 +1,138 @@
+{
+  "folder": "RigidBodies_Joint",
+  "id": 32,
+  "models": [
+    {
+      "fileName": "RigidBodies_Joint_00.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_00.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_01.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_01.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_02.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_02.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_03.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_03.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_04.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_04.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_05.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_05.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_06.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_06.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_07.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_07.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_08.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_08.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_09.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_09.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_Joint_10.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_Joint_10.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    }
+  ]
+}

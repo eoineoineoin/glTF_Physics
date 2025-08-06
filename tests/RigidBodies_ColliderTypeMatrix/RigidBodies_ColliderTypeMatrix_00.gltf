@@ -1,0 +1,183 @@
+{
+  "extensionsUsed": [
+    "KHR_implicit_shapes",
+    "KHR_physics_rigid_bodies"
+  ],
+  "extensionsRequired": [
+    "KHR_implicit_shapes",
+    "KHR_physics_rigid_bodies"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 72,
+      "type": "VEC3",
+      "max": [
+        10.0,
+        10.0,
+        10.0
+      ],
+      "min": [
+        -10.0,
+        -10.0,
+        -10.0
+      ],
+      "name": "Positions Accessor"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5125,
+      "count": 240,
+      "type": "SCALAR",
+      "name": "Indices Accessor"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 72,
+      "type": "VEC3",
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "name": "Positions Accessor"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5125,
+      "count": 240,
+      "type": "SCALAR",
+      "name": "Indices Accessor"
+    }
+  ],
+  "asset": {
+    "generator": "glTF Asset Generator",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "uri": "RigidBodies_ColliderTypeMatrix_00.bin",
+      "byteLength": 3648
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 864,
+      "name": "Positions"
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 864,
+      "byteLength": 960,
+      "name": "Indices"
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 1824,
+      "byteLength": 864,
+      "name": "Positions"
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 2688,
+      "byteLength": 960,
+      "name": "Indices"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          },
+          "indices": 3
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "translation": [
+        0.0,
+        -9.0,
+        0.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "collider": {
+            "geometry": {
+              "shape": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "mesh": 1,
+      "translation": [
+        0.0,
+        3.0,
+        0.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "motion": {
+            "mass": 1.0
+          },
+          "collider": {
+            "geometry": {
+              "shape": 1
+            }
+          }
+        }
+      }
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "extensions": {
+    "KHR_implicit_shapes": {
+      "shapes": [
+        {
+          "type": "sphere",
+          "sphere": {
+            "radius": 10.0
+          }
+        },
+        {
+          "type": "sphere",
+          "sphere": {
+            "radius": 1.0
+          }
+        }
+      ]
+    }
+  }
+}

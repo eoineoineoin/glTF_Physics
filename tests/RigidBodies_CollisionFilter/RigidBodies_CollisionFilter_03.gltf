@@ -1,0 +1,302 @@
+{
+  "extensionsUsed": [
+    "KHR_implicit_shapes",
+    "KHR_physics_rigid_bodies"
+  ],
+  "extensionsRequired": [
+    "KHR_implicit_shapes",
+    "KHR_physics_rigid_bodies"
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 8,
+      "type": "VEC3",
+      "max": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "min": [
+        -0.5,
+        -0.5,
+        -0.5
+      ],
+      "name": "Positions Accessor"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5125,
+      "count": 36,
+      "type": "SCALAR",
+      "name": "Indices Accessor"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 8,
+      "type": "VEC3",
+      "max": [
+        7.5,
+        0.5,
+        7.5
+      ],
+      "min": [
+        -7.5,
+        -0.5,
+        -7.5
+      ],
+      "name": "Positions Accessor"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5125,
+      "count": 36,
+      "type": "SCALAR",
+      "name": "Indices Accessor"
+    }
+  ],
+  "asset": {
+    "generator": "glTF Asset Generator",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "uri": "RigidBodies_CollisionFilter_03.bin",
+      "byteLength": 480
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 96,
+      "name": "Positions"
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 96,
+      "byteLength": 144,
+      "name": "Indices"
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 240,
+      "byteLength": 96,
+      "name": "Positions"
+    },
+    {
+      "buffer": 0,
+      "byteOffset": 336,
+      "byteLength": 144,
+      "name": "Indices"
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0
+          },
+          "indices": 1
+        }
+      ]
+    },
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2
+          },
+          "indices": 3
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1,
+        2
+      ],
+      "translation": [
+        -5.0,
+        5.0,
+        0.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "motion": {}
+        }
+      }
+    },
+    {
+      "mesh": 0,
+      "translation": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "collider": {
+            "geometry": {
+              "shape": 0
+            },
+            "collisionFilter": 0
+          }
+        }
+      }
+    },
+    {
+      "mesh": 0,
+      "translation": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "collider": {
+            "geometry": {
+              "shape": 0
+            },
+            "collisionFilter": 1
+          }
+        }
+      }
+    },
+    {
+      "children": [
+        4,
+        5
+      ],
+      "rotation": [
+        1.0,
+        0.0,
+        0.0,
+        -4.371139E-08
+      ],
+      "translation": [
+        5.0,
+        5.0,
+        0.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "motion": {}
+        }
+      }
+    },
+    {
+      "mesh": 0,
+      "translation": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "collider": {
+            "geometry": {
+              "shape": 0
+            },
+            "collisionFilter": 0
+          }
+        }
+      }
+    },
+    {
+      "mesh": 0,
+      "translation": [
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "collider": {
+            "geometry": {
+              "shape": 0
+            },
+            "collisionFilter": 1
+          }
+        }
+      }
+    },
+    {
+      "mesh": 1,
+      "translation": [
+        0.0,
+        -0.5,
+        0.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "collider": {
+            "geometry": {
+              "shape": 1
+            },
+            "collisionFilter": 2
+          }
+        }
+      }
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [
+        0,
+        3,
+        6
+      ]
+    }
+  ],
+  "extensions": {
+    "KHR_implicit_shapes": {
+      "shapes": [
+        {
+          "type": "box",
+          "box": {}
+        },
+        {
+          "type": "box",
+          "box": {
+            "size": [
+              15.0,
+              1.0,
+              15.0
+            ]
+          }
+        }
+      ]
+    },
+    "KHR_physics_rigid_bodies": {
+      "collisionFilters": [
+        {
+          "collisionSystems": [
+            "DynamicGroup"
+          ],
+          "notCollideWithSystems": [
+            "StaticGroup"
+          ]
+        },
+        {
+          "collisionSystems": [
+            "DynamicGroup"
+          ],
+          "notCollideWithSystems": [
+            "DynamicGroup"
+          ]
+        },
+        {
+          "collisionSystems": [
+            "StaticGroup"
+          ]
+        }
+      ]
+    }
+  }
+}
