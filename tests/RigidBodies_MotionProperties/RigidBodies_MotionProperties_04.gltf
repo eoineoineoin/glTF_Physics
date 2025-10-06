@@ -70,84 +70,26 @@
   ],
   "nodes": [
     {
-      "mesh": 0,
-      "translation": [
-        -3.0,
-        0.0,
-        0.0
+      "children": [
+        1
       ],
+      "rotation": [
+        0.0,
+        0.70710677,
+        0.0,
+        0.70710677
+      ]
+    },
+    {
+      "mesh": 0,
       "extensions": {
         "KHR_physics_rigid_bodies": {
           "motion": {
-            "mass": 1.0,
-            "linearVelocity": [
-              5.0,
+            "angularVelocity": [
               0.0,
-              0.0
-            ],
-            "gravityFactor": 0.0
-          },
-          "collider": {
-            "geometry": {
-              "shape": 0
-            }
-          }
-        }
-      }
-    },
-    {
-      "mesh": 0,
-      "translation": [
-        -3.0,
-        0.0,
-        5.0
-      ],
-      "extensions": {
-        "KHR_physics_rigid_bodies": {
-          "motion": {
-            "mass": 100.0,
-            "linearVelocity": [
-              5.0,
               0.0,
-              0.0
+              1.0000001
             ],
-            "gravityFactor": 0.0
-          },
-          "collider": {
-            "geometry": {
-              "shape": 0
-            }
-          }
-        }
-      }
-    },
-    {
-      "mesh": 0,
-      "extensions": {
-        "KHR_physics_rigid_bodies": {
-          "motion": {
-            "mass": 1.0,
-            "gravityFactor": 0.0
-          },
-          "collider": {
-            "geometry": {
-              "shape": 0
-            }
-          }
-        }
-      }
-    },
-    {
-      "mesh": 0,
-      "translation": [
-        0.0,
-        0.0,
-        5.0
-      ],
-      "extensions": {
-        "KHR_physics_rigid_bodies": {
-          "motion": {
-            "mass": 1.0,
             "gravityFactor": 0.0
           },
           "collider": {
@@ -163,10 +105,7 @@
   "scenes": [
     {
       "nodes": [
-        0,
-        1,
-        2,
-        3
+        0
       ]
     }
   ],

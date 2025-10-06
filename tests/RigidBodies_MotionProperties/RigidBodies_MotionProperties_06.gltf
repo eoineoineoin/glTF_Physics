@@ -39,7 +39,7 @@
   },
   "buffers": [
     {
-      "uri": "RigidBodies_MotionProperties_05.bin",
+      "uri": "RigidBodies_MotionProperties_06.bin",
       "byteLength": 240
     }
   ],
@@ -71,8 +71,64 @@
   "nodes": [
     {
       "mesh": 0,
+      "translation": [
+        -3.0,
+        0.0,
+        0.0
+      ],
       "extensions": {
         "KHR_physics_rigid_bodies": {
+          "motion": {
+            "mass": 1.0,
+            "linearVelocity": [
+              5.0,
+              0.0,
+              0.0
+            ],
+            "gravityFactor": 0.0
+          },
+          "collider": {
+            "geometry": {
+              "shape": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "mesh": 0,
+      "translation": [
+        -3.0,
+        0.0,
+        5.0
+      ],
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "motion": {
+            "mass": 100.0,
+            "linearVelocity": [
+              5.0,
+              0.0,
+              0.0
+            ],
+            "gravityFactor": 0.0
+          },
+          "collider": {
+            "geometry": {
+              "shape": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "mesh": 0,
+      "extensions": {
+        "KHR_physics_rigid_bodies": {
+          "motion": {
+            "mass": 1.0,
+            "gravityFactor": 0.0
+          },
           "collider": {
             "geometry": {
               "shape": 0
@@ -85,13 +141,14 @@
       "mesh": 0,
       "translation": [
         0.0,
-        0.5,
-        0.0
+        0.0,
+        5.0
       ],
       "extensions": {
         "KHR_physics_rigid_bodies": {
           "motion": {
-            "isKinematic": true
+            "mass": 1.0,
+            "gravityFactor": 0.0
           },
           "collider": {
             "geometry": {
@@ -107,7 +164,9 @@
     {
       "nodes": [
         0,
-        1
+        1,
+        2,
+        3
       ]
     }
   ],

@@ -39,7 +39,7 @@
   },
   "buffers": [
     {
-      "uri": "RigidBodies_MotionProperties_05.bin",
+      "uri": "RigidBodies_MotionProperties_07.bin",
       "byteLength": 240
     }
   ],
@@ -84,14 +84,19 @@
     {
       "mesh": 0,
       "translation": [
-        0.0,
-        0.5,
-        0.0
+        -0.75,
+        2.5,
+        -0.75
       ],
       "extensions": {
         "KHR_physics_rigid_bodies": {
           "motion": {
-            "isKinematic": true
+            "mass": 1.0,
+            "inertiaDiagonal": [
+              0.0,
+              0.0,
+              0.0
+            ]
           },
           "collider": {
             "geometry": {

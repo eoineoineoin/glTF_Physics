@@ -73,6 +73,30 @@
           1.3
         ]
       }
+    },
+    {
+      "fileName": "RigidBodies_MotionProperties_06.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_MotionProperties_06.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
+    },
+    {
+      "fileName": "RigidBodies_MotionProperties_07.gltf",
+      "loadable": true,
+      "sampleImageName": "Figures/SampleImages/RigidBodies_MotionProperties_07.png",
+      "camera": {
+        "translation": [
+          0,
+          0,
+          1.3
+        ]
+      }
     }
   ]
 }
