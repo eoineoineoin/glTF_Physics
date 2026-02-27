@@ -341,6 +341,9 @@ Additionally, each `joint.limit` has an optional `stiffness` and `damping` which
 
 This approach of building joints from a set of individual limits is flexible enough to allow for many types of bilateral joints. For example, a hinged door can be constructed by locating the attachment frames at the point where the physical hinge would be on each body, adding a 3D linear limit with zero maximum distance, a 1D angular limit with `min`/`max` describing the swing of the door around it's vertical axis, and a 2D angular limit with zero limits about the remaining two axes.
 
+> [!NOTE]
+> Existing simulation packages typically expose a combination of pre-configured joint types (e.g. "hinge" or "prismatic") and a generic "6 degree of freedom (6DoF)" joint. Due to the flexibility of the limits described by our `joint` object, it is possible to describe a joint which does not correspond to a particular package's joint types. For example, a glTF `joint` may specify multiple `limit` entries for the same linear axis with different values of stiffness. A simulation package whose 6DoF joint only permits one stiffness may still implement this joint by creating one 6DoF joint for each limit on that axis. If a package does not support some particular configuration, an approximation of the joint configuration may be used.
+
 Addition of drive objects to a joint allows the joint to apply additional forces to modify the relative transform between the joint object and the connected node. A `joint.drive` object models a forced, damped spring and contains the following properties:
 
 | |Type|Description|
