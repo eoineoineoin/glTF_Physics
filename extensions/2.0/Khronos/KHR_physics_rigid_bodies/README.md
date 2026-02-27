@@ -229,8 +229,8 @@ When a pair of physics materials interact during a simulation step, the applied 
 
 - If either uses "average" : The two values should be averaged.
 - Else if either uses "minimum" : The smallest of the two values should be used.
-- Else if either uses "maximum" : The largest of the two values should be used.
 - Else if either uses "multiply" : The two values should be multiplied with each other.
+- Else if either uses "maximum" : The largest of the two values should be used.
 
 ### Collision Filtering
 
