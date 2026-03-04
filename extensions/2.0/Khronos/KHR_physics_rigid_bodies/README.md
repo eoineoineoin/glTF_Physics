@@ -229,10 +229,12 @@ For handling friction parameters, a physics simulation should use a Coulomb fric
 
 When a pair of physics materials interact during a simulation step, the applied friction and restitution values are based on their "combine" policies:
 
-- If either uses "average" : The two values should be averaged.
-- Else if either uses "minimum" : The smallest of the two values should be used.
+- If either uses "maximum" : The largest of the two values should be used.
 - Else if either uses "multiply" : The two values should be multiplied with each other.
-- Else if either uses "maximum" : The largest of the two values should be used.
+- Else if either uses "minimum" : The smallest of the two values should be used.
+- Else if either uses "average" : The two values should be averaged.
+
+If no combine policy is requested, the combined value may be determined by the simulation engine.
 
 ### Collision Filtering
 
