@@ -195,6 +195,8 @@ Physics simulations typically recommend against allowing collisions between pair
 
 When using a `mesh` to provide collison geometry, the `convexHull` parameter is used to determine which `mesh.primitives` are considered to generate the collision geometry. When `convexHull` is `false`, only primitives containing triangles should be used, i.e. primitives with mode `TRIANGLES`, `TRIANGLE_STRIP` or `TRIANGLE_FAN` and a `mesh` should have at least one such primitive. When `convexHull` is `true`, the resulting geometry should enclose every `POSITION` described by all primitives.
 
+An implementation should make a best effort to faithfully represent the collider geometry specified in the glTF document, however, an implementation is permitted to approximate a collider if, for example, some particular geometry is not supported by that implementation.
+
 ### Physics Materials
 
 When a pair of nodes collide with each other, additional properties are needed to determine the collision response. This response is partly controlled by the physics materials of each collider. Physics materials may be shared between different colliders and are defined by adding an `extensions` property to the top-level glTF 2.0 object and defining a `KHR_physics_rigid_bodies` property with a `physicsMaterials` array inside it.
