@@ -27,12 +27,14 @@
         "frictionCombine": {
             "type": "string",
             "description": "Determines how friction should be combined when two objects interact.",
-            "enum": ["average", "minimum", "maximum", "multiply"]
+            "enum": ["average", "minimum", "maximum", "multiply"],
+            "default": "average"
         },
         "restitutionCombine": {
             "type": "string",
             "description": "Determines how restitution should be combined when two objects interact.",
-            "enum": ["average", "minimum", "maximum", "multiply"]
+            "enum": ["average", "minimum", "maximum", "multiply"],
+            "default": "average"
         },
         "extensions": { },
         "extras": { }

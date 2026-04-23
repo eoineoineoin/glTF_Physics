@@ -236,8 +236,6 @@ When a pair of physics materials interact during a simulation step, the applied 
 - Else if either uses "minimum" : The smallest of the two values should be used.
 - Else if either uses "average" : The two values should be averaged.
 
-If no combine policy is requested, the combined value may be determined by the simulation engine.
-
 ### Collision Filtering
 
 Colliders from distinct rigid bodies should generate a collision response when they are sufficiently close together to be considered in contact.
